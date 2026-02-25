@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sant Pathik Vidyalaya – Pashupati Nagar, Bahraich</title>
+<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   DESIGN CONCEPT: "Sacred Sunshine"
+   Warm cream base · Saffron/Gold accents
+   Deep aubergine/purple for headers
+   Inspired directly by the logo colors
+   Unique diagonal-stripe hero, mandala bg patterns
+============================================= */
+:root {
+  --saffron: #e07a20;
+  --saffron2: #f5991f;
+  --gold: #f5c518;
+  --gold-soft: #fdf0c0;
+  --purple: #3d2b8e;
+  --purple2: #5340a8;
+  --purple-soft: #ede9ff;
+  --cream: #fffdf6;
+  --cream2: #fdf5e4;
+  --cream3: #faefd0;
+  --fg: #1e160a;
+  --muted: #7a6548;
+  --border: #e8d8b0;
+  --white: #ffffff;
+  --red-om: #c0290a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--cream);
+  color: var(--fg);
+  font-family: 'Nunito', sans-serif;
+  overflow-x: hidden;
+}
+
+/* =====================
+   MARQUEE TOP BAR
+===================== */
+.top-bar {
+  background: var(--purple);
+  color: rgba(255,255,255,0.85);
+  font-size: 0.74rem;
+  font-weight: 500;
+  overflow: hidden;
+  height: 34px;
+  display: flex;
+  align-items: center;
+}
+.top-bar-track {
+  display: flex;
+  gap: 4rem;
+  width: max-content;
+  animation: topslide 30s linear infinite;
+  white-space: nowrap;
+}
+.top-bar-track span { display: flex; align-items: center; gap: 0.5rem; }
+.tbt-sep { color: var(--gold); opacity: 0.6; }
+@keyframes topslide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* =====================
+   HEADER
+===================== */
+header {
+  background: var(--white);
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, var(--saffron), var(--gold), var(--purple)) 1;
+  position: sticky;
+  top: 0; z-index: 200;
+  box-shadow: 0 2px 24px rgba(224,122,32,0.12);
+}
+.header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.75rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+/* LOGO AREA */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  flex-shrink: 0;
+}
+.logo-img {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 8px rgba(224,122,32,0.3));
+}
+.brand-text {}
+.brand-name {
+  font-family: 'Yeseva One', serif;
+  font-size: clamp(0.95rem, 2vw, 1.25rem);
+  color: var(--purple);
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+}
+.brand-place {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--saffron);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 0.1rem;
+}
+.brand-motto {
+  font-size: 0.62rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 0.1rem;
+}
+
+/* NAV */
+nav {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+}
+.nav-item {
+  position: relative;
+}
+.nav-item > a {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--fg);
+  text-decoration: none;
+  border-radius: 8px;
+  letter-spacing: 0.02em;
+  transition: all 0.2s;
+}
+.nav-item > a:hover {
+  background: var(--cream2);
+  color: var(--saffron);
+}
+.nav-item.active > a {
+  color: var(--saffron);
+  background: var(--cream3);
+}
+/* Dropdown */
+.nav-drop {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 200px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(61,43,142,0.12);
+  padding: 0.5rem;
+  list-style: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: all 0.22s;
+  z-index: 300;
+}
+.nav-item:hover .nav-drop {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.nav-drop li a {
+  display: block;
+  padding: 0.6rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--fg);
+  text-decoration: none;
+  border-radius: 8px;
+  border-left: 2.5px solid transparent;
+  transition: all 0.18s;
+}
+.nav-drop li a:hover {
+  background: var(--cream2);
+  color: var(--saffron);
+  border-left-color: var(--saffron);
+  padding-left: 1.3rem;
+}
+
+/* NAV APPLY BUTTON */
+.btn-apply-nav {
+  margin-left: 0.5rem;
+  padding: 0.6rem 1.4rem;
+  background: linear-gradient(135deg, var(--saffron), var(--saffron2));
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(224,122,32,0.35);
+  transition: all 0.25s;
+  white-space: nowrap;
+}
+.btn-apply-nav:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(224,122,32,0.45);
+}
+
+/* HAMBURGER */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 8px;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2.5px;
+  background: var(--fg);
+  border-radius: 3px;
+  transition: all 0.3s;
+}
+
+/* =====================
+   HERO — DIAGONAL SPLIT
+===================== */
+.hero {
+  position: relative;
+  min-height: 88vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  background: var(--cream);
+}
+/* Left warm saffron side */
+.hero-left {
+  background: linear-gradient(160deg, #fff8ec 0%, #fde8c0 60%, #fbd09a 100%);
+  padding: 5rem 3rem 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+/* Diagonal cut: right edge of left panel */
+.hero-left::after {
+  content: '';
+  position: absolute;
+  top: 0; right: -6vw; bottom: 0;
+  width: 12vw;
+  background: inherit;
+  clip-path: polygon(0 0, 0% 100%, 100% 100%);
+  z-index: 1;
+}
+/* Right purple side */
+.hero-right {
+  background: linear-gradient(160deg, var(--purple) 0%, #2a1d6a 100%);
+  padding: 5rem 2rem 4rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  overflow: hidden;
+}
+/* Mandala decorative circle in hero-right */
+.hero-right::before {
+  content: 'ॐ';
+  position: absolute;
+  font-size: 22rem;
+  color: rgba(255,255,255,0.03);
+  right: -3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  line-height: 1;
+}
+/* Dot grid bg on left */
+.hero-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(224,122,32,0.15) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 100px;
+  padding: 0.3rem 1rem 0.3rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--saffron);
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  animation: fadeDown 0.7s ease both;
+}
+.hero-badge-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--saffron);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(224,122,32,0.5); }
+  50% { box-shadow: 0 0 0 6px rgba(224,122,32,0); }
+}
+
+.hero-logo-big {
+  width: clamp(120px, 20vw, 200px);
+  height: clamp(120px, 20vw, 200px);
+  border-radius: 50%;
+  object-fit: contain;
+  border: 5px solid var(--white);
+  box-shadow: 0 12px 50px rgba(224,122,32,0.3), 0 0 0 12px rgba(245,201,24,0.12);
+  margin-bottom: 2rem;
+  animation: fadeDown 0.6s ease both;
+}
+
+.hero-school-full {
+  font-family: 'Yeseva One', serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.8rem);
+  color: var(--purple);
+  line-height: 1.2;
+  margin-bottom: 0.6rem;
+  animation: fadeUp 0.7s 0.1s ease both;
+}
+.hero-school-full .orange { color: var(--saffron); }
+.hero-school-place {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+.hero-motto-strip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--purple);
+  color: white;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  animation: fadeUp 0.7s 0.3s ease both;
+}
+.hero-motto-strip .om { color: var(--gold); font-size: 1.1rem; }
+
+.hero-desc {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.85;
+  max-width: 440px;
+  margin-bottom: 2.5rem;
+  font-weight: 400;
+  animation: fadeUp 0.7s 0.35s ease both;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  animation: fadeUp 0.7s 0.4s ease both;
+}
+.btn-hero-primary {
+  padding: 0.9rem 2.5rem;
+  background: linear-gradient(135deg, var(--saffron), var(--saffron2));
+  color: white;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 800;
+  border-radius: 100px;
+  box-shadow: 0 6px 22px rgba(224,122,32,0.4);
+  transition: all 0.25s;
+  letter-spacing: 0.03em;
+}
+.btn-hero-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(224,122,32,0.5);
+}
+.btn-hero-ghost {
+  padding: 0.9rem 2.5rem;
+  background: transparent;
+  color: var(--purple);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border-radius: 100px;
+  border: 2px solid var(--purple);
+  transition: all 0.25s;
+}
+.btn-hero-ghost:hover {
+  background: var(--purple);
+  color: white;
+}
+
+/* RIGHT SIDE CONTENT */
+.hero-stats-title {
+  font-family: 'Yeseva One', serif;
+  font-size: clamp(1.3rem, 3vw, 2.2rem);
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  animation: fadeUp 0.7s 0.15s ease both;
+}
+.hero-stats-sub {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 2.5rem;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+.stats-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 320px;
+  animation: fadeUp 0.7s 0.3s ease both;
+}
+.stat-row {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  padding: 1.1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  transition: background 0.2s;
+}
+.stat-row:hover {
+  background: rgba(245,201,24,0.12);
+  border-color: rgba(245,201,24,0.3);
+}
+.stat-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(245,201,24,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.stat-num {
+  font-family: 'Yeseva One', serif;
+  font-size: 1.5rem;
+  color: var(--gold);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.6);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 0.15rem;
+}
+.hero-cbse-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(245,201,24,0.12);
+  border: 1px solid rgba(245,201,24,0.3);
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  margin-top: 2rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  animation: fadeUp 0.7s 0.45s ease both;
+}
+
+/* =====================
+   QUICK ACCESS TILES
+===================== */
+.quick-section {
+  background: var(--cream2);
+  padding: 0;
+  border-bottom: 2px solid var(--border);
+}
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.quick-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.6rem 0.75rem;
+  text-decoration: none;
+  border-right: 1px solid var(--border);
+  transition: all 0.22s;
+  position: relative;
+}
+.quick-tile:last-child { border-right: none; }
+.quick-tile::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 10%; right: 10%;
+  height: 3px;
+  background: var(--saffron);
+  border-radius: 3px 3px 0 0;
+  transform: scaleX(0);
+  transition: transform 0.22s;
+}
+.quick-tile:hover { background: var(--cream3); }
+.quick-tile:hover::after { transform: scaleX(1); }
+.qt-icon { font-size: 1.7rem; line-height: 1; }
+.qt-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+.quick-tile:hover .qt-label { color: var(--saffron); }
+
+/* =====================
+   SECTION WRAPPER
+===================== */
+.section { padding: 5rem 2rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.sec-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--saffron);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-bottom: 0.75rem;
+}
+.sec-eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 2.5px;
+  background: linear-gradient(90deg, var(--saffron), var(--gold));
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.sec-eyebrow::after {
+  content: '';
+  flex: 1;
+  max-width: 28px;
+  height: 2.5px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  border-radius: 3px;
+}
+.sec-h2 {
+  font-family: 'Yeseva One', serif;
+  font-size: clamp(1.7rem, 4vw, 3rem);
+  color: var(--purple);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.sec-h2 em { color: var(--saffron); font-style: normal; }
+.sec-sub {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.85;
+  max-width: 560px;
+  margin-top: 0.75rem;
+}
+
+/* =====================
+   NOTICE BOARD — UNIQUE LAYOUT
+===================== */
+.notice-section { background: var(--cream2); }
+.notice-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2.5rem;
+  margin-top: 3rem;
+}
+.notice-panel {
+  background: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1.5px solid var(--border);
+}
+.notice-panel-head {
+  background: var(--purple);
+  padding: 1.1rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.notice-panel-title {
+  font-family: 'Yeseva One', serif;
+  font-size: 1rem;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.notice-view-all {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.notice-view-all:hover { color: var(--gold); }
+.notice-body { padding: 0.5rem 0; }
+.notice-item-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.75rem;
+  border-bottom: 1px dashed var(--border);
+  transition: background 0.2s;
+}
+.notice-item-row:last-child { border-bottom: none; }
+.notice-item-row:hover { background: var(--cream2); }
+.n-date-box {
+  min-width: 46px;
+  height: 46px;
+  background: var(--saffron);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+.n-date-day { font-size: 1.1rem; font-weight: 800; line-height: 1; }
+.n-date-mon { font-size: 0.52rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.85; }
+.n-new {
+  display: inline-block;
+  background: var(--saffron2);
+  color: white;
+  font-size: 0.52rem;
+  font-weight: 800;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  letter-spacing: 0.08em;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+}
+.n-title {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--fg);
+  line-height: 1.4;
+  margin-bottom: 0.2rem;
+}
+.n-sub { font-size: 0.72rem; color: var(--muted); }
+
+/* Events */
+.events-panel {
+  background: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1.5px solid var(--border);
+}
+.events-head {
+  background: linear-gradient(135deg, var(--saffron), #f0a020);
+  padding: 1.1rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.events-head-title {
+  font-family: 'Yeseva One', serif;
+  font-size: 1rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.event-view-all {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.event-body { padding: 0.75rem 1.25rem; }
+.event-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+  border-radius: 8px;
+  margin-bottom: 0.25rem;
+}
+.event-row:last-child { border-bottom: none; }
+.event-row:hover { background: var(--cream2); }
+.ev-cal {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--cream3);
+  border: 1.5px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.ev-day { font-size: 1.1rem; font-weight: 800; color: var(--purple); line-height: 1; }
+.ev-mon { font-size: 0.5rem; text-transform: uppercase; color: var(--saffron); font-weight: 700; letter-spacing: 0.05em; }
+.ev-title { font-size: 0.82rem; font-weight: 700; color: var(--fg); margin-bottom: 0.2rem; }
+.ev-meta { font-size: 0.7rem; color: var(--muted); }
+
+/* =====================
+   ABOUT SECTION
+===================== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+.about-visual {
+  position: relative;
+}
+.about-logo-frame {
+  aspect-ratio: 1;
+  max-width: 420px;
+  border-radius: 32px;
+  background: linear-gradient(145deg, var(--cream3) 0%, #fde0a0 100%);
+  border: 3px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.about-logo-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(224,122,32,0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.about-logo-img {
+  width: 65%;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 8px 30px rgba(224,122,32,0.25));
+}
+.about-float-badge {
+  position: absolute;
+  bottom: -1.5rem;
+  right: -1.5rem;
+  background: var(--purple);
+  color: white;
+  border-radius: 18px;
+  padding: 1.2rem 1.5rem;
+  box-shadow: 0 10px 35px rgba(61,43,142,0.3);
+  text-align: center;
+  min-width: 110px;
+  border: 3px solid var(--white);
+}
+.afb-num {
+  font-family: 'Yeseva One', serif;
+  font-size: 2.2rem;
+  color: var(--gold);
+  line-height: 1;
+}
+.afb-label {
+  font-size: 0.65rem;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.25rem;
+}
+.about-text {}
+.about-pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.75rem 0 2rem;
+}
+.pillar-card {
+  background: var(--cream2);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 1.25rem 1rem;
+  transition: all 0.2s;
+}
+.pillar-card:hover {
+  border-color: var(--saffron);
+  background: var(--cream3);
+  transform: translateY(-2px);
+}
+.pillar-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.pillar-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--purple);
+  margin-bottom: 0.25rem;
+}
+.pillar-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.6; }
+.about-text p {
+  font-size: 0.93rem;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 1rem;
+}
+.btn-learn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2.2rem;
+  background: var(--purple);
+  color: white;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 100px;
+  transition: all 0.25s;
+  box-shadow: 0 4px 18px rgba(61,43,142,0.25);
+}
+.btn-learn:hover { background: var(--purple2); transform: translateY(-2px); }
+
+/* =====================
+   CLASSES SECTION
+===================== */
+.classes-section {
+  background: var(--purple);
+  position: relative;
+  overflow: hidden;
+}
+.classes-section::before {
+  content: 'ॐ';
+  position: absolute;
+  right: -2%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 28rem;
+  color: rgba(255,255,255,0.02);
+  pointer-events: none;
+  line-height: 1;
+}
+.classes-section .sec-eyebrow { color: var(--gold); }
+.classes-section .sec-eyebrow::before { background: linear-gradient(90deg, var(--gold), var(--saffron2)); }
+.classes-section .sec-eyebrow::after { background: linear-gradient(90deg, var(--saffron2), transparent); }
+.classes-section .sec-h2 { color: white; }
+.classes-section .sec-h2 em { color: var(--gold); }
+.classes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
+.class-card {
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  padding: 2rem 1.25rem;
+  text-align: center;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.class-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--saffron), var(--gold));
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+.class-card:hover {
+  background: rgba(245,199,24,0.1);
+  border-color: rgba(245,199,24,0.35);
+  transform: translateY(-5px);
+}
+.class-card:hover::before { transform: scaleX(1); }
+.cc-level {
+  display: inline-block;
+  background: rgba(245,199,24,0.15);
+  color: var(--gold);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 5px;
+  margin-bottom: 1.25rem;
+}
+.cc-class {
+  font-family: 'Yeseva One', serif;
+  font-size: 2rem;
+  color: white;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+.cc-name {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.55);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* =====================
+   FACILITIES
+===================== */
+.fac-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+  gap: 1.75rem;
+  margin-top: 3rem;
+}
+.fac-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 2rem 1.75rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.fac-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--saffron), var(--gold), var(--saffron));
+  transform: scaleX(0);
+  transition: transform 0.3s;
+  border-radius: 0 0 4px 4px;
+}
+.fac-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 50px rgba(224,122,32,0.1);
+  border-color: rgba(224,122,32,0.3);
+}
+.fac-card:hover::after { transform: scaleX(1); }
+.fac-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--cream3), #fde0a0);
+  border: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 1.25rem;
+  transition: all 0.25s;
+}
+.fac-card:hover .fac-icon-wrap {
+  background: linear-gradient(135deg, var(--saffron), var(--saffron2));
+}
+.fac-title {
+  font-family: 'Yeseva One', serif;
+  font-size: 1.1rem;
+  color: var(--purple);
+  margin-bottom: 0.6rem;
+}
+.fac-desc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+/* =====================
+   PRINCIPAL MESSAGE
+===================== */
+.principal-section {
+  background: linear-gradient(160deg, var(--cream) 0%, var(--cream2) 100%);
+}
+.principal-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.principal-card {
+  background: var(--white);
+  border-radius: 24px;
+  border: 1.5px solid var(--border);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: sticky;
+  top: 100px;
+}
+.principal-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--saffron), var(--gold));
+  border: 4px solid var(--white);
+  box-shadow: 0 6px 25px rgba(224,122,32,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  margin: 0 auto 1.25rem;
+}
+.principal-name {
+  font-family: 'Yeseva One', serif;
+  font-size: 1.1rem;
+  color: var(--purple);
+  margin-bottom: 0.25rem;
+}
+.principal-role {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--saffron);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.principal-sep {
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 1.25rem auto;
+}
+.principal-school-tag {
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.principal-msg {}
+.blockquote-msg {
+  font-family: 'Yeseva One', serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  color: var(--purple);
+  line-height: 1.4;
+  margin-bottom: 2rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+.blockquote-msg::before {
+  content: '"';
+  position: absolute;
+  left: -0.5rem;
+  top: -0.5rem;
+  font-size: 5rem;
+  color: var(--gold);
+  opacity: 0.3;
+  line-height: 1;
+}
+.principal-text p {
+  font-size: 0.93rem;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 1rem;
+}
+.principal-sign {
+  font-family: 'Yeseva One', serif;
+  font-size: 1.4rem;
+  color: var(--saffron);
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* =====================
+   TESTIMONIALS
+===================== */
+.testi-section { background: var(--cream2); }
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.75rem;
+  margin-top: 3rem;
+}
+.testi-card {
+  background: var(--white);
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  padding: 2rem;
+  position: relative;
+  transition: all 0.25s;
+}
+.testi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(61,43,142,0.08);
+  border-color: var(--purple-soft);
+}
+.testi-quote-mark {
+  font-family: 'Yeseva One', serif;
+  font-size: 4.5rem;
+  color: var(--gold);
+  opacity: 0.2;
+  position: absolute;
+  top: 0.5rem;
+  right: 1.5rem;
+  line-height: 1;
+}
+.testi-stars {
+  color: var(--saffron2);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+}
+.testi-text {
+  font-size: 0.88rem;
+  line-height: 1.85;
+  color: var(--fg);
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+.testi-author {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+.tav {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--purple2));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Yeseva One', serif;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.tav-name { font-size: 0.85rem; font-weight: 800; color: var(--purple); }
+.tav-role { font-size: 0.7rem; color: var(--muted); }
+
+/* =====================
+   ADMISSION CTA
+===================== */
+.admission-cta {
+  background: linear-gradient(145deg, var(--purple) 0%, #1e0f5c 100%);
+  padding: 6rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.admission-cta::before {
+  content: 'ॐ';
+  position: absolute;
+  left: -2%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30rem;
+  color: rgba(255,255,255,0.02);
+  line-height: 1;
+  pointer-events: none;
+}
+.admission-cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(245,201,24,0.06) 1.5px, transparent 1.5px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+.admission-cta > * { position: relative; z-index: 1; }
+.cta-om {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 1rem;
+  animation: spin-slow 12s linear infinite;
+}
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.cta-title {
+  font-family: 'Yeseva One', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: white;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+.cta-title em { color: var(--gold); font-style: normal; }
+.cta-motto {
+  display: inline-block;
+  background: rgba(245,201,24,0.15);
+  border: 1px solid rgba(245,201,24,0.35);
+  color: var(--gold);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.4rem 1.25rem;
+  border-radius: 4px;
+  margin-bottom: 1.25rem;
+}
+.cta-desc {
+  color: rgba(255,255,255,0.7);
+  max-width: 540px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.85;
+  font-size: 0.95rem;
+}
+.cta-btns {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.btn-cta-gold {
+  padding: 1rem 3rem;
+  background: linear-gradient(135deg, var(--gold), var(--saffron2));
+  color: var(--purple);
+  font-size: 0.92rem;
+  font-weight: 800;
+  border-radius: 100px;
+  text-decoration: none;
+  box-shadow: 0 8px 28px rgba(245,201,24,0.35);
+  transition: all 0.25s;
+  letter-spacing: 0.03em;
+}
+.btn-cta-gold:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 40px rgba(245,201,24,0.45);
+}
+.btn-cta-border {
+  padding: 1rem 2.5rem;
+  background: transparent;
+  color: white;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border-radius: 100px;
+  text-decoration: none;
+  border: 2px solid rgba(255,255,255,0.35);
+  transition: all 0.25s;
+}
+.btn-cta-border:hover {
+  border-color: white;
+  background: rgba(255,255,255,0.08);
+}
+
+/* =====================
+   FOOTER
+===================== */
+footer {
+  background: #130b35;
+  color: rgba(255,255,255,0.65);
+}
+.footer-top {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 4.5rem 2rem 3rem;
+  display: grid;
+  grid-template-columns: 2.2fr 1fr 1fr 1fr;
+  gap: 3rem;
+}
+.footer-brand {}
+.footer-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.footer-logo-img {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  object-fit: contain;
+  border: 2px solid rgba(245,201,24,0.3);
+}
+.footer-school-name {
+  font-family: 'Yeseva One', serif;
+  font-size: 1rem;
+  color: var(--gold);
+  line-height: 1.2;
+}
+.footer-school-sub {
+  font-size: 0.62rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.15rem;
+}
+.footer-desc {
+  font-size: 0.82rem;
+  line-height: 1.85;
+  margin-bottom: 1.5rem;
+}
+.footer-motto-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(245,201,24,0.1);
+  border: 1px solid rgba(245,201,24,0.2);
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+}
+.footer-col-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.footer-col-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(245,201,24,0.2);
+}
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: 0.65rem; }
+.footer-links a {
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.footer-links a:hover { color: var(--saffron2); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 1.5rem 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.75rem;
+}
+.footer-bottom a { color: var(--gold); text-decoration: none; }
+.footer-tricolor {
+  height: 3px;
+  background: linear-gradient(90deg, var(--saffron) 33.33%, white 33.33%, white 66.66%, #138808 66.66%);
+}
+
+/* =====================
+   MOBILE MENU DRAWER
+===================== */
+.mobile-drawer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  flex-direction: row;
+}
+.mobile-drawer.open { display: flex; }
+.drawer-overlay {
+  flex: 1;
+  background: rgba(19,11,53,0.55);
+  backdrop-filter: blur(3px);
+}
+.drawer-panel {
+  width: min(320px, 85vw);
+  background: var(--white);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  animation: slideInRight 0.3s ease;
+}
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+.drawer-top {
+  background: var(--purple);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.drawer-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.drawer-logo { width: 44px; height: 44px; border-radius: 50%; }
+.drawer-school-n { font-family: 'Yeseva One', serif; font-size: 0.85rem; color: var(--gold); }
+.drawer-close {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.drawer-nav { padding: 1rem 0; flex: 1; }
+.drawer-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--fg);
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition: all 0.2s;
+}
+.drawer-link:hover {
+  background: var(--cream2);
+  color: var(--saffron);
+  border-left-color: var(--saffron);
+}
+.drawer-sep {
+  height: 1px;
+  background: var(--border);
+  margin: 0.5rem 1.5rem;
+}
+.drawer-footer {
+  padding: 1.5rem;
+  background: var(--cream2);
+  border-top: 1px solid var(--border);
+}
+.btn-drawer-apply {
+  display: block;
+  width: 100%;
+  padding: 0.9rem;
+  background: linear-gradient(135deg, var(--saffron), var(--saffron2));
+  color: white;
+  font-size: 0.88rem;
+  font-weight: 800;
+  border-radius: 100px;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  box-shadow: 0 4px 16px rgba(224,122,32,0.35);
+}
+
+/* =====================
+   ANIMATIONS
+===================== */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media (max-width: 1024px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-left {
+    padding: 5rem 2rem 3rem;
+  }
+  .hero-left::after { display: none; }
+  .hero-right {
+    padding: 3rem 2rem 4rem;
+    align-items: flex-start;
+  }
+  .stats-stack { max-width: 100%; flex-direction: row; flex-wrap: wrap; }
+  .stat-row { flex: 1 1 200px; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-float-badge { bottom: 1rem; right: 1rem; }
+  .principal-layout { grid-template-columns: 1fr; }
+  .principal-card { position: relative; top: auto; max-width: 360px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+}
+
+@media (max-width: 768px) {
+  header { }
+  .header-inner { padding: 0.75rem 1.25rem; }
+  nav { display: none; }
+  .btn-apply-nav { display: none; }
+  .hamburger { display: flex; }
+  .brand-name { font-size: 0.9rem; }
+  .logo-img { width: 48px; height: 48px; }
+
+  .hero-left { padding: 4.5rem 1.25rem 2.5rem; }
+  .hero-right { padding: 2.5rem 1.25rem 3.5rem; }
+  .stats-stack { flex-direction: column; }
+
+  .quick-grid { grid-template-columns: repeat(4, 1fr); }
+  .quick-tile { border-right: none; border-bottom: 1px solid var(--border); padding: 1.2rem 0.5rem; }
+  .quick-tile:nth-child(4n) { }
+
+  .notice-layout { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.25rem 2rem; }
+  .footer-bottom { padding: 1.25rem; flex-direction: column; align-items: flex-start; }
+  .section { padding: 3.5rem 1.25rem; }
+  .admission-cta { padding: 4.5rem 1.25rem; }
+}
+
+@media (max-width: 480px) {
+  .quick-grid { grid-template-columns: repeat(4, 1fr); }
+  .hero-stats-row { flex-direction: column; }
+  .cta-btns { flex-direction: column; align-items: center; }
+  .hero-actions { flex-direction: column; }
+  .btn-hero-primary, .btn-hero-ghost { text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP SCROLLING BAR -->
+<div class="top-bar">
+  <div class="top-bar-track">
+    <span>🔔 Admission Open for Session 2025–26 — Apply Now!</span>
+    <span class="tbt-sep">✦</span>
+    <span>🏆 100% Result in Class X &amp; XII Board Examinations — 2024</span>
+    <span class="tbt-sep">✦</span>
+    <span>📅 Annual Day Celebration: February 15, 2025 at 4:00 PM</span>
+    <span class="tbt-sep">✦</span>
+    <span>🥇 District Science Olympiad Winners — SPVS Team 2024</span>
+    <span class="tbt-sep">✦</span>
+    <span>📢 Republic Day Programme — January 26, 2025 · 9:00 AM</span>
+    <span class="tbt-sep">✦</span>
+    <span>🔔 Admission Open for Session 2025–26 — Apply Now!</span>
+    <span class="tbt-sep">✦</span>
+    <span>🏆 100% Result in Class X &amp; XII Board Examinations — 2024</span>
+    <span class="tbt-sep">✦</span>
+    <span>📅 Annual Day Celebration: February 15, 2025 at 4:00 PM</span>
+    <span class="tbt-sep">✦</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <img
+        src="/mnt/user-data/uploads/1772035910363_image.png"
+        alt="SPVS Logo"
+        class="logo-img"
+        onerror="this.style.display='none'; this.nextSibling.style.display='flex';"
+      >
+      <div style="display:none;width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,#e07a20,#f5c518);align-items:center;justify-content:center;font-size:1.8rem;border:3px solid #fff;box-shadow:0 3px 8px rgba(224,122,32,0.3);">ॐ</div>
+      <div class="brand-text">
+        <div class="brand-name">Sant Pathik Vidyalaya</div>
+        <div class="brand-place">Pashupati Nagar, Bahraich</div>
+        <div class="brand-motto">✦ Work is Worship ✦</div>
+      </div>
+    </div>
+
+    <nav>
+      <div class="nav-item active">
+        <a href="#">Home</a>
+      </div>
+      <div class="nav-item">
+        <a href="#">About ▾</a>
+        <ul class="nav-drop">
+          <li><a href="#">History &amp; Vision</a></li>
+          <li><a href="#">Principal's Message</a></li>
+          <li><a href="#">Faculty</a></li>
+          <li><a href="#">Awards &amp; Recognition</a></li>
+        </ul>
+      </div>
+      <div class="nav-item">
+        <a href="#">Academics ▾</a>
+        <ul class="nav-drop">
+          <li><a href="#">Classes &amp; Curriculum</a></li>
+          <li><a href="#">Fee Structure</a></li>
+          <li><a href="#">Results</a></li>
+          <li><a href="#">Downloads (SLC/TC)</a></li>
+        </ul>
+      </div>
+      <div class="nav-item">
+        <a href="#">Facilities ▾</a>
+        <ul class="nav-drop">
+          <li><a href="#">Library</a></li>
+          <li><a href="#">Science Labs</a></li>
+          <li><a href="#">Smart Classrooms</a></li>
+          <li><a href="#">Sports &amp; Playground</a></li>
+          <li><a href="#">Hostel</a></li>
+          <li><a href="#">Transport</a></li>
+        </ul>
+      </div>
+      <div class="nav-item">
+        <a href="#">Gallery</a>
+      </div>
+      <div class="nav-item">
+        <a href="#">More ▾</a>
+        <ul class="nav-drop">
+          <li><a href="#">Blog / Updates</a></li>
+          <li><a href="#">Alumni</a></li>
+          <li><a href="#">Testimonials</a></li>
+          <li><a href="#">Jobs / Careers</a></li>
+          <li><a href="#">Mandatory Disclosure</a></li>
+          <li><a href="#">Campus Life</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <a href="#" class="btn-apply-nav">🎓 Apply Now</a>
+
+    <button class="hamburger" id="menuBtn" onclick="document.getElementById('mobileDrawer').classList.add('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-overlay" onclick="document.getElementById('mobileDrawer').classList.remove('open')"></div>
+  <div class="drawer-panel">
+    <div class="drawer-top">
+      <div class="drawer-logo-row">
+        <img src="/mnt/user-data/uploads/1772035910363_image.png" alt="Logo" class="drawer-logo" onerror="this.style.display='none'">
+        <div class="drawer-school-n">Sant Pathik Vidyalaya</div>
+      </div>
+      <button class="drawer-close" onclick="document.getElementById('mobileDrawer').classList.remove('open')">✕</button>
+    </div>
+    <div class="drawer-nav">
+      <a href="#" class="drawer-link">🏠 Home</a>
+      <a href="#" class="drawer-link">ℹ️ About Us</a>
+      <a href="#" class="drawer-link">👨‍💼 Principal's Message</a>
+      <a href="#" class="drawer-link">👨‍🏫 Faculty</a>
+      <div class="drawer-sep"></div>
+      <a href="#" class="drawer-link">📚 Academics &amp; Classes</a>
+      <a href="#" class="drawer-link">💰 Fee Structure</a>
+      <a href="#" class="drawer-link">📊 Results</a>
+      <a href="#" class="drawer-link">⬇️ Downloads (SLC/TC)</a>
+      <div class="drawer-sep"></div>
+      <a href="#" class="drawer-link">🏛️ Facilities</a>
+      <a href="#" class="drawer-link">🖼️ Gallery</a>
+      <a href="#" class="drawer-link">📰 Blog / Updates</a>
+      <a href="#" class="drawer-link">🎓 Alumni</a>
+      <a href="#" class="drawer-link">💼 Careers / Jobs</a>
+      <a href="#" class="drawer-link">📋 Mandatory Disclosure</a>
+      <a href="#" class="drawer-link">📞 Contact Us</a>
+    </div>
+    <div class="drawer-footer">
+      <a href="#" class="btn-drawer-apply">🎓 Apply for Admission 2025–26</a>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Admission Open — Session 2025–26
+    </div>
+    <img
+      src="/mnt/user-data/uploads/1772035910363_image.png"
+      alt="Sant Pathik Vidyalaya Logo"
+      class="hero-logo-big"
+      onerror="this.style.display='none'"
+    >
+    <h1 class="hero-school-full">
+      <span class="orange">Sant Pathik</span><br>Vidyalaya
+    </h1>
+    <div class="hero-school-place">📍 Pashupati Nagar, Bahraich, U.P.</div>
+    <div class="hero-motto-strip">
+      <span class="om">ॐ</span>
+      Work is Worship
+    </div>
+    <p class="hero-desc">
+      A premier institution nurturing young minds with academic excellence, strong moral values, and holistic development. CBSE affiliated · Nursery to Class XII.
+    </p>
+    <div class="hero-actions">
+      <a href="#" class="btn-hero-primary">🎓 Apply for Admission</a>
+      <a href="#" class="btn-hero-ghost">Explore School →</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <h2 class="hero-stats-title">
+      Shaping Leaders<br>Since Decades
+    </h2>
+    <p class="hero-stats-sub">Numbers that reflect our commitment to excellence</p>
+
+    <div class="stats-stack">
+      <div class="stat-row">
+        <div class="stat-icon-box">👨‍🎓</div>
+        <div>
+          <div class="stat-num">2400+</div>
+          <div class="stat-label">Students Enrolled</div>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-icon-box">👨‍🏫</div>
+        <div>
+          <div class="stat-num">120+</div>
+          <div class="stat-label">Expert Faculty</div>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-icon-box">🏆</div>
+        <div>
+          <div class="stat-num">98%</div>
+          <div class="stat-label">Board Pass Rate</div>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-icon-box">📅</div>
+        <div>
+          <div class="stat-num">35+</div>
+          <div class="stat-label">Years of Excellence</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-cbse-tag">
+      ✅ &nbsp;CBSE Affiliated · Nursery — Class XII
+    </div>
+  </div>
+</section>
+
+<!-- QUICK ACCESS -->
+<div class="quick-section">
+  <div class="quick-grid">
+    <a href="#" class="quick-tile"><span class="qt-icon">📋</span><span class="qt-label">Admission</span></a>
+    <a href="#" class="quick-tile"><span class="qt-icon">📊</span><span class="qt-label">Results</span></a>
+    <a href="#" class="quick-tile"><span class="qt-icon">⬇️</span><span class="qt-label">Downloads</span></a>
+    <a href="#" class="quick-tile"><span class="qt-icon">🖼️</span><span class="qt-label">Gallery</span></a>
+    <a href="#" class="quick-tile"><span class="qt-icon">💰</span><span class="qt-label">Fee Structure</span></a>
+    <a href="#" class="quick-tile"><span class="qt-icon">👨‍🏫</span><span class="qt-label">Faculty</span></a>
+    <a href="#" class="quick-tile"><span class="qt-icon">💼</span><span class="qt-label">Careers</span></a>
+    <a href="#" class="quick-tile"><span class="qt-icon">📞</span><span class="qt-label">Contact</span></a>
+  </div>
+</div>
+
+<!-- NOTICE BOARD -->
+<section class="section notice-section">
+  <div class="section-inner">
+    <div class="sec-eyebrow">Latest Updates</div>
+    <h2 class="sec-h2">Notice Board &amp; <em>Upcoming Events</em></h2>
+    <div class="notice-layout">
+      <!-- NOTICES -->
+      <div class="notice-panel">
+        <div class="notice-panel-head">
+          <div class="notice-panel-title">📢 School Notices</div>
+          <a href="#" class="notice-view-all">View All →</a>
+        </div>
+        <div class="notice-body">
+          <div class="notice-item-row">
+            <div class="n-date-box"><div class="n-date-day">15</div><div class="n-date-mon">Jan</div></div>
+            <div>
+              <div class="n-title">Annual Day Celebration 2025 <span class="n-new">NEW</span></div>
+              <div class="n-sub">All students to attend in uniform · School Auditorium · 4:00 PM</div>
+            </div>
+          </div>
+          <div class="notice-item-row">
+            <div class="n-date-box"><div class="n-date-day">10</div><div class="n-date-mon">Jan</div></div>
+            <div>
+              <div class="n-title">Board Exam 2025 Schedule Released <span class="n-new">NEW</span></div>
+              <div class="n-sub">Class X &amp; XII students — download admit cards from portal</div>
+            </div>
+          </div>
+          <div class="notice-item-row">
+            <div class="n-date-box"><div class="n-date-day">05</div><div class="n-date-mon">Jan</div></div>
+            <div>
+              <div class="n-title">Admission Open — Session 2025–26</div>
+              <div class="n-sub">Registration forms available at school office &amp; online portal</div>
+            </div>
+          </div>
+          <div class="notice-item-row">
+            <div class="n-date-box" style="background:var(--purple);"><div class="n-date-day">26</div><div class="n-date-mon">Dec</div></div>
+            <div>
+              <div class="n-title">Winter Vacation Schedule — 2024</div>
+              <div class="n-sub">School closed Dec 26 to Jan 5 · Reopens January 6</div>
+            </div>
+          </div>
+          <div class="notice-item-row">
+            <div class="n-date-box" style="background:var(--purple);"><div class="n-date-day">20</div><div class="n-date-mon">Dec</div></div>
+            <div>
+              <div class="n-title">Mandatory Disclosure Updated (CBSE Norms)</div>
+              <div class="n-sub">As per CBSE guidelines for Academic Session 2024–25</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EVENTS -->
+      <div class="events-panel">
+        <div class="events-head">
+          <div class="events-head-title">📅 Upcoming Events</div>
+          <a href="#" class="event-view-all">Calendar →</a>
+        </div>
+        <div class="event-body">
+          <div class="event-row">
+            <div class="ev-cal"><div class="ev-day">15</div><div class="ev-mon">Feb</div></div>
+            <div><div class="ev-title">Annual Day 2025</div><div class="ev-meta">Auditorium · 4:00 PM</div></div>
+          </div>
+          <div class="event-row">
+            <div class="ev-cal"><div class="ev-day">10</div><div class="ev-mon">Feb</div></div>
+            <div><div class="ev-title">Annual Sports Day</div><div class="ev-meta">Sports Ground · 8:00 AM</div></div>
+          </div>
+          <div class="event-row">
+            <div class="ev-cal"><div class="ev-day">26</div><div class="ev-mon">Jan</div></div>
+            <div><div class="ev-title">Republic Day Programme</div><div class="ev-meta">School Campus · 9:00 AM</div></div>
+          </div>
+          <div class="event-row">
+            <div class="ev-cal"><div class="ev-day">01</div><div class="ev-mon">Feb</div></div>
+            <div><div class="ev-title">Science Exhibition 2025</div><div class="ev-meta">Science Labs · 10:00 AM</div></div>
+          </div>
+          <div class="event-row">
+            <div class="ev-cal"><div class="ev-day">20</div><div class="ev-mon">Jan</div></div>
+            <div><div class="ev-title">Mock Board Exams Begin</div><div class="ev-meta">Class X &amp; XII · All Sections</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual">
+        <div class="about-logo-frame">
+          <img src="/mnt/user-data/uploads/1772035910363_image.png" alt="SPVS Logo" class="about-logo-img" onerror="this.style.fontSize='6rem';this.outerHTML='<div style=\'font-size:6rem;opacity:0.3\'>ॐ</div>'">
+        </div>
+        <div class="about-float-badge">
+          <div class="afb-num">35+</div>
+          <div class="afb-label">Years of<br>Excellence</div>
+        </div>
+      </div>
+      <div class="about-text">
+        <div class="sec-eyebrow">About Our School</div>
+        <h2 class="sec-h2">A Legacy Rooted in <em>Knowledge & Values</em></h2>
+        <p style="margin-top:1rem;">Sant Pathik Vidyalaya, situated in Pashupati Nagar, Bahraich, is a distinguished institution dedicated to imparting quality education while fostering the timeless principle of <strong>"Work is Worship"</strong>.</p>
+        <p>Affiliated with CBSE, our school offers a comprehensive academic journey from Nursery through Class XII. We prepare students not just for examinations, but for life — instilling discipline, curiosity, and compassion.</p>
+        <div class="about-pillars">
+          <div class="pillar-card">
+            <div class="pillar-icon">🎯</div>
+            <div class="pillar-title">Academic Excellence</div>
+            <div class="pillar-desc">Consistent Board results with toppers every year</div>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon">🙏</div>
+            <div class="pillar-title">Value Education</div>
+            <div class="pillar-desc">Character, discipline &amp; moral development</div>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon">💡</div>
+            <div class="pillar-title">Smart Learning</div>
+            <div class="pillar-desc">Digital classrooms &amp; modern teaching methods</div>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon">🌱</div>
+            <div class="pillar-title">Holistic Growth</div>
+            <div class="pillar-desc">Sports, arts, debates &amp; co-curricular activities</div>
+          </div>
+        </div>
+        <a href="#" class="btn-learn">Read Our Full Story →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLASSES -->
+<section class="section classes-section">
+  <div class="section-inner">
+    <div class="sec-eyebrow">Academic Programs</div>
+    <h2 class="sec-h2">Classes We <em>Offer</em></h2>
+    <div class="classes-grid">
+      <div class="class-card"><div class="cc-level">Pre-Primary</div><div class="cc-class">NUR</div><div class="cc-name">Nursery</div></div>
+      <div class="class-card"><div class="cc-level">Pre-Primary</div><div class="cc-class">KG</div><div class="cc-name">Kindergarten</div></div>
+      <div class="class-card"><div class="cc-level">Primary</div><div class="cc-class">I–V</div><div class="cc-name">Primary School</div></div>
+      <div class="class-card"><div class="cc-level">Middle</div><div class="cc-class">VI–VIII</div><div class="cc-name">Middle School</div></div>
+      <div class="class-card"><div class="cc-level">Secondary</div><div class="cc-class">IX–X</div><div class="cc-name">CBSE Board</div></div>
+      <div class="class-card"><div class="cc-level">Sr. Secondary</div><div class="cc-class">XI–XII</div><div class="cc-name">Sci / Com / Arts</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITIES -->
+<section class="section">
+  <div class="section-inner">
+    <div class="sec-eyebrow">Infrastructure</div>
+    <h2 class="sec-h2">World-Class <em>Facilities</em></h2>
+    <p class="sec-sub">Modern infrastructure designed to make learning engaging, safe, and effective for every student at every level.</p>
+    <div class="fac-grid">
+      <div class="fac-card">
+        <div class="fac-icon-wrap">📚</div>
+        <div class="fac-title">Library</div>
+        <p class="fac-desc">Over 15,000 curated books, digital resources, journals, and a quiet reading lounge to build a lifelong love for learning.</p>
+      </div>
+      <div class="fac-card">
+        <div class="fac-icon-wrap">🔬</div>
+        <div class="fac-title">Science Laboratories</div>
+        <p class="fac-desc">Fully equipped Physics, Chemistry &amp; Biology labs with modern apparatus, enabling hands-on experiments and discovery.</p>
+      </div>
+      <div class="fac-card">
+        <div class="fac-icon-wrap">💻</div>
+        <div class="fac-title">Smart Classrooms</div>
+        <p class="fac-desc">Interactive digital boards, projectors, and multimedia systems installed across all classrooms for engaging, technology-driven lessons.</p>
+      </div>
+      <div class="fac-card">
+        <div class="fac-icon-wrap">⚽</div>
+        <div class="fac-title">Sports Complex</div>
+        <p class="fac-desc">Cricket ground, football field, basketball courts, and a large indoor games hall for comprehensive physical development.</p>
+      </div>
+      <div class="fac-card">
+        <div class="fac-icon-wrap">🚌</div>
+        <div class="fac-title">School Transport</div>
+        <p class="fac-desc">GPS-enabled, air-conditioned school buses covering 30+ routes with trained drivers and lady attendants for student safety.</p>
+      </div>
+      <div class="fac-card">
+        <div class="fac-icon-wrap">🏠</div>
+        <div class="fac-title">Hostel Facility</div>
+        <p class="fac-desc">Separate well-maintained boarding houses for boys and girls with 24/7 supervision, nutritious meals, and dedicated study rooms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPAL MESSAGE -->
+<section class="section principal-section">
+  <div class="section-inner">
+    <div class="sec-eyebrow">From the Leadership</div>
+    <h2 class="sec-h2">Principal's <em>Message</em></h2>
+    <div class="principal-layout" style="margin-top:3rem;">
+      <div class="principal-card">
+        <div class="principal-avatar">👨‍💼</div>
+        <div class="principal-name">Dr. Ramashankar Tripathi</div>
+        <div class="principal-role">Principal</div>
+        <div class="principal-sep"></div>
+        <div class="principal-school-tag">
+          Sant Pathik Vidyalaya<br>Pashupati Nagar, Bahraich
+        </div>
+      </div>
+      <div class="principal-msg">
+        <div class="blockquote-msg">
+          "Work is Worship — and every lesson we teach is an act of devotion to the future of our nation."
+        </div>
+        <div class="principal-text">
+          <p>Dear Students, Parents, and Well-Wishers,</p>
+          <p>It gives me immense pride to welcome you to Sant Pathik Vidyalaya — an institution that has stood as a beacon of learning, values, and service for decades. Our journey is guided by the sacred principle: <em>Work is Worship (कर्म ही पूजा है)</em>.</p>
+          <p>At SPVS, we believe that education is not merely the transfer of knowledge — it is the kindling of a flame that burns bright throughout a child's life. Our dedicated faculty, modern infrastructure, and holistic curriculum ensure that every student discovers their unique potential.</p>
+          <p>We nurture not just students, but responsible citizens who carry the values of integrity, compassion, and excellence into the world. I invite you to be a part of this remarkable journey.</p>
+        </div>
+        <div class="principal-sign">✍️ Dr. Ramashankar Tripathi</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testi-section">
+  <div class="section-inner">
+    <div class="sec-eyebrow">Testimonials</div>
+    <h2 class="sec-h2">Words from Our <em>Community</em></h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-quote-mark">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Sant Pathik Vidyalaya gave my daughter the perfect foundation. The teachers are not just educators — they are mentors who genuinely care for every child's growth and success."</p>
+        <div class="testi-author">
+          <div class="tav">P</div>
+          <div><div class="tav-name">Praveen Kumar Gupta</div><div class="tav-role">Parent of Class IX Student</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote-mark">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"I am an alumnus of SPVS, batch of 2012. The discipline and values this school instilled in me became the cornerstone of my career as an IPS officer. Forever grateful to this institution."</p>
+        <div class="testi-author">
+          <div class="tav">A</div>
+          <div><div class="tav-name">Anil Mishra</div><div class="tav-role">Alumni · IPS Officer</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote-mark">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The smart classrooms, experienced teachers, and the focus on both academics and co-curricular activities make SPVS one of the finest schools in Bahraich. Highly recommended."</p>
+        <div class="testi-author">
+          <div class="tav">S</div>
+          <div><div class="tav-name">Sunita Sharma</div><div class="tav-role">Parent of Class XII Student</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMISSION CTA -->
+<section class="admission-cta">
+  <span class="cta-om">ॐ</span>
+  <div class="cta-motto">✦ Work is Worship ✦</div>
+  <h2 class="cta-title">Admissions Open for<br><em>Session 2025–26</em></h2>
+  <p class="cta-desc">
+    Join the Sant Pathik Vidyalaya family. Give your child the gift of quality education, strong values, and a bright future. Limited seats available — apply today.
+  </p>
+  <div class="cta-btns">
+    <a href="#" class="btn-cta-gold">🎓 Apply for Admission</a>
+    <a href="#" class="btn-cta-border">📞 Contact Admissions Office</a>
+  </div>
+</section>
+
+<!-- TRICOLOR FOOTER BAR -->
+<div class="footer-tricolor"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo-row">
+        <img src="/mnt/user-data/uploads/1772035910363_image.png" alt="SPVS Logo" class="footer-logo-img" onerror="this.style.display='none'">
+        <div>
+          <div class="footer-school-name">Sant Pathik Vidyalaya</div>
+          <div class="footer-school-sub">Pashupati Nagar, Bahraich, Uttar Pradesh</div>
+        </div>
+      </div>
+      <p class="footer-desc">
+        Empowering young minds through quality education, strong values, and holistic development since our founding. CBSE affiliated, Nursery to Class XII.
+      </p>
+      <div class="footer-motto-tag">
+        ॐ &nbsp;&nbsp;Work is Worship
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Quick Links</div>
+      <ul class="footer-links">
+        <li><a href="#">→ Admission 2025–26</a></li>
+        <li><a href="#">→ Fee Structure</a></li>
+        <li><a href="#">→ Results</a></li>
+        <li><a href="#">→ Downloads (SLC/TC)</a></li>
+        <li><a href="#">→ Photo Gallery</a></li>
+        <li><a href="#">→ Blog / News</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-title">School Info</div>
+      <ul class="footer-links">
+        <li><a href="#">→ About SPVS</a></li>
+        <li><a href="#">→ Principal's Message</a></li>
+        <li><a href="#">→ Our Faculty</a></li>
+        <li><a href="#">→ Alumni Network</a></li>
+        <li><a href="#">→ Mandatory Disclosure</a></li>
+        <li><a href="#">→ Careers / Jobs</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Contact Us</div>
+      <ul class="footer-links">
+        <li><a href="#">📍 Pashupati Nagar, Bahraich, U.P. — 271801</a></li>
+        <li><a href="#">📞 +91 98765 43210</a></li>
+        <li><a href="#">📱 +91 99999 88888</a></li>
+        <li><a href="#">✉️ info@spvs.edu.in</a></li>
+        <li><a href="#">🕐 Mon–Sat: 8:00 AM – 4:00 PM</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div>
+      <p>© 2025 Sant Pathik Vidyalaya, Pashupati Nagar, Bahraich. All Rights Reserved.</p>
+      <p style="margin-top:0.3rem; font-size:0.68rem; opacity:0.5;">ॐ कर्म ही पूजा है · Work is Worship</p>
+    </div>
+    <div style="display:flex; gap:1.5rem; flex-wrap:wrap;">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Mandatory Disclosure</a>
+      <a href="#">Sitemap</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
