@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sant Pathik Vidyalaya — Pashupati Nagar, Bahraich</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+:root {
+  --or: #E8761A;
+  --or2: #C45F0A;
+  --or3: #FF9A3C;
+  --gd: #F5B800;
+  --gd2: #FFD94A;
+  --gd3: #FFF3C4;
+  --cream: #FFF8F0;
+  --cream2: #FEF3E2;
+  --white: #FFFFFF;
+  --dk: #1A0F00;
+  --dk2: #2D1A00;
+  --tx: #3D2200;
+  --tx2: #7A5500;
+  --tx3: #B88830;
+  --nv: #0F1B3D;
+  --nv2: #1E2D5A;
+  --sw: rgba(232,118,26,.2);
+  --sg: rgba(245,184,0,.25);
+  --fd: 'Playfair Display', serif;
+  --fb: 'Plus Jakarta Sans', sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--cream);color:var(--tx);overflow-x:hidden}
+img{display:block}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--cream2)}
+::-webkit-scrollbar-thumb{background:var(--or);border-radius:10px}
+
+/* ===== PRELOADER ===== */
+#preloader{
+  position:fixed;inset:0;
+  background:linear-gradient(135deg,var(--dk) 0%,var(--dk2) 60%,#3D1A00 100%);
+  z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:20px;
+}
+#preloader-canvas{width:200px;height:200px}
+.preloader-text{
+  font-family:var(--fd);font-size:18px;font-weight:600;
+  color:var(--gd2);letter-spacing:2px;text-transform:uppercase;
+  animation:fade-pulse 1.5s ease-in-out infinite;
+}
+@keyframes fade-pulse{0%,100%{opacity:.5}50%{opacity:1}}
+.preloader-bar-wrap{width:200px;height:3px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+.preloader-bar{height:100%;background:linear-gradient(90deg,var(--or),var(--gd));border-radius:3px;animation:load-bar 2.5s ease forwards}
+@keyframes load-bar{from{width:0}to{width:100%}}
+
+/* ===== TOPBAR ===== */
+.topbar{
+  background:linear-gradient(90deg,var(--nv),var(--nv2));
+  color:#fff;font-size:12px;padding:7px 0;
+  position:relative;z-index:200;
+}
+.topbar-in{
+  max-width:1280px;margin:0 auto;padding:0 24px;
+  display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+}
+.tb-left{display:flex;align-items:center;gap:16px}
+.tbi{display:flex;align-items:center;gap:5px;color:rgba(255,255,255,.8)}
+.tbi a{color:var(--gd2);text-decoration:none;transition:.2s}
+.tbi a:hover{color:#fff}
+.marq{overflow:hidden;flex:1;max-width:380px}
+.marq-t{display:inline-block;white-space:nowrap;animation:marq 28s linear infinite}
+@keyframes marq{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
+.marq-t span{color:var(--gd2);margin-right:50px}
+.tb-social{display:flex;gap:6px}
+.tb-social a{
+  width:25px;height:25px;border-radius:6px;
+  background:rgba(255,255,255,.1);display:inline-flex;
+  align-items:center;justify-content:center;
+  color:#fff;font-size:11px;font-weight:700;text-decoration:none;
+  transition:.2s;
+}
+.tb-social a:hover{background:var(--or)}
+
+/* ===== VERTICAL SIDE NAV (GEMS style) ===== */
+.side-nav{
+  position:fixed;left:0;top:50%;
+  transform:translateY(-50%);
+  z-index:300;
+  display:flex;flex-direction:column;
+  gap:1px;
+}
+.side-nav-item{
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  transform:rotate(180deg);
+  background:var(--or);
+  color:#fff;
+  font-size:10.5px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  padding:12px 8px;
+  cursor:pointer;
+  transition:all .25s;
+  border-top-right-radius:6px;
+  border-bottom-right-radius:6px;
+  text-decoration:none;
+  display:block;
+}
+.side-nav-item:nth-child(2){background:var(--nv)}
+.side-nav-item:nth-child(3){background:var(--gd);color:var(--dk)}
+.side-nav-item:hover{padding-left:14px;opacity:.9}
+
+/* ===== RIGHT FLOATING BTNS (GEMS style) ===== */
+.right-float{
+  position:fixed;right:0;top:50%;
+  transform:translateY(-50%);
+  z-index:300;
+  display:flex;flex-direction:column;gap:1px;
+}
+.rf-btn{
+  width:46px;height:46px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;cursor:pointer;
+  border:none;transition:.2s;
+  text-decoration:none;color:#fff;
+}
+.rf-btn:nth-child(1){background:#00a0e3}
+.rf-btn:nth-child(2){background:#25d366}
+.rf-btn:nth-child(3){background:#e91e8c}
+.rf-btn:nth-child(4){background:#0f9b8e}
+.rf-btn:nth-child(5){
+  background:var(--or);writing-mode:vertical-rl;
+  text-orientation:mixed;transform:rotate(180deg);
+  font-size:11px;font-weight:800;letter-spacing:1.5px;
+  padding:14px 8px;height:auto;width:40px;
+}
+.rf-btn:hover{transform:scale(1.1);opacity:.9}
+
+/* ===== HEADER ===== */
+.hdr{
+  background:rgba(255,255,255,.97);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(232,118,26,.12);
+  position:sticky;top:0;z-index:150;
+  box-shadow:0 2px 20px rgba(232,118,26,.06);
+  transition:box-shadow .3s;
+}
+.hdr.sc{box-shadow:0 6px 40px rgba(232,118,26,.16)}
+.hdr-in{
+  max-width:1280px;margin:0 auto;padding:0 24px;
+  display:flex;align-items:center;gap:16px;height:76px;
+}
+.logo{display:flex;align-items:center;gap:14px;text-decoration:none;flex-shrink:0}
+.logo-ring{
+  width:62px;height:62px;border-radius:50%;
+  border:2.5px solid var(--or);overflow:hidden;
+  box-shadow:0 4px 18px var(--sw);
+  background:var(--cream);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1);
+}
+.logo:hover .logo-ring{transform:rotate(10deg) scale(1.05)}
+.logo-ring img{width:58px;height:58px;object-fit:contain}
+.logo-txt .sname{font-family:var(--fd);font-size:17px;font-weight:700;color:var(--or2);line-height:1.2}
+.logo-txt .stagline{font-size:10px;color:var(--tx2);font-weight:700;letter-spacing:1.4px;text-transform:uppercase;margin-top:1px}
+.logo-txt .ssub{font-size:10px;color:var(--nv);font-weight:600;letter-spacing:.4px}
+nav{margin-left:auto;display:flex;align-items:center;gap:2px}
+nav a{
+  font-size:13px;font-weight:600;color:var(--tx);
+  padding:8px 12px;text-decoration:none;border-radius:8px;
+  transition:all .2s;position:relative;
+}
+nav a::after{
+  content:'';position:absolute;bottom:4px;left:12px;right:12px;
+  height:2px;background:linear-gradient(90deg,var(--or),var(--gd));
+  border-radius:2px;transform:scaleX(0);transition:.25s;transform-origin:center;
+}
+nav a:hover{color:var(--or)}
+nav a:hover::after{transform:scaleX(1)}
+nav a.act{color:var(--or)}
+nav a.act::after{transform:scaleX(1)}
+.hdr-cta{margin-left:10px;flex-shrink:0}
+.btn-apply{
+  background:linear-gradient(135deg,var(--or),var(--or3));
+  color:#fff;border:none;padding:10px 20px;
+  border-radius:10px;font-family:var(--fb);font-size:13px;font-weight:700;
+  cursor:pointer;text-decoration:none;transition:all .25s;
+  box-shadow:0 4px 16px var(--sw);display:inline-flex;align-items:center;gap:6px;
+}
+.btn-apply:hover{transform:translateY(-2px);box-shadow:0 8px 28px var(--sw)}
+.hmbg{display:none;flex-direction:column;gap:5px;cursor:pointer;border:none;background:none;padding:6px;margin-left:auto}
+.hmbg span{width:24px;height:2.5px;background:var(--or);border-radius:3px;transition:.3s;display:block}
+
+/* ===== MOBILE NAV ===== */
+.mob-nav{
+  display:none;position:fixed;inset:0;
+  background:rgba(26,15,0,.97);z-index:1000;
+  flex-direction:column;align-items:center;justify-content:center;gap:22px;
+  backdrop-filter:blur(20px);
+}
+.mob-nav.open{display:flex}
+.mob-nav a{font-family:var(--fd);font-size:26px;font-weight:600;color:#fff;text-decoration:none;transition:.2s}
+.mob-nav a:hover{color:var(--gd2)}
+.mnclose{position:absolute;top:22px;right:22px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer}
+
+/* ===== HERO ===== */
+.hero{
+  position:relative;height:100vh;min-height:600px;
+  overflow:hidden;display:flex;align-items:center;
+}
+#hero-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.hero-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:1;
+}
+.hero-overlay{
+  position:absolute;inset:0;z-index:2;
+  background:linear-gradient(
+    135deg,
+    rgba(26,15,0,.82) 0%,
+    rgba(45,26,0,.7) 40%,
+    rgba(26,15,0,.5) 100%
+  );
+}
+.hero-in{
+  position:relative;z-index:3;
+  max-width:1280px;margin:0 auto;padding:0 24px 0 80px;
+  width:100%;
+}
+.hero-badge-wrap{display:flex;align-items:center;gap:12px;margin-bottom:20px;animation:slideInLeft 1s ease .3s both}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(245,184,0,.15);border:1.5px solid rgba(245,184,0,.4);
+  color:var(--gd2);font-size:11.5px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;padding:7px 16px;border-radius:50px;
+}
+.hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--gd);animation:dotb 2s infinite}
+@keyframes dotb{0%,100%{opacity:1}50%{opacity:.2}}
+.hero-partners{display:flex;gap:10px;align-items:center}
+.partner-badge{
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+  border-radius:8px;padding:4px 10px;
+  font-size:10px;font-weight:700;color:rgba(255,255,255,.85);letter-spacing:.8px;
+}
+.hero-h1{
+  font-family:var(--fd);font-size:clamp(40px,6vw,80px);font-weight:900;
+  color:#fff;line-height:1.04;letter-spacing:-.5px;
+  animation:slideInLeft 1s ease .5s both;
+}
+.hero-h1 .acc{color:var(--gd2);font-style:italic}
+.hero-h1 .or{color:var(--or3)}
+.hero-sub{
+  font-family:var(--fd);font-size:clamp(15px,2vw,22px);font-weight:400;
+  color:rgba(255,255,255,.7);margin:10px 0 20px;font-style:italic;
+  animation:slideInLeft 1s ease .65s both;
+}
+.hero-desc{
+  font-size:16.5px;color:rgba(255,255,255,.72);line-height:1.75;
+  max-width:520px;margin-bottom:34px;
+  animation:slideInLeft 1s ease .75s both;
+}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;animation:slideInLeft 1s ease .9s both;margin-bottom:44px}
+.btn-h1{
+  background:linear-gradient(135deg,var(--or),var(--or3));color:#fff;
+  padding:15px 32px;border-radius:12px;font-family:var(--fb);font-size:15px;font-weight:700;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  box-shadow:0 8px 30px var(--sw);transition:all .3s;border:none;cursor:pointer;
+}
+.btn-h1:hover{transform:translateY(-3px);box-shadow:0 14px 40px var(--sw)}
+.btn-h2{
+  background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.4);
+  color:#fff;padding:14px 26px;border-radius:12px;font-family:var(--fb);
+  font-size:15px;font-weight:600;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+  backdrop-filter:blur(10px);transition:all .25s;
+}
+.btn-h2:hover{background:rgba(255,255,255,.2);border-color:#fff}
+.hero-trust{
+  display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+  animation:slideInLeft 1s ease 1.05s both;
+}
+.trust-avs{display:flex}
+.trust-av{
+  width:36px;height:36px;border-radius:50%;
+  border:2.5px solid rgba(255,255,255,.5);
+  background:linear-gradient(135deg,var(--or3),var(--gd));
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:#fff;
+  margin-left:-9px;box-shadow:0 2px 8px rgba(0,0,0,.2);
+}
+.trust-av:first-child{margin-left:0}
+.trust-info{font-size:13px;color:rgba(255,255,255,.8)}
+.trust-info strong{color:#fff}
+.tdiv{width:1px;height:28px;background:rgba(255,255,255,.2)}
+.trust-stars{display:flex;gap:2px}
+.trust-stars span{color:var(--gd);font-size:16px}
+.trust-rt{font-size:12.5px;color:rgba(255,255,255,.8)}
+.trust-rt strong{color:#fff}
+/* Scroll indicator */
+.scroll-hint{
+  position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+  z-index:5;display:flex;flex-direction:column;align-items:center;gap:8px;
+  animation:fadeIn 1s ease 1.5s both;
+}
+.scroll-hint span{font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.5);text-transform:uppercase}
+.scroll-arrow{
+  width:30px;height:30px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.3);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.6);font-size:12px;
+  animation:bounce 2s ease infinite;
+}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* Slider dots */
+.hero-dots{
+  position:absolute;bottom:40px;right:100px;
+  z-index:5;display:flex;gap:10px;
+}
+.hdot{
+  width:10px;height:10px;border-radius:50%;
+  background:rgba(255,255,255,.4);cursor:pointer;transition:.2s;
+}
+.hdot.act{background:var(--or);transform:scale(1.3)}
+
+/* ===== ANNOUNCEMENTS ===== */
+.announce{
+  background:#fff;padding:20px 0;
+  border-bottom:1px solid rgba(232,118,26,.1);
+  position:relative;overflow:hidden;
+}
+.announce::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:linear-gradient(0deg,var(--or),var(--gd));
+}
+.announce-in{
+  max-width:1280px;margin:0 auto;padding:0 24px 0 60px;
+  display:flex;align-items:center;gap:16px;
+}
+.ann-icon{font-size:28px;flex-shrink:0;animation:ring 3s ease-in-out infinite}
+@keyframes ring{0%,100%{transform:rotate(0)}10%,30%{transform:rotate(-10deg)}20%,40%{transform:rotate(10deg)}}
+.ann-label{font-size:13px;font-weight:800;color:var(--or);letter-spacing:1px;text-transform:uppercase;flex-shrink:0}
+.ann-text{font-size:13.5px;color:var(--tx2)}
+.ann-text a{color:var(--or);font-weight:600;text-decoration:none}
+
+/* ===== STATS ===== */
+.stats{
+  background:linear-gradient(135deg,var(--nv),var(--nv2));
+  padding:50px 0;position:relative;overflow:hidden;
+}
+.stats::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4z'/%3E%3C/g%3E%3C/svg%3E");
+}
+.stats-in{
+  max-width:1280px;margin:0 auto;padding:0 24px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
+  position:relative;
+}
+.stat{text-align:center;padding:16px;position:relative}
+.stat:not(:last-child)::after{
+  content:'';position:absolute;right:0;top:15%;bottom:15%;
+  width:1px;background:rgba(255,255,255,.1);
+}
+.stat-ic{font-size:32px;display:block;margin-bottom:10px;opacity:.85}
+.stat-n{
+  font-family:var(--fd);font-size:52px;font-weight:700;
+  color:var(--gd2);line-height:1;display:block;margin-bottom:6px;
+}
+.stat-sx{font-size:28px;color:var(--or3)}
+.stat-l{font-size:11.5px;color:rgba(255,255,255,.55);font-weight:500;letter-spacing:.8px;text-transform:uppercase}
+
+/* ===== SHARED SECTION STYLES ===== */
+section,.sect{padding:88px 0}
+.container{max-width:1280px;margin:0 auto;padding:0 24px 0 70px}
+.sec-lbl{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--or);margin-bottom:12px;
+}
+.sec-lbl::before{content:'';width:22px;height:2.5px;background:linear-gradient(90deg,var(--or),var(--gd));border-radius:2px}
+.sec-title{
+  font-family:var(--fd);font-size:clamp(30px,4vw,52px);font-weight:700;
+  color:var(--dk);line-height:1.12;margin-bottom:14px;
+}
+.sec-title .hl{color:var(--or);font-style:italic}
+.sec-title .ghl{color:var(--gd)}
+.sec-desc{font-size:16px;color:var(--tx2);line-height:1.78;max-width:580px}
+.sec-underline{
+  width:50px;height:3px;
+  background:linear-gradient(90deg,var(--or),var(--gd));
+  border-radius:3px;margin:8px 0 20px;
+}
+
+/* ===== EXCELLENCE SECTION ===== */
+.excellence{background:#fff}
+.exc-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;
+}
+.exc-visual{position:relative}
+.exc-img-wrap{
+  border-radius:30px;overflow:hidden;
+  box-shadow:0 24px 70px rgba(232,118,26,.18);
+  position:relative;height:480px;
+}
+.exc-img-wrap img{width:100%;height:100%;object-fit:cover}
+.exc-img-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(0deg,rgba(26,15,0,.8),transparent);
+  padding:30px;
+}
+.exc-img-overlay-t{
+  font-family:var(--fd);font-size:22px;font-weight:700;
+  color:#fff;font-style:italic;
+}
+.exc-img-overlay-s{font-size:13px;color:rgba(255,255,255,.7);margin-top:4px}
+.exc-badge{
+  position:absolute;top:-20px;right:-20px;
+  background:linear-gradient(135deg,var(--or),var(--or3));
+  color:#fff;padding:18px 22px;border-radius:20px;text-align:center;
+  box-shadow:0 14px 40px var(--sw);
+  animation:fl2 5s ease-in-out infinite;z-index:2;
+}
+.exc-badge .bn{font-family:var(--fd);font-size:40px;font-weight:700;line-height:1}
+.exc-badge .bs{font-size:11px;font-weight:600;opacity:.9}
+.exc-content{}
+.exc-highlights{margin-top:30px;display:flex;flex-direction:column;gap:14px}
+.exc-hi{
+  display:flex;gap:16px;align-items:flex-start;
+  padding:18px 20px;background:var(--cream);border-radius:16px;
+  border-left:4px solid var(--or);transition:all .3s;
+  transform:translateX(0);
+}
+.exc-hi:hover{transform:translateX(5px);background:var(--cream2);box-shadow:0 8px 28px var(--sw)}
+.exc-hi-ic{
+  width:44px;height:44px;border-radius:14px;
+  background:linear-gradient(135deg,var(--or),var(--or3));
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+  flex-shrink:0;box-shadow:0 4px 14px var(--sw);transition:transform .3s;
+}
+.exc-hi:hover .exc-hi-ic{transform:rotate(10deg) scale(1.1)}
+.exc-hi-t{font-family:var(--fd);font-size:16px;font-weight:600;color:var(--dk);margin-bottom:4px}
+.exc-hi-d{font-size:13.5px;color:var(--tx2);line-height:1.55}
+
+/* ===== PRINCIPAL SECTION ===== */
+.principal{background:var(--cream)}
+.principal-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;
+}
+.principal-right{order:2}
+.principal-left{order:1}
+.person-card-grid{display:flex;gap:30px;flex-wrap:wrap}
+.person-card{
+  background:#fff;border-radius:24px;padding:28px 24px;
+  border:1.5px solid rgba(232,118,26,.1);
+  flex:1;min-width:200px;text-align:center;
+  transition:all .35s cubic-bezier(.34,1.56,.64,1);
+  cursor:pointer;
+  transform-style:preserve-3d;
+  position:relative;
+}
+.person-card:hover{
+  transform:translateY(-10px) rotateY(5deg) scale(1.02);
+  box-shadow:0 24px 60px rgba(232,118,26,.18);
+}
+.person-av{
+  width:100px;height:100px;border-radius:50%;
+  margin:0 auto 14px;overflow:hidden;
+  border:3px solid var(--or);
+  box-shadow:0 8px 24px var(--sw);
+  background:linear-gradient(135deg,var(--cream2),var(--gd3));
+  display:flex;align-items:center;justify-content:center;
+  font-size:44px;
+  transition:transform .3s;
+}
+.person-card:hover .person-av{transform:scale(1.08)}
+.person-av img{width:100%;height:100%;object-fit:cover}
+.person-name{font-family:var(--fd);font-size:18px;font-weight:700;color:var(--dk)}
+.person-role{font-size:12px;color:var(--tx2);font-weight:600;letter-spacing:.5px;margin:4px 0 12px}
+.person-quote{
+  font-size:13.5px;color:var(--tx2);line-height:1.6;
+  font-style:italic;
+  position:relative;padding:0 8px;
+}
+.person-quote::before,.person-quote::after{
+  content:'"';font-family:var(--fd);font-size:28px;
+  color:rgba(232,118,26,.25);line-height:0;vertical-align:-.3em;
+}
+.principal-text-block{
+  background:#fff;border-radius:24px;padding:36px;
+  border:1.5px solid rgba(232,118,26,.1);
+  position:relative;overflow:hidden;
+}
+.principal-text-block::before{
+  content:'"';position:absolute;top:-10px;right:20px;
+  font-family:var(--fd);font-size:100px;
+  color:rgba(232,118,26,.06);line-height:1;
+}
+.pt-italic{
+  font-family:var(--fd);font-size:19px;font-style:italic;
+  color:var(--tx2);line-height:1.7;margin-bottom:22px;
+}
+
+/* ===== CURRICULUM SECTION ===== */
+.curriculum{background:#fff}
+.curr-layout{display:grid;grid-template-columns:1fr 1.6fr;gap:60px;align-items:center;margin-top:48px}
+.curr-timeline{display:flex;flex-direction:column;gap:0}
+.curr-item{
+  display:flex;align-items:flex-start;gap:18px;
+  padding:16px 18px;border-radius:14px;cursor:pointer;
+  transition:all .25s;position:relative;
+}
+.curr-item.act{background:linear-gradient(135deg,rgba(232,118,26,.08),rgba(245,184,0,.06))}
+.curr-item:not(:last-child)::after{
+  content:'';position:absolute;left:26px;bottom:-20px;top:auto;
+  width:2px;height:20px;background:rgba(232,118,26,.15);z-index:0;
+}
+.curr-dot{
+  width:34px;height:34px;border-radius:50%;
+  border:2.5px solid rgba(232,118,26,.3);
+  background:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:14px;flex-shrink:0;transition:all .3s;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+  position:relative;z-index:1;
+}
+.curr-item.act .curr-dot{
+  border-color:var(--or);background:linear-gradient(135deg,var(--or),var(--or3));
+  box-shadow:0 6px 18px var(--sw);
+  animation:pulse-dot 2s ease infinite;
+}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(232,118,26,.4)}50%{box-shadow:0 0 0 8px rgba(232,118,26,0)}}
+.curr-dot-ic{font-size:16px}
+.curr-item.act .curr-dot-ic{filter:brightness(10)}
+.curr-item-txt h4{font-size:15px;font-weight:700;color:var(--dk);margin-bottom:3px}
+.curr-item.act .curr-item-txt h4{color:var(--or)}
+.curr-item-txt p{font-size:12.5px;color:var(--tx2);line-height:1.5}
+.curr-display{border-radius:28px;overflow:hidden;position:relative;height:420px;box-shadow:0 20px 60px rgba(0,0,0,.15)}
+.curr-display img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.curr-display:hover img{transform:scale(1.04)}
+.curr-display-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(26,15,0,.65),transparent 50%);
+  padding:28px;display:flex;flex-direction:column;justify-content:flex-end;
+}
+.curr-display-title{font-family:var(--fd);font-size:22px;font-weight:700;color:#fff}
+.curr-display-sub{font-size:13.5px;color:rgba(255,255,255,.75);margin-top:6px}
+
+/* ===== FACILITIES - CIRCLE CAROUSEL ===== */
+.facilities{background:var(--cream)}
+.fac-intro{text-align:center;margin-bottom:48px}
+.fac-intro .sec-desc{margin:0 auto}
+.fac-carousel{position:relative;overflow:hidden}
+.fac-track{
+  display:flex;gap:24px;
+  transition:transform .5s cubic-bezier(.4,0,.2,1);
+  padding-bottom:10px;
+}
+.fac-card{
+  flex:0 0 calc(25% - 18px);
+  background:#fff;border-radius:22px;
+  padding:28px 20px;text-align:center;
+  border:1.5px solid transparent;
+  transition:all .35s cubic-bezier(.34,1.56,.64,1);
+  cursor:pointer;
+  transform-style:preserve-3d;
+}
+.fac-card:hover{
+  border-color:rgba(232,118,26,.25);
+  transform:translateY(-10px) rotateX(3deg);
+  box-shadow:0 24px 60px rgba(232,118,26,.14);
+}
+.fac-circle{
+  width:110px;height:110px;border-radius:50%;
+  margin:0 auto 18px;overflow:hidden;
+  border:3px solid rgba(232,118,26,.2);
+  box-shadow:0 8px 28px rgba(0,0,0,.1);
+  transition:all .3s;
+  background:linear-gradient(135deg,var(--cream2),var(--gd3));
+  display:flex;align-items:center;justify-content:center;font-size:42px;
+}
+.fac-card:hover .fac-circle{
+  border-color:var(--or);
+  box-shadow:0 12px 40px var(--sw);
+  transform:scale(1.08) rotate(3deg);
+}
+.fac-circle img{width:100%;height:100%;object-fit:cover}
+.fac-name{font-family:var(--fd);font-size:16px;font-weight:700;color:var(--dk);margin-bottom:6px}
+.fac-desc{font-size:12.5px;color:var(--tx2);line-height:1.55}
+.fac-nav{display:flex;gap:12px;justify-content:center;margin-top:28px}
+.fac-nav-btn{
+  width:44px;height:44px;border-radius:50%;
+  border:2px solid rgba(232,118,26,.25);
+  background:#fff;color:var(--or);font-size:18px;
+  cursor:pointer;transition:all .25s;
+  display:flex;align-items:center;justify-content:center;
+}
+.fac-nav-btn:hover{background:var(--or);color:#fff;border-color:var(--or);transform:scale(1.1)}
+
+/* ===== GALLERY ===== */
+.gallery{background:#fff}
+.gal-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:36px;flex-wrap:wrap;gap:18px}
+.gal-filters{display:flex;gap:8px;flex-wrap:wrap}
+.filt{
+  padding:7px 18px;border-radius:50px;font-family:var(--fb);
+  font-size:12.5px;font-weight:700;cursor:pointer;transition:all .25s;
+  border:1.5px solid rgba(232,118,26,.25);background:transparent;color:var(--tx2);
+}
+.filt:hover,.filt.act{background:var(--or);color:#fff;border-color:var(--or);box-shadow:0 6px 18px var(--sw)}
+/* GEMS-style mosaic gallery */
+.gal-mosaic{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  grid-auto-rows:160px;
+  gap:10px;
+}
+.gal-item{
+  border-radius:16px;overflow:hidden;
+  position:relative;cursor:pointer;
+  transition:all .35s cubic-bezier(.34,1.56,.64,1);
+  transform-style:preserve-3d;
+}
+.gal-item:hover{transform:scale(1.04) translateZ(20px);z-index:5;box-shadow:0 20px 50px rgba(0,0,0,.22)}
+.gal-item.tall{grid-row:span 2}
+.gal-item.wide{grid-column:span 2}
+.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.gal-item:hover img{transform:scale(1.08)}
+.gal-item-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(26,15,0,.75),transparent 60%);
+  opacity:0;transition:.3s;display:flex;align-items:flex-end;padding:14px;
+}
+.gal-item:hover .gal-item-ov{opacity:1}
+.gal-item-ov-t{color:#fff;font-size:12px;font-weight:600}
+/* Gold squares (like GEMS) */
+.gal-sq{
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--gd),var(--gd2));
+  display:flex;align-items:center;justify-content:center;font-size:32px;
+}
+.gal-sq.dark{background:linear-gradient(135deg,var(--nv),var(--nv2));font-size:28px;color:var(--gd2)}
+
+/* ===== TESTIMONIALS + VIDEO ===== */
+.testi-sect{background:var(--cream)}
+.testi-header{text-align:center;margin-bottom:48px}
+.testi-header .sec-lbl{justify-content:center}
+.testi-header .sec-underline{margin:8px auto 0}
+/* Video + testimonial carousel */
+.testi-main{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.video-block{
+  border-radius:24px;overflow:hidden;
+  position:relative;height:380px;
+  box-shadow:0 20px 60px rgba(0,0,0,.15);
+  cursor:pointer;
+}
+.video-block img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.video-block:hover img{transform:scale(1.04)}
+.video-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(26,15,0,.6),rgba(26,15,0,.2));
+  display:flex;align-items:center;justify-content:center;
+}
+.play-btn{
+  width:72px;height:72px;border-radius:50%;
+  background:rgba(232,118,26,.9);
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;color:#fff;
+  box-shadow:0 0 0 12px rgba(232,118,26,.25);
+  transition:all .3s;
+}
+.video-block:hover .play-btn{transform:scale(1.12);box-shadow:0 0 0 18px rgba(232,118,26,.2)}
+.video-lbl{
+  position:absolute;bottom:20px;left:20px;
+  font-family:var(--fd);font-size:18px;font-weight:600;color:#fff;
+}
+.testi-cards{display:flex;flex-direction:column;gap:16px}
+.testi-card{
+  background:#fff;border-radius:20px;padding:24px 26px;
+  border:1.5px solid rgba(232,118,26,.08);
+  transition:all .3s;position:relative;overflow:hidden;
+  transform-origin:left center;
+}
+.testi-card:hover{
+  transform:translateX(6px) scale(1.01);
+  box-shadow:0 14px 45px rgba(232,118,26,.12);
+  border-color:rgba(232,118,26,.25);
+}
+.testi-card::before{
+  content:'"';position:absolute;top:-8px;right:16px;
+  font-family:var(--fd);font-size:70px;
+  color:rgba(232,118,26,.07);line-height:1;
+}
+.testi-stars{display:flex;gap:2px;margin-bottom:10px}
+.testi-stars span{color:var(--gd);font-size:14px}
+.testi-txt{font-size:14px;color:var(--tx2);line-height:1.7;font-style:italic;margin-bottom:16px}
+.testi-auth{display:flex;align-items:center;gap:12px}
+.testi-av{
+  width:42px;height:42px;border-radius:50%;
+  background:linear-gradient(135deg,var(--or),var(--gd));
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;border:2px solid rgba(232,118,26,.2);
+}
+.testi-nm{font-size:13.5px;font-weight:700;color:var(--dk)}
+.testi-rl{font-size:11.5px;color:var(--tx3)}
+
+/* ===== ADMISSION CTA ===== */
+.adm-cta{
+  background:linear-gradient(135deg,var(--or) 0%,var(--or3) 45%,var(--gd) 100%);
+  padding:90px 0;position:relative;overflow:hidden;text-align:center;
+}
+#cta-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.adm-cta-in{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:0 24px}
+.cta-badge{
+  display:inline-block;background:rgba(255,255,255,.2);
+  border:1.5px solid rgba(255,255,255,.4);color:#fff;
+  font-size:11px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;padding:7px 18px;border-radius:50px;margin-bottom:22px;
+}
+.cta-title{
+  font-family:var(--fd);font-size:clamp(32px,4.5vw,58px);
+  font-weight:700;color:#fff;line-height:1.1;margin-bottom:16px;
+  text-shadow:0 2px 20px rgba(0,0,0,.12);
+}
+.cta-desc{font-size:17px;color:rgba(255,255,255,.88);line-height:1.7;margin-bottom:34px}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-cw{
+  background:#fff;color:var(--or2);padding:15px 32px;border-radius:12px;
+  font-family:var(--fb);font-size:15px;font-weight:700;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+  box-shadow:0 8px 30px rgba(0,0,0,.15);transition:all .3s;border:none;cursor:pointer;
+}
+.btn-cw:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,0,0,.2)}
+.btn-co{
+  background:transparent;color:#fff;padding:14px 28px;border-radius:12px;
+  font-family:var(--fb);font-size:15px;font-weight:600;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+  border:2px solid rgba(255,255,255,.55);transition:all .25s;
+}
+.btn-co:hover{background:rgba(255,255,255,.15);border-color:#fff}
+
+/* ===== CONTACT ===== */
+.contact{background:var(--cream)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:60px;align-items:start;margin-top:48px}
+.contact-info{display:flex;flex-direction:column;gap:16px}
+.ct-block{
+  display:flex;gap:16px;align-items:flex-start;
+  padding:20px 22px;background:#fff;border-radius:18px;
+  border:1.5px solid rgba(232,118,26,.08);transition:all .3s;
+}
+.ct-block:hover{
+  border-color:rgba(232,118,26,.3);
+  box-shadow:0 8px 30px var(--sw);
+  transform:translateX(5px);
+}
+.ct-ic{
+  width:48px;height:48px;border-radius:14px;
+  background:linear-gradient(135deg,var(--or),var(--or3));
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;box-shadow:0 4px 14px var(--sw);
+}
+.ct-label{font-size:11px;font-weight:700;color:var(--tx3);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.ct-val{font-size:14.5px;font-weight:600;color:var(--dk)}
+.ct-val a{color:var(--or);text-decoration:none}
+.form-wrap{
+  background:#fff;border-radius:24px;padding:38px;
+  box-shadow:0 12px 50px rgba(232,118,26,.07);
+  border:1.5px solid rgba(232,118,26,.08);
+}
+.form-title{font-family:var(--fd);font-size:24px;font-weight:700;color:var(--dk);margin-bottom:26px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.fg{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+.fl{font-size:12.5px;font-weight:700;color:var(--tx)}
+.fi,.fsel,.fta{
+  padding:13px 16px;border-radius:12px;
+  border:1.5px solid rgba(232,118,26,.14);
+  background:var(--cream);font-family:var(--fb);font-size:14px;
+  color:var(--tx);transition:all .2s;outline:none;width:100%;
+}
+.fi:focus,.fsel:focus,.fta:focus{
+  border-color:var(--or);background:#fff;
+  box-shadow:0 0 0 3px rgba(232,118,26,.1);
+}
+.fta{resize:vertical;min-height:96px}
+.fsub{
+  width:100%;margin-top:20px;
+  background:linear-gradient(135deg,var(--or),var(--or3));
+  color:#fff;border:none;padding:15px 28px;border-radius:12px;
+  font-family:var(--fb);font-size:15px;font-weight:700;cursor:pointer;
+  transition:all .3s;box-shadow:0 6px 24px var(--sw);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.fsub:hover{transform:translateY(-2px);box-shadow:0 10px 35px var(--sw)}
+
+/* ===== FOOTER ===== */
+footer{
+  background:linear-gradient(160deg,var(--dk),var(--dk2) 60%,#2D1000);
+  color:rgba(255,255,255,.78);padding:70px 0 0;
+  position:relative;overflow:hidden;
+}
+footer::before{
+  content:'ॐ';position:absolute;right:-60px;top:-50px;
+  font-size:400px;color:rgba(255,255,255,.014);
+  font-family:var(--fd);pointer-events:none;user-select:none;
+}
+.footer-top{
+  max-width:1280px;margin:0 auto;padding:0 24px 0 70px;
+  display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:50px;
+}
+.footer-brand{text-decoration:none;display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.footer-logo-c{
+  width:54px;height:54px;border-radius:50%;
+  background:linear-gradient(135deg,var(--or),var(--gd));
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid rgba(245,184,0,.3);overflow:hidden;
+}
+.footer-logo-c img{width:50px;height:50px;object-fit:contain}
+.footer-sname{font-family:var(--fd);font-size:15px;font-weight:700;color:#fff}
+.footer-ssub{font-size:10.5px;color:rgba(255,255,255,.45)}
+.footer-desc{font-size:13.5px;line-height:1.75;color:rgba(255,255,255,.5);margin-bottom:20px}
+.footer-motto{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--fd);font-size:14.5px;font-style:italic;
+  color:var(--gd2);background:rgba(245,184,0,.08);
+  border:1px solid rgba(245,184,0,.2);padding:8px 16px;border-radius:50px;
+}
+.footer-col-t{
+  font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--or3);margin-bottom:18px;
+  display:flex;align-items:center;gap:6px;
+}
+.footer-col-t::before{content:'';width:14px;height:2px;background:var(--or3);border-radius:2px}
+.fl-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.fl-links a{
+  font-size:13.5px;color:rgba(255,255,255,.5);text-decoration:none;
+  transition:all .2s;display:flex;align-items:center;gap:7px;
+}
+.fl-links a::before{content:'›';color:var(--or3);font-size:15px}
+.fl-links a:hover{color:#fff;padding-left:5px}
+/* Newsletter */
+.newsletter{margin-top:22px}
+.nl-input-wrap{display:flex;gap:0;border-radius:12px;overflow:hidden;border:1.5px solid rgba(255,255,255,.1)}
+.nl-inp{
+  flex:1;padding:12px 16px;background:rgba(255,255,255,.07);
+  border:none;color:#fff;font-family:var(--fb);font-size:13px;outline:none;
+}
+.nl-inp::placeholder{color:rgba(255,255,255,.35)}
+.nl-btn{
+  background:linear-gradient(135deg,var(--or),var(--gd));
+  color:#fff;border:none;padding:12px 18px;
+  font-family:var(--fb);font-weight:700;font-size:14px;cursor:pointer;
+  transition:.2s;
+}
+.nl-btn:hover{opacity:.9}
+.footer-btns{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.footer-action-btn{
+  padding:10px 18px;border-radius:10px;
+  font-family:var(--fb);font-size:12px;font-weight:700;
+  cursor:pointer;transition:.2s;text-decoration:none;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.fta-btn-1{background:var(--or);color:#fff;border:none}
+.fta-btn-2{background:transparent;color:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.2)}
+.fta-btn-1:hover,.fta-btn-2:hover{transform:translateY(-2px)}
+.footer-social{display:flex;gap:8px;margin-top:16px}
+.fs-link{
+  width:38px;height:38px;border-radius:10px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;text-decoration:none;font-size:14px;font-weight:700;
+  transition:.2s;
+}
+.fs-link:hover{background:var(--or)}
+.footer-bottom-bar{
+  border-top:1px solid rgba(255,255,255,.07);
+  padding:20px 24px 20px 70px;max-width:1280px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:12px;
+}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.35)}
+.footer-links-b{display:flex;gap:18px}
+.footer-links-b a{font-size:12px;color:rgba(255,255,255,.35);text-decoration:none;transition:.2s}
+.footer-links-b a:hover{color:var(--gd2)}
+
+/* ===== SCROLL TOP ===== */
+.stbtn{
+  position:fixed;bottom:28px;right:60px;
+  width:50px;height:50px;border-radius:14px;
+  background:linear-gradient(135deg,var(--or),var(--gd));
+  color:#fff;border:none;cursor:pointer;font-size:18px;
+  box-shadow:0 8px 25px var(--sw);
+  opacity:0;transform:translateY(20px);transition:all .3s;
+  z-index:400;display:flex;align-items:center;justify-content:center;
+}
+.stbtn.v{opacity:1;transform:translateY(0)}
+.stbtn:hover{transform:translateY(-3px) scale(1.08)}
+
+/* ===== ANIMATIONS ===== */
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fl1{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes fl2{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(2deg)}}
+
+/* ===== REVEAL ===== */
+.rv{opacity:0;transform:translateY(35px);transition:opacity .75s cubic-bezier(.2,1,.3,1),transform .75s cubic-bezier(.2,1,.3,1)}
+.rv.vis{opacity:1;transform:translateY(0)}
+.rv.dl1{transition-delay:.1s}.rv.dl2{transition-delay:.2s}.rv.dl3{transition-delay:.3s}.rv.dl4{transition-delay:.4s}
+.rv3d{
+  opacity:0;transform:perspective(800px) rotateX(20deg) translateY(30px);
+  transition:opacity .8s ease,transform .8s cubic-bezier(.2,1.2,.3,1);
+}
+.rv3d.vis{opacity:1;transform:perspective(800px) rotateX(0) translateY(0)}
+.rv3d.dl1{transition-delay:.12s}.rv3d.dl2{transition-delay:.24s}.rv3d.dl3{transition-delay:.36s}.rv3d.dl4{transition-delay:.48s}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1100px){
+  .footer-top{grid-template-columns:1fr 1fr;gap:32px}
+  .exc-grid,.principal-grid,.curr-layout,.testi-main,.contact-grid{grid-template-columns:1fr}
+  .principal-right,.principal-left{order:unset}
+  .stats-in{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2)::after{display:none}
+  .fac-card{flex:0 0 calc(33.33% - 16px)}
+  .side-nav{display:none}
+}
+@media(max-width:768px){
+  nav,.hdr-cta{display:none}
+  .hmbg{display:flex}
+  .container{padding:0 18px}
+  .footer-top{grid-template-columns:1fr;padding:0 18px}
+  .footer-bottom-bar{padding:20px 18px}
+  .gal-mosaic{grid-template-columns:repeat(3,1fr)}
+  .fac-card{flex:0 0 calc(50% - 12px)}
+  section,.sect{padding:60px 0}
+  .frow{grid-template-columns:1fr}
+  .hero-in{padding:0 18px}
+  .right-float{display:none}
+  .stbtn{right:18px}
+}
+@media(max-width:480px){
+  .gal-mosaic{grid-template-columns:repeat(2,1fr)}
+  .fac-card{flex:0 0 calc(100% - 0px)}
+  .hero-h1{font-size:32px}
+  .person-card-grid{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <canvas id="preloader-canvas" width="200" height="200"></canvas>
+  <div class="preloader-text">Loading Excellence...</div>
+  <div class="preloader-bar-wrap"><div class="preloader-bar"></div></div>
+</div>
+
+<!-- VERTICAL SIDE NAV -->
+<div class="side-nav">
+  <a href="#admission" class="side-nav-item">Enrol From Home</a>
+  <a href="#contact" class="side-nav-item">Parent Portal</a>
+  <a href="#gallery" class="side-nav-item">Virtual Tour</a>
+</div>
+
+<!-- RIGHT FLOATING BTNS -->
+<div class="right-float">
+  <a href="tel:+919876543210" class="rf-btn" title="Call">📞</a>
+  <a href="https://wa.me/919876543210" class="rf-btn" title="WhatsApp">💬</a>
+  <a href="mailto:info@spvs.edu.in" class="rf-btn" title="Email">✉️</a>
+  <a href="#contact" class="rf-btn" title="Location">📍</a>
+  <a href="#admission" class="rf-btn">ADMISSION</a>
+</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="tb-left">
+      <div class="tbi">📞 <a href="tel:+919876543210">+91 98765 43210</a></div>
+      <div class="tbi">✉️ <a href="mailto:info@spvs.edu.in">info@spvs.edu.in</a></div>
+      <div class="tbi">📍 Pashupati Nagar, Bahraich, UP</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <div class="marq">
+        <div class="marq-t">
+          <span>🎉 Admissions Open 2024–25 — Apply Now!</span>
+          <span>📚 CBSE Affiliated · Est. 1987 · Work is Worship</span>
+          <span>🏆 100% Board Results · Class X & XII</span>
+          <span>🌟 Classes I–XII · Science · Commerce · Arts</span>
+        </div>
+      </div>
+      <div class="tb-social">
+        <a href="#">f</a><a href="#">in</a><a href="#">▶</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <a class="logo" href="#">
+      <div class="logo-ring">
+        <!-- School Logo SVG (orange/yellow Om symbol like the real logo) -->
+        <svg viewBox="0 0 120 120" width="58" height="58" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="60" r="58" fill="#F5B800"/>
+          <circle cx="60" cy="60" r="50" fill="#FFD94A"/>
+          <!-- Sun rays -->
+          <g fill="#22883f">
+            <polygon points="60,8 63,20 57,20"/>
+            <polygon points="60,100 63,112 57,112"/>
+            <polygon points="8,60 20,63 20,57"/>
+            <polygon points="100,60 112,63 112,57"/>
+            <polygon points="18,18 28,28 22,30"/>
+            <polygon points="102,18 92,28 98,30"/>
+            <polygon points="18,102 28,92 22,90"/>
+            <polygon points="102,102 92,92 98,90"/>
+          </g>
+          <circle cx="60" cy="60" r="34" fill="white"/>
+          <!-- Om symbol -->
+          <text x="60" y="76" text-anchor="middle" font-size="40" fill="#DC3522" font-family="serif" font-weight="bold">ॐ</text>
+          <!-- Outer ring text -->
+          <path id="curve1" d="M 60,60 m -48,0 a 48,48 0 1,1 96,0" fill="none"/>
+          <text font-size="7.5" fill="white" font-weight="bold" font-family="sans-serif" letter-spacing="1.2">
+            <textPath href="#curve1">SANT PATHIK VIDYALAYA PASHUPATI NAGAR</textPath>
+          </text>
+          <!-- Purple banner at bottom -->
+          <rect x="10" y="95" width="100" height="16" rx="4" fill="#4A2C8A"/>
+          <text x="60" y="107" text-anchor="middle" font-size="7" fill="white" font-weight="bold" font-family="sans-serif" letter-spacing="1">WORK IS WORSHIP</text>
+        </svg>
+      </div>
+      <div class="logo-txt">
+        <div class="sname">Sant Pathik Vidyalaya</div>
+        <div class="stagline">Work is Worship — ॐ</div>
+        <div class="ssub">CBSE Affiliated · Est. 1987 · Bahraich, UP</div>
+      </div>
+    </a>
+    <nav id="mainNav">
+      <a href="#home" class="act">Home</a>
+      <a href="#about">Our School</a>
+      <a href="#curriculum">Curriculum</a>
+      <a href="#facilities">Student Life</a>
+      <a href="#testimonials">Parents</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact Us</a>
+    </nav>
+    <div class="hdr-cta">
+      <a href="#admission" class="btn-apply">📋 Apply Now</a>
+    </div>
+    <button class="hmbg" onclick="toggleNav()"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mob-nav" id="mobNav">
+  <button class="mnclose" onclick="toggleNav()">✕</button>
+  <a href="#home" onclick="toggleNav()">Home</a>
+  <a href="#about" onclick="toggleNav()">Our School</a>
+  <a href="#curriculum" onclick="toggleNav()">Curriculum</a>
+  <a href="#facilities" onclick="toggleNav()">Student Life</a>
+  <a href="#gallery" onclick="toggleNav()">Gallery</a>
+  <a href="#contact" onclick="toggleNav()">Contact</a>
+  <a href="#admission" class="btn-apply" onclick="toggleNav()" style="margin-top:8px">Apply Now →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <canvas id="hero-canvas"></canvas>
+  <img class="hero-img" src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=1600&q=80" alt="School Hero" onerror="this.style.display='none'">
+  <div class="hero-overlay"></div>
+  <div class="hero-in">
+    <div class="hero-badge-wrap">
+      <div class="hero-badge"><span class="dot"></span>CBSE Affiliated · Est. 1987</div>
+      <div class="hero-partners">
+        <div class="partner-badge">Class I–XII</div>
+        <div class="partner-badge">Bahraich, UP</div>
+      </div>
+    </div>
+    <h1 class="hero-h1">
+      <span class="acc">SPVS</span> — The <span class="or">Smart</span><br>Choice for <span class="acc">Excellence</span>
+    </h1>
+    <div class="hero-sub">"The future belongs to the curious"</div>
+    <p class="hero-desc">Sant Pathik Vidyalaya Senior Secondary School — shaping curious minds, strong values, and lifelong learners since 1987 in Bahraich, Uttar Pradesh.</p>
+    <div class="hero-btns">
+      <a href="#admission" class="btn-h1">📋 Enrol From Home →</a>
+      <a href="#about" class="btn-h2">🏫 Explore Our School</a>
+    </div>
+    <div class="hero-trust">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="trust-avs">
+          <div class="trust-av">A</div><div class="trust-av">S</div>
+          <div class="trust-av">R</div><div class="trust-av">M</div>
+        </div>
+        <div class="trust-info"><strong>5000+</strong> happy families</div>
+      </div>
+      <div class="tdiv"></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="trust-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div class="trust-rt"><strong>4.9/5</strong> parent rating</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll Down</span>
+    <div class="scroll-arrow">↓</div>
+  </div>
+  <div class="hero-dots">
+    <div class="hdot act" onclick="heroSlide(0)"></div>
+    <div class="hdot" onclick="heroSlide(1)"></div>
+    <div class="hdot" onclick="heroSlide(2)"></div>
+  </div>
+</section>
+
+<!-- ANNOUNCEMENT -->
+<div class="announce">
+  <div class="announce-in">
+    <div class="ann-icon">📣</div>
+    <div class="ann-label">Announcements:</div>
+    <div class="ann-text">
+      🎉 Admissions Open for Session 2024-25 — Limited Seats!
+      <a href="#contact">Click here for more details →</a>
+      &nbsp;|&nbsp; 🏆 100% Board Results — Class X & XII &nbsp;|&nbsp;
+      📚 Smart Classrooms now in all sections
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-in">
+    <div class="stat rv"><span class="stat-ic">🎓</span><span class="stat-n"><span class="num" data-t="37">0</span><span class="stat-sx">+</span></span><div class="stat-l">Years of Excellence</div></div>
+    <div class="stat rv dl1"><span class="stat-ic">👨‍🎓</span><span class="stat-n"><span class="num" data-t="10000">0</span><span class="stat-sx">+</span></span><div class="stat-l">Alumni Produced</div></div>
+    <div class="stat rv dl2"><span class="stat-ic">🏆</span><span class="stat-n"><span class="num" data-t="100">0</span><span class="stat-sx">%</span></span><div class="stat-l">Board Pass Rate</div></div>
+    <div class="stat rv dl3"><span class="stat-ic">👨‍🏫</span><span class="stat-n"><span class="num" data-t="60">0</span><span class="stat-sx">+</span></span><div class="stat-l">Expert Faculty</div></div>
+  </div>
+</div>
+
+<!-- OUR EXCELLENCE (ABOUT) -->
+<section class="excellence" id="about">
+  <div class="container">
+    <div class="exc-grid">
+      <div class="exc-visual rv3d">
+        <div class="exc-img-wrap">
+          <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=900&q=80" alt="School Excellence" onerror="this.outerHTML='<div style=height:480px;background:linear-gradient(135deg,var(--cream2),var(--gd3));border-radius:30px;display:flex;align-items:center;justify-content:center;font-size:80px>🏫</div>'">
+          <div class="exc-img-overlay">
+            <div>
+              <div class="exc-img-overlay-t">"Work is Worship" — ॐ</div>
+              <div class="exc-img-overlay-s">Our founding motto since 1987 · Bahraich</div>
+            </div>
+          </div>
+        </div>
+        <div class="exc-badge">
+          <div class="bn">37+</div>
+          <div class="bs">Years of Legacy</div>
+        </div>
+      </div>
+      <div class="rv rv dl2">
+        <div class="sec-lbl">Our Excellence</div>
+        <h2 class="sec-title">Always <span class="hl">Learning,</span><br>Always <span class="ghl">Growing</span></h2>
+        <div class="sec-underline"></div>
+        <p class="sec-desc">Sant Pathik Vidyalaya Senior Secondary School stands as a beacon of quality CBSE education in Bahraich, Uttar Pradesh — teaching the SPVS way since 1987 and nurturing young minds with values, knowledge, and character.</p>
+        <div class="exc-highlights">
+          <div class="exc-hi">
+            <div class="exc-hi-ic">🎯</div>
+            <div>
+              <div class="exc-hi-t">Our Mission</div>
+              <div class="exc-hi-d">To provide quality education that develops intellectual curiosity, moral character, and the confidence to excel in every endeavor of life.</div>
+            </div>
+          </div>
+          <div class="exc-hi">
+            <div class="exc-hi-ic">👁️</div>
+            <div>
+              <div class="exc-hi-t">Our Vision</div>
+              <div class="exc-hi-d">Recognized as a center of excellence producing well-rounded citizens equipped for 21st-century challenges with strong Indian values.</div>
+            </div>
+          </div>
+          <div class="exc-hi">
+            <div class="exc-hi-ic">📊</div>
+            <div>
+              <div class="exc-hi-t">Academic Results</div>
+              <div class="exc-hi-d">Consistent 100% board results. Multiple district toppers and state-rank holders in CBSE Class X and XII every year.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ONE TEAM / PRINCIPAL -->
+<section class="principal" id="principal">
+  <div class="container">
+    <div class="principal-grid">
+      <div class="principal-left">
+        <div class="sec-lbl">One Team</div>
+        <h2 class="sec-title">Our <span class="hl">Leadership</span><br>& Board</h2>
+        <div class="sec-underline"></div>
+        <div style="margin-top:6px;margin-bottom:24px">
+          <img src="https://images.unsplash.com/photo-1559523160-5b97b11e7e88?w=200&h:80&q=80" style="display:none" alt="">
+        </div>
+        <p class="sec-desc">Welcome to Sant Pathik Vidyalaya — where you will find a world of difference. A school is about the quality of learning and teaching, but it is also about creating a warm, enthusiastic, and exciting environment.</p>
+        <div class="person-card-grid" style="margin-top:28px">
+          <div class="person-card rv3d">
+            <div class="person-av">👨‍💼</div>
+            <div class="person-name">Dr. Ram Shankar</div>
+            <div class="person-role">Founder & Chairman</div>
+            <div class="person-quote">Whatever is the question — Education is the answer.</div>
+          </div>
+          <div class="person-card rv3d dl2">
+            <div class="person-av">👨‍🎓</div>
+            <div class="person-name">Mr. A.K. Singh</div>
+            <div class="person-role">Principal</div>
+            <div class="person-quote">A school is where curiosity becomes capability.</div>
+          </div>
+        </div>
+      </div>
+      <div class="principal-right rv3d dl1">
+        <div class="principal-text-block">
+          <div class="sec-lbl">Note from Board Member</div>
+          <p class="pt-italic">"A school is about the quality of learning and teaching, but it is also about creating a warm, enthusiastic, and exciting environment in which young people are inspired to develop and achieve success in a variety of areas. Here at Sant Pathik Vidyalaya, we are committed to providing a quality education which is engaging, motivating, and focused on developing well-rounded individuals."</p>
+          <div style="display:flex;align-items:center;gap:14px;margin-top:22px">
+            <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--or),var(--gd));display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid rgba(232,118,26,.25)">👨‍💼</div>
+            <div>
+              <div style="font-family:var(--fd);font-size:15px;font-weight:700;color:var(--dk)">Dr. Ram Shankar</div>
+              <div style="font-size:12px;color:var(--tx3)">Founder, Sant Pathik Vidyalaya</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:22px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.08);border:1.5px solid rgba(232,118,26,.08)">
+          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80" alt="School" style="width:100%;height:200px;object-fit:cover" onerror="this.style.display='none'">
+          <div style="padding:20px 22px">
+            <div style="font-family:var(--fd);font-size:16px;font-weight:700;color:var(--dk);margin-bottom:6px">65 Years of Excellence</div>
+            <div style="font-size:13px;color:var(--tx2)">Teaching the SPVS way — always learning, always growing together.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section class="curriculum" id="curriculum">
+  <div class="container">
+    <div class="rv" style="text-align:center;margin-bottom:0">
+      <div class="sec-lbl" style="justify-content:center">Academic Programs</div>
+      <h2 class="sec-title" style="text-align:center">Our <span class="hl">Curriculum</span></h2>
+      <div class="sec-underline" style="margin:8px auto 0"></div>
+      <p class="sec-desc" style="margin:12px auto 0;text-align:center">CBSE-aligned academic programs designed to inspire, challenge, and prepare students for life beyond the classroom.</p>
+    </div>
+    <div class="curr-layout">
+      <div class="curr-timeline">
+        <div class="curr-item act rv" onclick="switchCurr(0,this)">
+          <div class="curr-dot"><span class="curr-dot-ic">📚</span></div>
+          <div class="curr-item-txt">
+            <h4>Curriculum</h4>
+            <p>CBSE-aligned comprehensive syllabus for all classes I–XII</p>
+          </div>
+        </div>
+        <div class="curr-item rv dl1" onclick="switchCurr(1,this)">
+          <div class="curr-dot"><span class="curr-dot-ic">📊</span></div>
+          <div class="curr-item-txt">
+            <h4>Assessment & Monitoring</h4>
+            <p>Continuous evaluation, unit tests, and board exam preparation</p>
+          </div>
+        </div>
+        <div class="curr-item rv dl2" onclick="switchCurr(2,this)">
+          <div class="curr-dot"><span class="curr-dot-ic">🖥️</span></div>
+          <div class="curr-item-txt">
+            <h4>High Quality Teaching Resources</h4>
+            <p>Smart classrooms, digital boards, and e-learning tools</p>
+          </div>
+        </div>
+        <div class="curr-item rv dl3" onclick="switchCurr(3,this)">
+          <div class="curr-dot"><span class="curr-dot-ic">🎨</span></div>
+          <div class="curr-item-txt">
+            <h4>Extra-Curricular Activities</h4>
+            <p>Sports, arts, debate, music, and cultural programs</p>
+          </div>
+        </div>
+        <div class="curr-item rv dl4" onclick="switchCurr(4,this)">
+          <div class="curr-dot"><span class="curr-dot-ic">🔬</span></div>
+          <div class="curr-item-txt">
+            <h4>Science & Labs</h4>
+            <p>Well-equipped Physics, Chemistry, and Biology labs</p>
+          </div>
+        </div>
+      </div>
+      <div class="curr-display rv3d dl1">
+        <img id="curr-img" src="https://images.unsplash.com/photo-1581093458791-9d37b9e8d72c?w=900&q=80" alt="Curriculum" onerror="this.style.display='none'">
+        <div class="curr-display-overlay">
+          <div class="curr-display-title" id="curr-title">Curriculum</div>
+          <div class="curr-display-sub" id="curr-sub">CBSE Board · Class I to XII · Science, Commerce & Arts</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITIES (CIRCLE CAROUSEL) -->
+<section class="facilities" id="facilities">
+  <div class="container">
+    <div class="fac-intro rv">
+      <div class="sec-lbl" style="justify-content:center">World-Class Infrastructure</div>
+      <h2 class="sec-title" style="text-align:center">Our <span class="hl">Facilities</span></h2>
+      <div class="sec-underline" style="margin:8px auto 16px"></div>
+      <p class="sec-desc">I enjoy world-class facilities suitable for nurturing a passion for learning. Every space designed for growth.</p>
+    </div>
+    <div class="fac-carousel">
+      <div class="fac-track" id="facTrack">
+        <div class="fac-card rv3d">
+          <div class="fac-circle">
+            <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=200&q=80" alt="Classroom" onerror="this.parentNode.textContent='🏫'">
+          </div>
+          <div class="fac-name">Class Rooms</div>
+          <div class="fac-desc">Modern, air-conditioned smart classrooms with digital boards and individual seating</div>
+        </div>
+        <div class="fac-card rv3d dl1">
+          <div class="fac-circle">
+            <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=200&q=80" alt="Library" onerror="this.parentNode.textContent='📚'">
+          </div>
+          <div class="fac-name">Library</div>
+          <div class="fac-desc">5000+ books, digital resources, magazines, and quiet reading areas</div>
+        </div>
+        <div class="fac-card rv3d dl2">
+          <div class="fac-circle">
+            <img src="https://images.unsplash.com/photo-1581093458791-9d37b9e8d72c?w=200&q=80" alt="Science Lab" onerror="this.parentNode.textContent='🔬'">
+          </div>
+          <div class="fac-name">Science Labs</div>
+          <div class="fac-desc">Fully equipped Physics, Chemistry, Biology labs with modern apparatus</div>
+        </div>
+        <div class="fac-card rv3d dl3">
+          <div class="fac-circle">
+            <img src="https://images.unsplash.com/photo-1547637589-f54c34f5d7a4?w=200&q=80" alt="Sports" onerror="this.parentNode.textContent='🏃'">
+          </div>
+          <div class="fac-name">Sports Ground</div>
+          <div class="fac-desc">Large playground with cricket, football, volleyball & athletics</div>
+        </div>
+        <div class="fac-card rv3d dl4">
+          <div class="fac-circle">🖥️</div>
+          <div class="fac-name">Computer Lab</div>
+          <div class="fac-desc">50+ systems with high-speed internet and modern software tools</div>
+        </div>
+        <div class="fac-card rv3d">
+          <div class="fac-circle">🏠</div>
+          <div class="fac-name">Hostel</div>
+          <div class="fac-desc">Safe, comfortable residential facility with nutritious meals</div>
+        </div>
+        <div class="fac-card rv3d dl1">
+          <div class="fac-circle">🚌</div>
+          <div class="fac-name">Transport</div>
+          <div class="fac-desc">GPS-tracked school buses covering all major routes in Bahraich</div>
+        </div>
+        <div class="fac-card rv3d dl2">
+          <div class="fac-circle">🎭</div>
+          <div class="fac-name">Activity Hall</div>
+          <div class="fac-desc">Large auditorium for cultural events, drama, and assemblies</div>
+        </div>
+      </div>
+    </div>
+    <div class="fac-nav">
+      <button class="fac-nav-btn" onclick="facNav(-1)">‹</button>
+      <button class="fac-nav-btn" onclick="facNav(1)">›</button>
+    </div>
+  </div>
+</section>
+
+<!-- OUR GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="gal-header rv">
+      <div>
+        <div class="sec-lbl">Our Gallery</div>
+        <h2 class="sec-title">Glimpses of <span class="hl">School Life</span></h2>
+        <div class="sec-underline"></div>
+        <p style="font-size:14px;color:var(--tx2);margin-top:4px">Glimpses of the good old days —————</p>
+      </div>
+      <div class="gal-filters">
+        <button class="filt act" onclick="filterGal(this,'all')">All</button>
+        <button class="filt" onclick="filterGal(this,'campus')">Campus</button>
+        <button class="filt" onclick="filterGal(this,'events')">Events</button>
+        <button class="filt" onclick="filterGal(this,'sports')">Sports</button>
+        <button class="filt" onclick="filterGal(this,'life')">Student Life</button>
+      </div>
+    </div>
+    <!-- GEMS-style mosaic -->
+    <div class="gal-mosaic rv3d">
+      <div class="gal-item" data-c="life"><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&q=80" alt="Students" onerror="this.parentNode.innerHTML='<div class=g-placeholder style=height:100%;background:linear-gradient(135deg,rgba(232,118,26,.15),rgba(245,184,0,.2));display:flex;align-items:center;justify-content:center;font-size:40px>😊</div>'"><div class="gal-item-ov"><div class="gal-item-ov-t">🔍 Happy Students</div></div></div>
+      <div class="gal-item tall" data-c="campus"><img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&q=80" alt="Classroom" onerror="this.parentNode.innerHTML='<div style=height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--cream2),var(--gd3));font-size:50px>📚</div>'"><div class="gal-item-ov"><div class="gal-item-ov-t">🔍 Smart Classroom</div></div></div>
+      <div class="gal-item" data-c="life"><img src="https://images.unsplash.com/photo-1594608661623-aa0bd3a69799?w=400&q=80" alt="Students" onerror="this.parentNode.innerHTML='<div style=height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(232,118,26,.12),rgba(245,184,0,.15));font-size:40px>🎒</div>'"><div class="gal-item-ov"><div class="gal-item-ov-t">🔍 Student Life</div></div></div>
+      <div class="gal-sq" data-c="all" style="background:linear-gradient(135deg,var(--gd),var(--gd2));font-size:30px">📖</div>
+      <div class="gal-item wide" data-c="events"><img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&q=80" alt="Event" onerror="this.parentNode.innerHTML='<div style=height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--nv),var(--nv2));font-size:50px>🎉</div>'"><div class="gal-item-ov"><div class="gal-item-ov-t">🔍 School Event</div></div></div>
+      <div class="gal-item" data-c="sports"><img src="https://images.unsplash.com/photo-1547637589-f54c34f5d7a4?w=400&q=80" alt="Sports" onerror="this.parentNode.innerHTML='<div style=height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(15,27,61,.1),rgba(15,27,61,.15));font-size:40px>⚽</div>'"><div class="gal-item-ov"><div class="gal-item-ov-t">🔍 Sports Day</div></div></div>
+      <div class="gal-item" data-c="life"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&q=80" alt="Learning" onerror="this.parentNode.innerHTML='<div style=height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(232,118,26,.12),rgba(245,184,0,.15));font-size:40px>🎨</div>'"><div class="gal-item-ov"><div class="gal-item-ov-t">🔍 Art Class</div></div></div>
+      <div class="gal-item tall" data-c="campus"><img src="https://images.unsplash.com/photo-1581093458791-9d37b9e8d72c?w=400&q=80" alt="Lab" onerror="this.parentNode.innerHTML='<div style=height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(15,27,61,.15),rgba(30,45,90,.2));font-size:50px>🔬</div>'"><div class="gal-item-ov"><div class="gal-item-ov-t">🔍 Science Lab</div></div></div>
+      <div class="gal-item" data-c="events"><img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&q=80" alt="Graduation" onerror="this.parentNode.innerHTML='<div style=height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(232,118,26,.1),rgba(245,184,0,.12));font-size:40px>🎓</div>'"><div class="gal-item-ov"><div class="gal-item-ov-t">🔍 Graduation Day</div></div></div>
+      <div class="gal-item" data-c="sports"><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80" alt="Sports" onerror="this.parentNode.innerHTML='<div style=height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(232,118,26,.14),rgba(245,184,0,.18));font-size:40px>🏆</div>'"><div class="gal-item-ov"><div class="gal-item-ov-t">🔍 Sports Trophy</div></div></div>
+      <div class="gal-sq dark" data-c="all">🌟</div>
+    </div>
+  </div>
+</section>
+
+<!-- OUR PARENTS SAY -->
+<section class="testi-sect" id="testimonials">
+  <div class="container">
+    <div class="testi-header rv">
+      <div class="sec-lbl" style="justify-content:center">Our Parents Say</div>
+      <h2 class="sec-title" style="text-align:center">A glimpse into the <span class="hl">experiences</span> of families</h2>
+      <div class="sec-underline"></div>
+    </div>
+    <div class="testi-main">
+      <div class="video-block rv3d">
+        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80" alt="School" onerror="this.style.background='linear-gradient(135deg,var(--nv),var(--nv2))';this.style.display='block';this.style.width='100%';this.style.height='100%'">
+        <div class="video-overlay">
+          <div class="play-btn">▶</div>
+        </div>
+        <div class="video-lbl">🎬 School Tour Video</div>
+      </div>
+      <div class="testi-cards">
+        <div class="testi-card rv3d">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <div class="testi-txt">"The school has been transformative for my son. The teachers are dedicated, the facilities are excellent, and the moral education has shaped him into a wonderful young man."</div>
+          <div class="testi-auth">
+            <div class="testi-av">👨</div>
+            <div><div class="testi-nm">Rajesh Kumar Singh</div><div class="testi-rl">Parent, Class X Student</div></div>
+          </div>
+        </div>
+        <div class="testi-card rv3d dl1">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <div class="testi-txt">"My daughter secured 95% in board exams. The smart classrooms and experienced faculty made all the difference. SPVS truly prepares children for the future."</div>
+          <div class="testi-auth">
+            <div class="testi-av">👩</div>
+            <div><div class="testi-nm">Sunita Verma</div><div class="testi-rl">Parent, Class XII Science</div></div>
+          </div>
+        </div>
+        <div class="testi-card rv3d dl2">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <div class="testi-txt">"The holistic development approach is truly commendable. My children are thriving academically and in co-curricular activities."</div>
+          <div class="testi-auth">
+            <div class="testi-av">👨‍💼</div>
+            <div><div class="testi-nm">Amit Sharma</div><div class="testi-rl">Parent, Two Children Enrolled</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMISSION CTA -->
+<div class="adm-cta" id="admission">
+  <canvas id="cta-canvas"></canvas>
+  <div class="adm-cta-in">
+    <div class="cta-badge">🎉 Admissions Open · Session 2024–25</div>
+    <h2 class="cta-title">Start Your Child's<br>Journey to <em>Excellence</em></h2>
+    <p class="cta-desc">Join the SPVS family today. Limited seats available across all classes. Apply now to secure your child's future at one of Bahraich's finest institutions.</p>
+    <div class="cta-btns">
+      <button class="btn-cw" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">📋 Apply Now — It's Free</button>
+      <a href="tel:+919876543210" class="btn-co">📞 Call Admission Cell</a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="rv">
+      <div class="sec-lbl">Get In Touch</div>
+      <h2 class="sec-title">We'd Love to <span class="hl">Hear From You</span></h2>
+      <div class="sec-underline"></div>
+      <p class="sec-desc">Have questions about admissions? Want to schedule a visit? Reach out — we're always here to help.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info rv">
+        <div class="ct-block"><div class="ct-ic">📍</div><div><div class="ct-label">Address</div><div class="ct-val">Pashupati Nagar, Aladadpur<br>Bahraich, Uttar Pradesh — 271801</div></div></div>
+        <div class="ct-block"><div class="ct-ic">📞</div><div><div class="ct-label">Phone</div><div class="ct-val"><a href="tel:+919876543210">+91 98765 43210</a><br><a href="tel:+915252000000">+91 5252 XXXXXX</a></div></div></div>
+        <div class="ct-block"><div class="ct-ic">✉️</div><div><div class="ct-label">Email</div><div class="ct-val"><a href="mailto:info@spvs.edu.in">info@spvs.edu.in</a><br><a href="mailto:admissions@spvs.edu.in">admissions@spvs.edu.in</a></div></div></div>
+        <div class="ct-block"><div class="ct-ic">🕐</div><div><div class="ct-label">Office Hours</div><div class="ct-val">Mon–Sat: 8:00 AM – 4:00 PM<br>Sunday: Closed</div></div></div>
+        <div class="ct-block"><div class="ct-ic">🎓</div><div><div class="ct-label">Affiliation</div><div class="ct-val">CBSE Board, New Delhi<br>Est. 1987 · Classes I–XII</div></div></div>
+      </div>
+      <div class="form-wrap rv3d dl1">
+        <div class="form-title">📋 Admission Enquiry</div>
+        <div class="frow">
+          <div class="fg"><label class="fl">Parent / Guardian Name</label><input type="text" class="fi" placeholder="Your full name"></div>
+          <div class="fg"><label class="fl">Mobile Number</label><input type="tel" class="fi" placeholder="+91 XXXXX XXXXX"></div>
+        </div>
+        <div class="frow">
+          <div class="fg"><label class="fl">Student Name</label><input type="text" class="fi" placeholder="Child's name"></div>
+          <div class="fg"><label class="fl">Class Applying For</label>
+            <select class="fsel">
+              <option>Select class</option>
+              <option>Class I – V</option><option>Class VI – VIII</option>
+              <option>Class IX – X</option><option>Class XI – XII (Science)</option>
+              <option>Class XI – XII (Commerce)</option><option>Class XI – XII (Arts)</option>
+            </select>
+          </div>
+        </div>
+        <div class="fg"><label class="fl">Email Address</label><input type="email" class="fi" placeholder="your@email.com"></div>
+        <div class="fg"><label class="fl">Message</label><textarea class="fta" placeholder="Any specific questions..."></textarea></div>
+        <button class="fsub" onclick="handleSubmit(this)"><span>Send Enquiry</span><span>→</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <a class="footer-brand" href="#">
+        <div class="footer-logo-c">
+          <svg viewBox="0 0 120 120" width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="58" fill="#F5B800"/>
+            <circle cx="60" cy="60" r="34" fill="white"/>
+            <text x="60" y="76" text-anchor="middle" font-size="38" fill="#DC3522" font-family="serif" font-weight="bold">ॐ</text>
+          </svg>
+        </div>
+        <div><div class="footer-sname">Sant Pathik Vidyalaya</div><div class="footer-ssub">Pashupati Nagar, Bahraich, UP</div></div>
+      </a>
+      <p class="footer-desc">A CBSE-affiliated institution dedicated to nurturing young minds with academic excellence, moral values, and holistic development since 1987. Work is Worship.</p>
+      <div class="footer-motto">✨ "Work is Worship" — ॐ</div>
+      <div class="footer-social" style="margin-top:20px">
+        <a href="#" class="fs-link">f</a>
+        <a href="#" class="fs-link">▶</a>
+        <a href="#" class="fs-link">in</a>
+        <a href="#" class="fs-link">tw</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-t">Quick Links</div>
+      <ul class="fl-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About School</a></li>
+        <li><a href="#curriculum">Academics</a></li>
+        <li><a href="#facilities">Facilities</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="#">Mandatory Disclosure</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-t">Downloads</div>
+      <ul class="fl-links">
+        <li><a href="#">Transfer Certificate</a></li>
+        <li><a href="#">School Leaving Cert</a></li>
+        <li><a href="#">Migration Certificate</a></li>
+        <li><a href="#">Board Results PDF</a></li>
+        <li><a href="#">Admit Cards</a></li>
+        <li><a href="#">Fee Structure</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-t">Admissions 2024–25</div>
+      <ul class="fl-links">
+        <li><a href="#admission">Apply Now</a></li>
+        <li><a href="#">Eligibility Criteria</a></li>
+        <li><a href="#">Documents Required</a></li>
+        <li><a href="#">Scholarship Info</a></li>
+        <li><a href="#contact">Admission Cell</a></li>
+      </ul>
+      <div class="newsletter" style="margin-top:22px">
+        <div class="footer-col-t">Subscribe Newsletter</div>
+        <div class="nl-input-wrap">
+          <input class="nl-inp" type="email" placeholder="Your Email Address">
+          <button class="nl-btn">→</button>
+        </div>
+      </div>
+      <div class="footer-btns">
+        <a href="#admission" class="footer-action-btn fta-btn-1">2024–25 Admissions</a>
+        <a href="#" class="footer-action-btn fta-btn-2">Downloads</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom-bar">
+    <div class="footer-copy">© 2024 Sant Pathik Vidyalaya, Pashupati Nagar, Bahraich, UP. All Rights Reserved.</div>
+    <div class="footer-links-b">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms & Conditions</a>
+      <a href="#">CBSE Disclosure</a>
+      <a href="#">Sitemap</a>
+    </div>
+  </div>
+</footer>
+
+<button class="stbtn" id="stbtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑<br><span style="font-size:8px;letter-spacing:.5px">TOP</span></button>
+
+<script>
+// ══════════════════════════════════════
+// PRELOADER 3D ANIMATION
+// ══════════════════════════════════════
+(function(){
+  const c = document.getElementById('preloader-canvas');
+  if(!c||!window.THREE) return;
+  const r = new THREE.WebGLRenderer({canvas:c,alpha:true,antialias:true});
+  r.setSize(200,200);r.setClearColor(0,0);
+  const s = new THREE.Scene();
+  const cam = new THREE.PerspectiveCamera(50,1,.1,100);
+  cam.position.z = 3.5;
+  // Om-like torus knot
+  const g = new THREE.TorusKnotGeometry(.9,.22,100,16);
+  const m = new THREE.MeshPhongMaterial({color:0xF5B800,wireframe:false,transparent:true,opacity:.8,shininess:120});
+  const mesh = new THREE.Mesh(g,m);
+  s.add(mesh);
+  s.add(new THREE.AmbientLight(0xffffff,.6));
+  const dl = new THREE.DirectionalLight(0xE8761A,2);
+  dl.position.set(3,3,3);s.add(dl);
+  const dl2 = new THREE.DirectionalLight(0xF5B800,1.5);
+  dl2.position.set(-2,2,-2);s.add(dl2);
+  let frame = 0;
+  (function anim(){
+    requestAnimationFrame(anim);
+    mesh.rotation.x += .012;
+    mesh.rotation.y += .018;
+    frame++;
+    r.render(s,cam);
+  })();
+  // Hide preloader after 2.7s
+  setTimeout(()=>{
+    const pre = document.getElementById('preloader');
+    pre.style.transition = 'opacity .6s ease, transform .6s ease';
+    pre.style.opacity = '0';
+    pre.style.transform = 'scale(1.05)';
+    setTimeout(()=>pre.style.display='none', 650);
+  }, 2700);
+})();
+
+// ══════════════════════════════════════
+// HERO THREE.JS — FLOATING PARTICLES
+// ══════════════════════════════════════
+(function(){
+  const c = document.getElementById('hero-canvas');
+  if(!c||!window.THREE) return;
+  const r = new THREE.WebGLRenderer({canvas:c,alpha:true,antialias:true});
+  r.setPixelRatio(window.devicePixelRatio);
+  r.setSize(c.offsetWidth,c.offsetHeight);
+  r.setClearColor(0,0);
+  const s = new THREE.Scene();
+  const cam = new THREE.PerspectiveCamera(60,c.offsetWidth/c.offsetHeight,.1,1000);
+  cam.position.z = 5;
+  const objs = [];
+  const geos=[
+    new THREE.OctahedronGeometry(.4),new THREE.TetrahedronGeometry(.35),
+    new THREE.IcosahedronGeometry(.3),new THREE.BoxGeometry(.38,.38,.38),
+    new THREE.OctahedronGeometry(.22),new THREE.TetrahedronGeometry(.28),
+    new THREE.IcosahedronGeometry(.34),new THREE.BoxGeometry(.25,.25,.25),
+    new THREE.OctahedronGeometry(.18),new THREE.TetrahedronGeometry(.42),
+    new THREE.IcosahedronGeometry(.2),new THREE.BoxGeometry(.32,.32,.32),
+    new THREE.OctahedronGeometry(.15),new THREE.TetrahedronGeometry(.26),
+  ];
+  const colors=[0xE8761A,0xF5B800,0xFF9A3C,0xFFD94A,0xC45F0A,0xFF8C00,0xFFC107];
+  geos.forEach((g,i)=>{
+    const mat=new THREE.MeshPhongMaterial({
+      color:colors[i%colors.length],transparent:true,
+      opacity:.15+Math.random()*.22,
+      wireframe:Math.random()>.45,shininess:100
+    });
+    const m=new THREE.Mesh(g,mat);
+    m.position.set((Math.random()-.5)*12,(Math.random()-.5)*7,(Math.random()-.5)*4);
+    m.rotation.set(Math.random()*Math.PI,Math.random()*Math.PI,0);
+    m.userData={sx:(Math.random()-.5)*.007,sy:(Math.random()-.5)*.005,rx:(Math.random()-.5)*.018,ry:(Math.random()-.5)*.018};
+    s.add(m);objs.push(m);
+  });
+  s.add(new THREE.AmbientLight(0xffffff,.5));
+  const dl=new THREE.DirectionalLight(0xE8761A,1.8);dl.position.set(5,5,5);s.add(dl);
+  const pl=new THREE.PointLight(0xF5B800,1.2,20);pl.position.set(-3,2,2);s.add(pl);
+  function anim(){
+    requestAnimationFrame(anim);
+    objs.forEach(o=>{
+      o.position.x+=o.userData.sx;o.position.y+=o.userData.sy;
+      o.rotation.x+=o.userData.rx;o.rotation.y+=o.userData.ry;
+      if(o.position.x>7)o.position.x=-7;if(o.position.x<-7)o.position.x=7;
+      if(o.position.y>5)o.position.y=-5;if(o.position.y<-5)o.position.y=5;
+    });
+    r.render(s,cam);
+  }
+  anim();
+  window.addEventListener('resize',()=>{r.setSize(c.offsetWidth,c.offsetHeight);cam.aspect=c.offsetWidth/c.offsetHeight;cam.updateProjectionMatrix()});
+})();
+
+// ══════════════════════════════════════
+// CTA CANVAS — SPINNING RING
+// ══════════════════════════════════════
+(function(){
+  const c=document.getElementById('cta-canvas');
+  if(!c||!window.THREE) return;
+  const r=new THREE.WebGLRenderer({canvas:c,alpha:true,antialias:true});
+  r.setSize(c.offsetWidth,c.offsetHeight);r.setClearColor(0,0);
+  const s=new THREE.Scene();
+  const cam=new THREE.PerspectiveCamera(50,c.offsetWidth/c.offsetHeight,.1,100);
+  cam.position.z=6;
+  for(let i=0;i<3;i++){
+    const g=new THREE.TorusGeometry(1+i*.8,.06,12,60);
+    const m=new THREE.MeshPhongMaterial({color:i===0?0xffffff:0xFFD94A,transparent:true,opacity:.08+i*.04});
+    const mesh=new THREE.Mesh(g,m);
+    mesh.rotation.x=Math.random()*Math.PI;
+    mesh.userData={rx:(Math.random()-.5)*.008,ry:(Math.random()-.5)*.008};
+    s.add(mesh);
+  }
+  s.add(new THREE.AmbientLight(0xffffff,.8));
+  const dl=new THREE.DirectionalLight(0xfff0c0,2);dl.position.set(0,5,5);s.add(dl);
+  function anim(){
+    requestAnimationFrame(anim);
+    s.children.filter(o=>o.userData.rx).forEach(o=>{o.rotation.x+=o.userData.rx;o.rotation.y+=o.userData.ry});
+    r.render(s,cam);
+  }
+  anim();
+  window.addEventListener('resize',()=>{r.setSize(c.offsetWidth,c.offsetHeight);cam.aspect=c.offsetWidth/c.offsetHeight;cam.updateProjectionMatrix()});
+})();
+
+// ══════════════════════════════════════
+// SCROLL REVEAL
+// ══════════════════════════════════════
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('vis');
+      e.target.querySelectorAll('.num').forEach(n=>{
+        const target=parseInt(n.dataset.t);
+        let cur=0,step=Math.max(1,Math.floor(target/70));
+        const t=setInterval(()=>{cur=Math.min(cur+step,target);n.textContent=cur.toLocaleString();if(cur>=target)clearInterval(t)},25);
+      });
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll('.rv,.rv3d,.stat').forEach(el=>observer.observe(el));
+
+// ══════════════════════════════════════
+// STICKY HEADER + SCROLL
+// ══════════════════════════════════════
+window.addEventListener('scroll',()=>{
+  document.getElementById('hdr').classList.toggle('sc',window.scrollY>60);
+  document.getElementById('stbtn').classList.toggle('v',window.scrollY>400);
+  // Active nav
+  const secs=document.querySelectorAll('section[id],div[id]');
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-130)cur=s.id});
+  document.querySelectorAll('nav a').forEach(a=>{
+    a.classList.toggle('act',a.getAttribute('href')==='#'+cur);
+  });
+});
+
+// ══════════════════════════════════════
+// MOBILE NAV
+// ══════════════════════════════════════
+function toggleNav(){document.getElementById('mobNav').classList.toggle('open')}
+
+// ══════════════════════════════════════
+// CURRICULUM SWITCHER
+// ══════════════════════════════════════
+const currData=[
+  {img:'https://images.unsplash.com/photo-1581093458791-9d37b9e8d72c?w=900&q=80',title:'Curriculum',sub:'CBSE Board · Class I to XII · Science, Commerce & Arts'},
+  {img:'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=900&q=80',title:'Assessment & Monitoring',sub:'Unit tests, board preparation, continuous evaluation'},
+  {img:'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=900&q=80',title:'High Quality Teaching Resources',sub:'Smart classrooms · Digital boards · E-learning tools'},
+  {img:'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=900&q=80',title:'Extra-Curricular Activities',sub:'Sports · Arts · Debate · Music · Drama'},
+  {img:'https://images.unsplash.com/photo-1581093458791-9d37b9e8d72c?w=900&q=80',title:'Science & Labs',sub:'Physics · Chemistry · Biology · Computer Labs'},
+];
+function switchCurr(idx,el){
+  document.querySelectorAll('.curr-item').forEach(i=>i.classList.remove('act'));
+  el.classList.add('act');
+  const d=currData[idx];
+  const img=document.getElementById('curr-img');
+  img.style.opacity='0';img.style.transform='scale(0.96)';
+  setTimeout(()=>{img.src=d.img;img.style.opacity='1';img.style.transform='scale(1)';img.style.transition='all .4s ease'},200);
+  document.getElementById('curr-title').textContent=d.title;
+  document.getElementById('curr-sub').textContent=d.sub;
+}
+document.getElementById('curr-img').style.transition='all .4s ease';
+
+// ══════════════════════════════════════
+// FACILITIES CAROUSEL
+// ══════════════════════════════════════
+let facPos=0;
+function facNav(dir){
+  const track=document.getElementById('facTrack');
+  const cardW=track.children[0].offsetWidth+24;
+  const maxPos=Math.max(0,(track.children.length-4)*cardW);
+  facPos=Math.max(0,Math.min(facPos+dir*cardW,maxPos));
+  track.style.transform=`translateX(-${facPos}px)`;
+}
+
+// ══════════════════════════════════════
+// GALLERY FILTER
+// ══════════════════════════════════════
+function filterGal(btn,cat){
+  document.querySelectorAll('.filt').forEach(b=>b.classList.remove('act'));
+  btn.classList.add('act');
+  document.querySelectorAll('.gal-item,.gal-sq').forEach(item=>{
+    const show=cat==='all'||item.dataset.c===cat;
+    item.style.transition='all .4s ease';
+    item.style.opacity=show?'1':'0.12';
+    item.style.transform=show?'scale(1)':'scale(0.92)';
+  });
+}
+
+// ══════════════════════════════════════
+// FORM SUBMIT
+// ══════════════════════════════════════
+function handleSubmit(btn){
+  const orig=btn.innerHTML;
+  btn.innerHTML='✅ Enquiry Sent! We\'ll contact you within 24 hours.';
+  btn.style.background='linear-gradient(135deg,#22883f,#2ea84f)';
+  btn.disabled=true;
+  setTimeout(()=>{btn.innerHTML=orig;btn.style.background='';btn.disabled=false},4500);
+}
+
+// ══════════════════════════════════════
+// HERO SLIDER (dots)
+// ══════════════════════════════════════
+const heroImgs=[
+  'https://images.unsplash.com/photo-1577896851231-70ef18881754?w=1600&q=80',
+  'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1600&q=80',
+  'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1600&q=80',
+];
+function heroSlide(idx){
+  document.querySelectorAll('.hdot').forEach((d,i)=>d.classList.toggle('act',i===idx));
+  const img=document.querySelector('.hero-img');
+  img.style.opacity=0;img.style.transform='scale(1.05)';
+  setTimeout(()=>{img.src=heroImgs[idx];img.style.opacity=1;img.style.transform='scale(1)';img.style.transition='all .6s ease'},300);
+}
+document.querySelector('.hero-img').style.transition='all .6s ease';
+// Auto slide
+let slideIdx=0;
+setInterval(()=>{slideIdx=(slideIdx+1)%3;heroSlide(slideIdx)},6000);
+
+// ══════════════════════════════════════
+// 3D CARD HOVER PARALLAX
+// ══════════════════════════════════════
+document.querySelectorAll('.person-card,.fac-card,.testi-card,.exc-hi').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    card.style.transform=`perspective(600px) rotateY(${x*14}deg) rotateX(${-y*10}deg) translateZ(10px)`;
+  });
+  card.addEventListener('mouseleave',()=>{
+    card.style.transform='';
+  });
+});
+</script>
+</body>
+</html>
