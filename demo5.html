@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPVS School – Vibrant Saffron Theme</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Rozha+One&display=swap" rel="stylesheet">
+<style>
+:root {
+  --saffron: #e07b2b;
+  --saffron2: #f59340;
+  --saffron-light: #fff4ea;
+  --blue: #003580;
+  --blue2: #0047b0;
+  --blue-light: #e8eef8;
+  --green-ind: #138808;
+  --white: #ffffff;
+  --bg: #fdfcfa;
+  --fg: #1a1209;
+  --muted: #665c52;
+  --border: #e8dfcf;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--fg); font-family: 'Poppins', sans-serif; overflow-x: hidden; }
+
+/* TOP STRIP */
+.topstrip {
+  background: var(--blue);
+  color: rgba(255,255,255,0.8);
+  font-size: 0.73rem;
+  padding: 0.5rem 2rem;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;
+}
+.topstrip a { color: var(--saffron2); text-decoration: none; font-weight: 500; }
+
+/* NAV */
+nav {
+  background: var(--white);
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+}
+.nav-top {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.8rem 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.nav-brand-wrap { display: flex; align-items: center; gap: 1rem; }
+.nav-emblem {
+  width: 58px; height: 58px; border-radius: 50%;
+  background: var(--saffron);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem;
+  border: 3px solid var(--blue);
+  box-shadow: 0 3px 12px rgba(224,123,43,0.3);
+}
+.nav-school-title {
+  font-family: 'Rozha One', serif;
+  font-size: 1.3rem; color: var(--blue); line-height: 1.1;
+}
+.nav-school-subtitle { font-size: 0.68rem; color: var(--saffron); font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; }
+.nav-right-info { display: flex; gap: 2rem; align-items: center; }
+.nav-info-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--muted); }
+.nav-info-icon { color: var(--saffron); font-size: 1rem; }
+.nav-info-label { font-size: 0.65rem; color: var(--muted); }
+.nav-info-val { font-size: 0.8rem; font-weight: 600; color: var(--fg); }
+.btn-admission-nav {
+  padding: 0.7rem 1.5rem;
+  background: var(--saffron);
+  color: white; font-size: 0.78rem; font-weight: 700;
+  text-decoration: none; border-radius: 6px;
+  box-shadow: 0 3px 10px rgba(224,123,43,0.3);
+  transition: all 0.2s; white-space: nowrap;
+}
+.btn-admission-nav:hover { background: var(--saffron2); transform: translateY(-1px); }
+
+/* NAV BOTTOM */
+.nav-bottom {
+  background: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.nav-bottom-menu { display: flex; list-style: none; }
+.nav-bottom-menu > li > a {
+  display: block;
+  padding: 0.85rem 1.2rem;
+  font-size: 0.78rem; font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none; letter-spacing: 0.03em;
+  transition: all 0.2s;
+  position: relative;
+}
+.nav-bottom-menu > li > a::after {
+  content: '';
+  position: absolute; bottom: 0; left: 50%; right: 50%;
+  height: 3px; background: var(--saffron2);
+  transition: all 0.2s;
+}
+.nav-bottom-menu > li > a:hover { color: white; }
+.nav-bottom-menu > li > a:hover::after { left: 0; right: 0; }
+.nav-bottom-menu > li.active > a { color: var(--saffron2); }
+.hamburger {
+  display: none;
+  padding: 0.85rem 1.5rem;
+  background: none; border: none; cursor: pointer;
+  color: white; font-size: 1.3rem;
+  margin-left: auto;
+}
+
+/* TRI-COLOR STRIPE */
+.tricolor { height: 4px; background: linear-gradient(90deg, var(--saffron) 33.33%, white 33.33%, white 66.66%, var(--green-ind) 66.66%); }
+
+/* HERO */
+.hero {
+  background: var(--blue);
+  position: relative; overflow: hidden;
+  min-height: 85vh;
+  display: flex; align-items: center;
+}
+.hero-pattern {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 80% 50%, rgba(224,123,43,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 80%, rgba(255,255,255,0.05) 0%, transparent 50%);
+}
+.hero-chakra {
+  position: absolute; right: -5%; top: 50%; transform: translateY(-50%);
+  font-size: 30vw; opacity: 0.04; pointer-events: none;
+  animation: spin 60s linear infinite;
+}
+@keyframes spin { to { transform: translateY(-50%) rotate(360deg); } }
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: 1200px; margin: 0 auto; padding: 4rem 2rem;
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 5rem; align-items: center;
+}
+.hero-flag-badge {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 4px;
+  padding: 0.4rem 1rem;
+  font-size: 0.72rem; font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 1.5rem;
+  background: rgba(255,255,255,0.07);
+}
+h1 {
+  font-family: 'Rozha One', serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  color: white; line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+.h1-saffron { color: var(--saffron2); }
+.hero-tagline {
+  font-size: 1.1rem; color: rgba(255,255,255,0.65);
+  font-style: italic; margin-bottom: 2rem;
+  font-family: 'Poppins', sans-serif; font-weight: 300;
+}
+.hero-desc { font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.9; margin-bottom: 2.5rem; }
+.hero-btns { display: flex; flex-wrap: wrap; gap: 1rem; }
+.btn-saffron {
+  padding: 0.9rem 2.5rem;
+  background: var(--saffron); color: white;
+  text-decoration: none; font-size: 0.85rem; font-weight: 700;
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(224,123,43,0.4);
+  transition: all 0.2s;
+}
+.btn-saffron:hover { background: var(--saffron2); transform: translateY(-2px); }
+.btn-border-white {
+  padding: 0.9rem 2.5rem;
+  background: transparent; color: white;
+  text-decoration: none; font-size: 0.85rem; font-weight: 600;
+  border: 1.5px solid rgba(255,255,255,0.35);
+  border-radius: 6px; transition: all 0.2s;
+}
+.btn-border-white:hover { border-color: white; background: rgba(255,255,255,0.08); }
+
+/* HERO STATS */
+.hero-stats-row {
+  display: flex; gap: 0;
+  margin-top: 3.5rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 2.5rem;
+}
+.hst { flex: 1; padding-right: 2rem; border-right: 1px solid rgba(255,255,255,0.1); margin-right: 2rem; }
+.hst:last-child { border-right: none; margin-right: 0; }
+.hst-num {
+  font-family: 'Rozha One', serif;
+  font-size: 2.5rem; color: var(--saffron2); line-height: 1;
+}
+.hst-label { font-size: 0.7rem; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.3rem; }
+
+/* HERO RIGHT */
+.hero-right-panel {
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.hero-panel-card {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px; padding: 1.5rem;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s;
+}
+.hero-panel-card:hover { background: rgba(224,123,43,0.15); }
+.hpc-label { font-size: 0.68rem; color: var(--saffron2); letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600; margin-bottom: 0.4rem; }
+.hpc-val { font-size: 1rem; color: white; font-weight: 600; }
+.hpc-val2 { font-size: 0.82rem; color: rgba(255,255,255,0.65); margin-top: 0.2rem; }
+
+/* NOTICES SECTION */
+.notices-section { padding: 4rem 2rem; background: var(--saffron-light); }
+.notices-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; }
+.notices-main {}
+.section-title-ind {
+  font-family: 'Rozha One', serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  color: var(--blue); line-height: 1.2; margin-bottom: 0.5rem;
+}
+.section-title-underline { width: 50px; height: 4px; background: var(--saffron); border-radius: 2px; margin: 0.75rem 0 2rem; }
+.notice-list { list-style: none; }
+.notice-item-ind {
+  display: flex; gap: 1rem; align-items: flex-start;
+  padding: 1.1rem 0;
+  border-bottom: 1px dashed var(--border);
+}
+.ni-date {
+  min-width: 52px;
+  background: var(--blue);
+  color: white;
+  text-align: center;
+  padding: 0.4rem 0.3rem;
+  border-radius: 6px;
+  font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+  line-height: 1.4; flex-shrink: 0;
+}
+.ni-new {
+  background: var(--saffron);
+  color: white;
+  font-size: 0.55rem; font-weight: 700;
+  padding: 0.15rem 0.35rem; border-radius: 3px;
+  letter-spacing: 0.1em; display: inline-block;
+  margin-left: 0.4rem; vertical-align: middle;
+}
+.ni-title { font-size: 0.85rem; font-weight: 600; color: var(--fg); margin-bottom: 0.25rem; }
+.ni-sub { font-size: 0.73rem; color: var(--muted); }
+.view-all-link { display: inline-block; margin-top: 1.5rem; font-size: 0.8rem; font-weight: 600; color: var(--saffron); text-decoration: none; border-bottom: 1.5px solid var(--saffron); padding-bottom: 2px; }
+
+/* EVENTS CARD */
+.events-card {
+  background: var(--blue);
+  border-radius: 12px;
+  padding: 2rem;
+  color: white;
+}
+.events-title { font-family: 'Rozha One', serif; font-size: 1.3rem; color: var(--saffron2); margin-bottom: 1.5rem; }
+.event-item { padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; gap: 1rem; align-items: flex-start; }
+.event-item:last-child { border-bottom: none; }
+.event-date-box {
+  width: 44px; min-width: 44px; height: 44px; border-radius: 8px;
+  background: rgba(224,123,43,0.2); border: 1px solid rgba(224,123,43,0.4);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.event-day { font-size: 1.1rem; font-weight: 800; color: var(--saffron2); line-height: 1; }
+.event-mon { font-size: 0.55rem; color: rgba(255,255,255,0.6); text-transform: uppercase; }
+.event-info {}
+.event-name { font-size: 0.82rem; font-weight: 600; color: white; margin-bottom: 0.2rem; }
+.event-meta { font-size: 0.7rem; color: rgba(255,255,255,0.55); }
+
+/* SECTION WRAPPER */
+.sec-wrap { padding: 5rem 2rem; }
+.sec-max { max-width: 1200px; margin: 0 auto; }
+.sec-head-ind { margin-bottom: 3rem; }
+.sec-eyebrow-ind { font-size: 0.72rem; font-weight: 600; color: var(--saffron); text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 0.5rem; }
+
+/* ABOUT */
+.about-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.about-img-ind {
+  aspect-ratio: 4/3; border-radius: 16px;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue2) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 6rem; position: relative;
+}
+.about-ribbon {
+  position: absolute; bottom: 1.5rem; left: 0; right: 0;
+  background: var(--saffron);
+  color: white;
+  text-align: center;
+  padding: 0.75rem;
+  font-size: 0.8rem; font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.about-points { margin: 1.5rem 0 2rem; }
+.about-point {
+  display: flex; gap: 0.75rem; align-items: flex-start;
+  padding: 0.75rem 0; border-bottom: 1px solid var(--border);
+}
+.about-point:last-child { border-bottom: none; }
+.ap-icon { color: var(--saffron); font-size: 1.1rem; flex-shrink: 0; }
+.ap-text { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+.ap-text strong { color: var(--fg); }
+.btn-blue {
+  padding: 0.9rem 2.5rem;
+  background: var(--blue); color: white;
+  text-decoration: none; font-size: 0.85rem; font-weight: 600;
+  border-radius: 6px; display: inline-block; transition: all 0.2s;
+}
+.btn-blue:hover { background: var(--blue2); transform: translateY(-2px); }
+
+/* CLASSES GRID */
+.classes-bg { background: linear-gradient(180deg, var(--blue) 0%, #001f52 100%); }
+.classes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+.class-card-ind {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 2rem 1rem;
+  text-align: center;
+  transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+.class-card-ind::before {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: var(--saffron);
+  transform: scaleX(0); transition: transform 0.3s;
+}
+.class-card-ind:hover { background: rgba(224,123,43,0.12); border-color: rgba(224,123,43,0.4); }
+.class-card-ind:hover::before { transform: scaleX(1); }
+.cc-class { font-family: 'Rozha One', serif; font-size: 2rem; color: var(--saffron2); }
+.cc-name { font-size: 0.78rem; color: rgba(255,255,255,0.6); margin-top: 0.3rem; }
+.cc-badge { display: inline-block; margin-top: 0.75rem; font-size: 0.62rem; background: rgba(224,123,43,0.2); color: var(--saffron2); padding: 0.2rem 0.6rem; border-radius: 3px; }
+
+/* FACILITIES */
+.fac-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+.fac-item {
+  display: flex; gap: 1.25rem; align-items: flex-start;
+  background: white; border-radius: 12px;
+  padding: 1.5rem;
+  border: 1.5px solid var(--border);
+  transition: all 0.3s;
+}
+.fac-item:hover { border-color: var(--saffron); box-shadow: 0 6px 25px rgba(224,123,43,0.12); }
+.fac-icon-ind {
+  width: 48px; height: 48px; border-radius: 10px;
+  background: var(--saffron-light); display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0;
+  border: 1px solid rgba(224,123,43,0.2);
+}
+.fac-item-title { font-size: 0.9rem; font-weight: 700; color: var(--blue); margin-bottom: 0.3rem; }
+.fac-item-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.7; }
+
+/* TESTIMONIALS */
+.testi-bg { background: var(--blue-light); }
+.testi-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+.testi-ind {
+  background: white; border-radius: 12px;
+  padding: 1.75rem;
+  border: 1.5px solid var(--border);
+  border-top: 4px solid var(--saffron);
+}
+.testi-stars-ind { color: var(--saffron); font-size: 0.85rem; margin-bottom: 1rem; }
+.testi-text-ind { font-size: 0.88rem; line-height: 1.8; color: var(--fg); font-style: italic; margin-bottom: 1.5rem; }
+.testi-author-ind { display: flex; align-items: center; gap: 0.75rem; }
+.tav { width: 36px; height: 36px; border-radius: 50%; background: var(--blue); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; }
+.tav-name { font-size: 0.83rem; font-weight: 700; color: var(--blue); }
+.tav-role { font-size: 0.7rem; color: var(--muted); }
+
+/* ADMISSION CTA */
+.admission-hero {
+  background: linear-gradient(135deg, var(--saffron) 0%, #c85c10 100%);
+  padding: 5rem 2rem; text-align: center; position: relative; overflow: hidden;
+}
+.admission-hero::before { content: '🇮🇳'; position: absolute; right: 5%; bottom: -2rem; font-size: 10rem; opacity: 0.08; }
+.admission-hero h2 { font-family: 'Rozha One', serif; font-size: clamp(2rem, 5vw, 3.5rem); color: white; margin-bottom: 1rem; line-height: 1.2; }
+.admission-hero p { color: rgba(255,255,255,0.85); max-width: 540px; margin: 0 auto 2.5rem; line-height: 1.8; }
+.btn-white-blue {
+  padding: 1rem 3rem;
+  background: var(--blue); color: white;
+  font-size: 0.9rem; font-weight: 700;
+  text-decoration: none; border-radius: 6px; display: inline-block;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.2); transition: all 0.2s;
+}
+.btn-white-blue:hover { background: var(--blue2); transform: translateY(-2px); }
+
+/* FOOTER */
+footer { background: var(--blue); color: rgba(255,255,255,0.7); }
+.footer-top-ind { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; }
+.footer-brand-ind {}
+.footer-emblem-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; }
+.footer-emblem { width: 46px; height: 46px; border-radius: 50%; background: var(--saffron); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; border: 2px solid rgba(255,255,255,0.2); }
+.footer-school-n { font-family: 'Rozha One', serif; font-size: 1.05rem; color: white; }
+.footer-school-s { font-size: 0.65rem; color: var(--saffron2); letter-spacing: 0.1em; text-transform: uppercase; }
+.footer-p { font-size: 0.82rem; line-height: 1.8; margin-bottom: 1.25rem; }
+.f-col-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--saffron2); margin-bottom: 1.2rem; }
+.f-list { list-style: none; }
+.f-list li { margin-bottom: 0.6rem; }
+.f-list a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+.f-list a:hover { color: var(--saffron2); }
+.footer-bottom-ind { border-top: 1px solid rgba(255,255,255,0.08); padding: 1.5rem 2rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-size: 0.75rem; max-width: 1200px; margin: 0 auto; }
+.footer-bottom-ind a { color: var(--saffron2); text-decoration: none; }
+
+/* MOBILE */
+.mob-menu { display: none; position: fixed; inset: 0; z-index: 999; background: var(--blue); padding: 1.5rem; flex-direction: column; overflow-y: auto; }
+.mob-menu.open { display: flex; }
+.mob-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.mob-close { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+.mob-list { list-style: none; }
+.mob-list li { border-bottom: 1px solid rgba(255,255,255,0.1); }
+.mob-list a { display: block; padding: 1rem 0; color: white; font-size: 0.95rem; text-decoration: none; font-weight: 500; }
+
+@media (max-width: 960px) {
+  .topstrip { font-size: 0.68rem; }
+  .nav-top { flex-wrap: wrap; gap: 0.75rem; padding: 0.75rem 1.5rem; }
+  .nav-right-info { display: none; }
+  .nav-bottom-menu { display: none; }
+  .hamburger { display: flex; }
+  .hero-inner { grid-template-columns: 1fr; gap: 3rem; padding: 3rem 1.5rem; }
+  .hero-stats-row { flex-wrap: wrap; gap: 1.5rem; }
+  .hst { border-right: none; margin-right: 0; }
+  .about-two-col { grid-template-columns: 1fr; gap: 2.5rem; }
+  .notices-inner { grid-template-columns: 1fr; }
+  .footer-top-ind { grid-template-columns: 1fr 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+  .sec-wrap { padding: 3.5rem 1.5rem; }
+}
+@media (max-width: 600px) {
+  .footer-top-ind { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP STRIP -->
+<div class="topstrip">
+  <div style="display:flex;gap:2rem;flex-wrap:wrap;">
+    <span>📞 +91 98765 43210</span>
+    <span>✉️ <a href="#">info@spvs.edu.in</a></span>
+    <span>📍 SPVS Nagar, City – 110001</span>
+  </div>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="#">Mandatory Disclosure</a>
+    <a href="#">Alumni Portal</a>
+    <a href="#"><strong>Admission Open 2025–26</strong></a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-top">
+    <div class="nav-brand-wrap">
+      <div class="nav-emblem">🏫</div>
+      <div>
+        <div class="nav-school-title">SPVS Public School</div>
+        <div class="nav-school-subtitle">CBSE Affiliated · Empowering Minds Since 1985</div>
+      </div>
+    </div>
+    <div class="nav-right-info">
+      <div class="nav-info-item">
+        <span class="nav-info-icon">📞</span>
+        <div><div class="nav-info-label">Call Us</div><div class="nav-info-val">+91 98765 43210</div></div>
+      </div>
+      <div class="nav-info-item">
+        <span class="nav-info-icon">🕐</span>
+        <div><div class="nav-info-label">Office Hours</div><div class="nav-info-val">Mon–Sat: 8AM–4PM</div></div>
+      </div>
+      <a href="#" class="btn-admission-nav">🎓 Apply Now</a>
+    </div>
+  </div>
+  <div class="nav-bottom">
+    <ul class="nav-bottom-menu">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Academics</a></li>
+      <li><a href="#">Facilities</a></li>
+      <li><a href="#">Admission</a></li>
+      <li><a href="#">Gallery</a></li>
+      <li><a href="#">Results</a></li>
+      <li><a href="#">Downloads</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Alumni</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <button class="hamburger" onclick="document.querySelector('.mob-menu').classList.add('open')">☰</button>
+  </div>
+</nav>
+
+<!-- TRICOLOR -->
+<div class="tricolor"></div>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu">
+  <div class="mob-top">
+    <div style="color:white;font-family:'Rozha One',serif;font-size:1.1rem;">SPVS Public School</div>
+    <button class="mob-close" onclick="this.closest('.mob-menu').classList.remove('open')">✕</button>
+  </div>
+  <ul class="mob-list">
+    <li><a href="#">🏠 Home</a></li><li><a href="#">ℹ️ About Us</a></li><li><a href="#">📚 Academics</a></li><li><a href="#">🏛️ Facilities</a></li><li><a href="#">📋 Admission</a></li><li><a href="#">🖼️ Gallery</a></li><li><a href="#">📊 Results</a></li><li><a href="#">⬇️ Downloads</a></li><li><a href="#">📰 Blog</a></li><li><a href="#">🎓 Alumni</a></li><li><a href="#">📞 Contact</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-chakra">☸</div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-flag-badge">🇮🇳 CBSE Affiliated School · Nursery to Class XII</div>
+      <h1><span class="h1-saffron">ज्ञान</span> ही<br>शक्ति है</h1>
+      <div class="hero-tagline">"Knowledge is Power — Building Tomorrow's Leaders Today"</div>
+      <p class="hero-desc">SPVS Public School stands as a premier institution offering CBSE curriculum from Nursery to Class XII. We foster academic brilliance, moral integrity, and patriotic values in every student.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-saffron">🎓 Apply for Admission</a>
+        <a href="#" class="btn-border-white">View School Tour →</a>
+      </div>
+      <div class="hero-stats-row">
+        <div class="hst"><div class="hst-num">2400+</div><div class="hst-label">Students</div></div>
+        <div class="hst"><div class="hst-num">120+</div><div class="hst-label">Teachers</div></div>
+        <div class="hst"><div class="hst-num">38yrs</div><div class="hst-label">Excellence</div></div>
+        <div class="hst"><div class="hst-num">98%</div><div class="hst-label">Pass Rate</div></div>
+      </div>
+    </div>
+    <div class="hero-right-panel">
+      <div class="hero-panel-card"><div class="hpc-label">📋 Admission Status</div><div class="hpc-val">Open for Session 2025–26</div><div class="hpc-val2">Limited seats — Apply today</div></div>
+      <div class="hero-panel-card"><div class="hpc-label">📊 Latest Result</div><div class="hpc-val">Class X & XII — 100% Pass</div><div class="hpc-val2">Session 2023–24</div></div>
+      <div class="hero-panel-card"><div class="hpc-label">🏆 Recent Achievement</div><div class="hpc-val">State Science Olympiad Winners</div><div class="hpc-val2">3 students qualify for Nationals</div></div>
+      <div class="hero-panel-card"><div class="hpc-label">📅 Upcoming Event</div><div class="hpc-val">Annual Day — Feb 15, 2025</div><div class="hpc-val2">4:00 PM at School Auditorium</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRICOLOR -->
+<div class="tricolor"></div>
+
+<!-- NOTICE BOARD -->
+<section class="notices-section">
+  <div class="notices-inner">
+    <div class="notices-main">
+      <div class="sec-eyebrow-ind">Latest Updates</div>
+      <h2 class="section-title-ind">Notice Board</h2>
+      <div class="section-title-underline"></div>
+      <ul class="notice-list">
+        <li class="notice-item-ind"><div class="ni-date">15<br>JAN</div><div><div class="ni-title">Annual Day Celebration 2025 <span class="ni-new">NEW</span></div><div class="ni-sub">All students to attend in school uniform by 4:00 PM</div></div></li>
+        <li class="notice-item-ind"><div class="ni-date">10<br>JAN</div><div><div class="ni-title">Board Exam 2025 Schedule Released <span class="ni-new">NEW</span></div><div class="ni-sub">Class X & XII students download admit cards now</div></div></li>
+        <li class="notice-item-ind"><div class="ni-date">05<br>JAN</div><div><div class="ni-title">Admission Open – Session 2025–26</div><div class="ni-sub">Registration forms available at office and online</div></div></li>
+        <li class="notice-item-ind"><div class="ni-date">28<br>DEC</div><div><div class="ni-title">Winter Break Schedule</div><div class="ni-sub">School closed December 25 to January 1</div></div></li>
+        <li class="notice-item-ind"><div class="ni-date">20<br>DEC</div><div><div class="ni-title">Mandatory Disclosure Updated</div><div class="ni-sub">As per CBSE guidelines for session 2024–25</div></div></li>
+      </ul>
+      <a href="#" class="view-all-link">View All Notices →</a>
+    </div>
+    <div class="events-card">
+      <div class="events-title">📅 Upcoming Events</div>
+      <div class="event-item"><div class="event-date-box"><div class="event-day">15</div><div class="event-mon">Feb</div></div><div class="event-info"><div class="event-name">Annual Day 2025</div><div class="event-meta">School Auditorium · 4:00 PM</div></div></div>
+      <div class="event-item"><div class="event-date-box"><div class="event-day">10</div><div class="event-mon">Feb</div></div><div class="event-info"><div class="event-name">Annual Sports Day</div><div class="event-meta">Sports Ground · 8:00 AM</div></div></div>
+      <div class="event-item"><div class="event-date-box"><div class="event-day">26</div><div class="event-mon">Jan</div></div><div class="event-info"><div class="event-name">Republic Day Celebration</div><div class="event-meta">School Campus · 9:00 AM</div></div></div>
+      <div class="event-item"><div class="event-date-box"><div class="event-day">01</div><div class="event-mon">Feb</div></div><div class="event-info"><div class="event-name">Science Exhibition</div><div class="event-meta">Labs & Classrooms · 10 AM</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="sec-wrap">
+  <div class="sec-max">
+    <div class="about-two-col">
+      <div>
+        <div class="about-img-ind"><span>🏫</span><div class="about-ribbon">CBSE Affiliated Since 1985</div></div>
+      </div>
+      <div>
+        <div class="sec-eyebrow-ind">About Our School</div>
+        <h2 class="section-title-ind">A Proud Legacy of 38+ Years</h2>
+        <div class="section-title-underline"></div>
+        <div class="about-points">
+          <div class="about-point"><span class="ap-icon">🎯</span><div class="ap-text"><strong>Academic Excellence:</strong> Consistent 98%+ results in CBSE Board examinations with toppers every year.</div></div>
+          <div class="about-point"><span class="ap-icon">🏛️</span><div class="ap-text"><strong>Modern Infrastructure:</strong> Smart classrooms, fully equipped labs, library with 15,000+ books.</div></div>
+          <div class="about-point"><span class="ap-icon">🤝</span><div class="ap-text"><strong>Value Education:</strong> Character building, discipline, and patriotic values at the core of everything.</div></div>
+          <div class="about-point"><span class="ap-icon">🌍</span><div class="ap-text"><strong>Holistic Development:</strong> Sports, arts, debates, science olympiads, and cultural activities.</div></div>
+        </div>
+        <a href="#" class="btn-blue">Know More About Us →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLASSES -->
+<section class="sec-wrap classes-bg">
+  <div class="sec-max">
+    <div class="sec-eyebrow-ind" style="color:var(--saffron2);">Academic Programs</div>
+    <h2 class="section-title-ind" style="color:white;">Classes We Offer</h2>
+    <div class="section-title-underline" style="background:var(--saffron2);"></div>
+    <div class="classes-grid">
+      <div class="class-card-ind"><div class="cc-class">NUR</div><div class="cc-name">Nursery</div><div class="cc-badge">Pre-Primary</div></div>
+      <div class="class-card-ind"><div class="cc-class">KG</div><div class="cc-name">Kindergarten</div><div class="cc-badge">Pre-Primary</div></div>
+      <div class="class-card-ind"><div class="cc-class">I–V</div><div class="cc-name">Primary School</div><div class="cc-badge">Foundation</div></div>
+      <div class="class-card-ind"><div class="cc-class">VI–VIII</div><div class="cc-name">Middle School</div><div class="cc-badge">Middle Level</div></div>
+      <div class="class-card-ind"><div class="cc-class">IX–X</div><div class="cc-name">Secondary</div><div class="cc-badge">CBSE Board</div></div>
+      <div class="class-card-ind"><div class="cc-class">XI–XII</div><div class="cc-name">Sr. Secondary</div><div class="cc-badge">Sci/Com/Arts</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITIES -->
+<section class="sec-wrap">
+  <div class="sec-max">
+    <div class="sec-eyebrow-ind">School Infrastructure</div>
+    <h2 class="section-title-ind">Our Facilities</h2>
+    <div class="section-title-underline"></div>
+    <div class="fac-row">
+      <div class="fac-item"><div class="fac-icon-ind">📚</div><div><div class="fac-item-title">Library</div><p class="fac-item-desc">15,000+ books, digital resources, and reading lounge.</p></div></div>
+      <div class="fac-item"><div class="fac-icon-ind">🔬</div><div><div class="fac-item-title">Science Labs</div><p class="fac-item-desc">Physics, Chemistry & Biology — modern apparatus.</p></div></div>
+      <div class="fac-item"><div class="fac-icon-ind">💻</div><div><div class="fac-item-title">Smart Classrooms</div><p class="fac-item-desc">Interactive digital boards in all classrooms.</p></div></div>
+      <div class="fac-item"><div class="fac-icon-ind">⚽</div><div><div class="fac-item-title">Sports Complex</div><p class="fac-item-desc">Cricket, football, basketball, and indoor games.</p></div></div>
+      <div class="fac-item"><div class="fac-icon-ind">🚌</div><div><div class="fac-item-title">Transport</div><p class="fac-item-desc">GPS-enabled buses, 30+ routes, trained staff.</p></div></div>
+      <div class="fac-item"><div class="fac-icon-ind">🏠</div><div><div class="fac-item-title">Hostel</div><p class="fac-item-desc">Safe boarding for boys & girls with 24/7 care.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec-wrap testi-bg">
+  <div class="sec-max">
+    <div class="sec-eyebrow-ind">What They Say</div>
+    <h2 class="section-title-ind">Parent & Alumni Voices</h2>
+    <div class="section-title-underline"></div>
+    <div class="testi-row">
+      <div class="testi-ind"><div class="testi-stars-ind">★★★★★</div><p class="testi-text-ind">"The dedication of SPVS teachers is unmatched. My daughter scored 95% in Boards and credits her teachers for all the support."</p><div class="testi-author-ind"><div class="tav">K</div><div><div class="tav-name">Kavita Singh</div><div class="tav-role">Parent of Class XII Student</div></div></div></div>
+      <div class="testi-ind"><div class="testi-stars-ind">★★★★★</div><p class="testi-text-ind">"I graduated from SPVS in 2005 and the values this school taught me guide me every day in my career as an IAS officer."</p><div class="testi-author-ind"><div class="tav">A</div><div><div class="tav-name">Arvind Kulkarni</div><div class="tav-role">IAS Officer, Alumni 2005</div></div></div></div>
+      <div class="testi-ind"><div class="testi-stars-ind">★★★★★</div><p class="testi-text-ind">"Clean campus, disciplined students, and very responsive management. We are proud to have our children study here."</p><div class="testi-author-ind"><div class="tav">R</div><div><div class="tav-name">Ramesh Yadav</div><div class="tav-role">Parent of Class VIII Student</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMISSION CTA -->
+<section class="admission-hero">
+  <h2>Admissions Open 2025–26<br>सफलता की ओर पहला कदम</h2>
+  <p>Join SPVS Public School and give your child the best of CBSE education, world-class facilities, and values that last a lifetime.</p>
+  <a href="#" class="btn-white-blue">📋 Apply for Admission Now</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top-ind">
+    <div class="footer-brand-ind">
+      <div class="footer-emblem-row"><div class="footer-emblem">🏫</div><div><div class="footer-school-n">SPVS Public School</div><div class="footer-school-s">CBSE Affiliated · Est. 1985</div></div></div>
+      <p class="footer-p">A premier institution dedicated to academic excellence, value education, and holistic development of students from Nursery to Class XII.</p>
+    </div>
+    <div><div class="f-col-title">Quick Access</div><ul class="f-list"><li><a href="#">Admission</a></li><li><a href="#">Fee Structure</a></li><li><a href="#">Results</a></li><li><a href="#">Downloads</a></li><li><a href="#">Gallery</a></li></ul></div>
+    <div><div class="f-col-title">About School</div><ul class="f-list"><li><a href="#">Vision & Mission</a></li><li><a href="#">Principal's Message</a></li><li><a href="#">Faculty</a></li><li><a href="#">Alumni</a></li><li><a href="#">Mandatory Disclosure</a></li></ul></div>
+    <div><div class="f-col-title">Contact Info</div><ul class="f-list"><li><a href="#">📍 SPVS Nagar, 110001</a></li><li><a href="#">📞 +91 98765 43210</a></li><li><a href="#">✉️ info@spvs.edu.in</a></li><li><a href="#">⏰ Mon–Sat 8AM–4PM</a></li></ul></div>
+  </div>
+  <div class="footer-bottom-ind"><p>© 2025 SPVS Public School · All Rights Reserved</p><div style="display:flex;gap:1.5rem;"><a href="#">Privacy Policy</a><a href="#">Mandatory Disclosure</a><a href="#">Careers</a></div></div>
+</footer>
+
+</body>
+</html>
