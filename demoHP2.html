@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediCare Plus — Advanced Hospital Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+/* ===========================
+   DESIGN SYSTEM — LIGHT THEME
+   =========================== */
+:root {
+  --primary: #1a6b8a;
+  --primary-d: #134f68;
+  --primary-l: #2a8ab0;
+  --secondary: #0ea99b;
+  --accent: #e8783a;
+  --accent-l: #f09860;
+  --bg: #f7fafc;
+  --bg2: #eef3f7;
+  --bg3: #e4ecf2;
+  --white: #ffffff;
+  --card: #ffffff;
+  --border: #d4e3ec;
+  --border2: #c2d8e6;
+  --text: #0d2b3e;
+  --text2: #3d6478;
+  --text3: #7a9caf;
+  --text4: #a8c0cc;
+  --green: #10b981;
+  --green-l: rgba(16,185,129,.1);
+  --red: #ef4444;
+  --red-l: rgba(239,68,68,.1);
+  --yellow: #f59e0b;
+  --yellow-l: rgba(245,158,11,.1);
+  --purple: #8b5cf6;
+  --purple-l: rgba(139,92,246,.1);
+  --shadow-sm: 0 1px 3px rgba(26,107,138,.08),0 1px 2px rgba(26,107,138,.04);
+  --shadow: 0 4px 16px rgba(26,107,138,.10),0 2px 6px rgba(26,107,138,.06);
+  --shadow-lg: 0 12px 40px rgba(26,107,138,.14),0 4px 12px rgba(26,107,138,.08);
+  --shadow-xl: 0 24px 60px rgba(26,107,138,.16);
+  --radius: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px;}
+::-webkit-scrollbar-thumb:hover{background:var(--primary);}
+img{max-width:100%;}
+a{text-decoration:none;color:inherit;}
+
+/* ===========================
+   NAVBAR
+   =========================== */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:999;transition:all .3s;}
+.navbar.scrolled{background:var(--white);box-shadow:var(--shadow);}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 28px;height:72px;display:flex;align-items:center;gap:32px;}
+.nav-logo{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.nav-logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 16px rgba(26,107,138,.3);}
+.nav-logo-text{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--primary);}
+.nav-logo-sub{font-size:10px;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;line-height:1;}
+.nav-links{display:flex;align-items:center;gap:4px;flex:1;justify-content:center;}
+.nav-link{padding:8px 16px;border-radius:8px;font-size:14px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .2s;position:relative;}
+.nav-link:hover,.nav-link.active{color:var(--primary);background:rgba(26,107,138,.06);}
+.nav-link.active::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:16px;height:2px;background:var(--primary);border-radius:2px;}
+.nav-actions{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-phone{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--primary);padding:8px 14px;background:rgba(26,107,138,.06);border-radius:8px;}
+.btn-nav{padding:10px 20px;background:linear-gradient(135deg,var(--primary),var(--primary-l));color:#fff;border-radius:10px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(26,107,138,.25);}
+.btn-nav:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,107,138,.35);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;border-radius:8px;transition:background .2s;}
+.hamburger:hover{background:var(--bg2);}
+.hamburger span{width:24px;height:2px;background:var(--text);border-radius:2px;transition:all .3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:var(--white);border-bottom:1px solid var(--border);box-shadow:var(--shadow-lg);z-index:998;padding:16px 24px 24px;}
+.mobile-menu.open{display:block;}
+.mobile-nav-link{display:block;padding:12px 16px;border-radius:10px;font-size:15px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .2s;margin-bottom:4px;}
+.mobile-nav-link:hover{background:var(--bg2);color:var(--primary);}
+
+/* ===========================
+   PAGES
+   =========================== */
+.page{display:none;min-height:100vh;}
+.page.active{display:block;}
+
+/* ===========================
+   HOME PAGE
+   =========================== */
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:72px;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#e8f4f8 0%,#f0f8ff 40%,#e6f3ee 100%);}
+.hero-decor{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+.hero-circle-1{position:absolute;top:-80px;right:-80px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(26,107,138,.08),transparent 70%);}
+.hero-circle-2{position:absolute;bottom:-120px;left:-60px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(14,169,155,.07),transparent 70%);}
+.hero-grid{position:absolute;inset:0;background-image:radial-gradient(var(--border) 1px,transparent 1px);background-size:32px 32px;opacity:.5;}
+.hero-inner{max-width:1280px;margin:0 auto;padding:80px 28px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(26,107,138,.08);border:1px solid rgba(26,107,138,.15);color:var(--primary);padding:8px 16px;border-radius:40px;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:24px;}
+.hero-badge-dot{width:7px;height:7px;background:var(--secondary);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.5);opacity:.5;}}
+.hero-title{font-family:'Playfair Display',serif;font-size:58px;font-weight:800;line-height:1.08;color:var(--text);margin-bottom:20px;}
+.hero-title span{color:var(--primary);position:relative;}
+.hero-title span::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--secondary));border-radius:2px;}
+.hero-desc{font-size:17px;color:var(--text2);line-height:1.7;margin-bottom:36px;font-weight:400;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,var(--primary),var(--primary-l));color:#fff;border-radius:12px;font-size:15px;font-weight:600;border:none;cursor:pointer;transition:all .25s;box-shadow:0 6px 20px rgba(26,107,138,.3);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(26,107,138,.4);}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:transparent;color:var(--primary);border:2px solid var(--primary);border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;transition:all .25s;}
+.btn-outline:hover{background:rgba(26,107,138,.06);transform:translateY(-2px);}
+.hero-stats{display:flex;gap:32px;margin-top:44px;padding-top:36px;border-top:1px solid var(--border);}
+.hero-stat-val{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;color:var(--primary);}
+.hero-stat-lbl{font-size:12px;color:var(--text3);margin-top:2px;font-weight:500;}
+/* HERO VISUAL */
+.hero-visual{position:relative;}
+.hero-card-main{background:var(--white);border-radius:var(--radius-xl);padding:28px;box-shadow:var(--shadow-xl);border:1px solid var(--border);}
+.hero-card-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.patient-av{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#e8f4f8,#c8e6f5);display:flex;align-items:center;justify-content:center;font-size:20px;}
+.vitals-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.vital-box{background:var(--bg2);border-radius:12px;padding:14px;text-align:center;}
+.vital-val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--primary);}
+.vital-lbl{font-size:11px;color:var(--text3);margin-top:3px;}
+.hero-float-1{position:absolute;top:-20px;right:-20px;background:var(--white);border-radius:16px;padding:14px 18px;box-shadow:var(--shadow-lg);border:1px solid var(--border);display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--green);animation:float 3s ease-in-out infinite;}
+.hero-float-2{position:absolute;bottom:60px;left:-30px;background:var(--white);border-radius:16px;padding:14px 18px;box-shadow:var(--shadow-lg);border:1px solid var(--border);animation:float 3.5s ease-in-out infinite .5s;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+
+/* QUICK LINKS */
+.quick-links{background:linear-gradient(135deg,var(--primary),var(--primary-d));padding:28px 0;}
+.quick-links-inner{max-width:1280px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+.quick-link-item{display:flex;align-items:center;gap:14px;padding:20px 24px;color:rgba(255,255,255,.85);cursor:pointer;transition:all .2s;border-radius:10px;}
+.quick-link-item:hover{background:rgba(255,255,255,.1);color:#fff;}
+.quick-link-icon{width:44px;height:44px;background:rgba(255,255,255,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.quick-link-title{font-weight:600;font-size:14px;}
+.quick-link-sub{font-size:11px;opacity:.7;margin-top:1px;}
+
+/* SECTION COMMONS */
+.section{padding:90px 0;}
+.section-inner{max-width:1280px;margin:0 auto;padding:0 28px;}
+.section-label{display:inline-flex;align-items:center;gap:8px;color:var(--primary);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:14px;}
+.section-label::before{content:'';width:24px;height:2px;background:linear-gradient(90deg,var(--primary),var(--secondary));border-radius:2px;}
+.section-title{font-family:'Playfair Display',serif;font-size:42px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:16px;}
+.section-desc{font-size:16px;color:var(--text2);max-width:560px;line-height:1.7;}
+.section-hdr{margin-bottom:56px;}
+.section-hdr.center{text-align:center;}
+.section-hdr.center .section-desc{margin:0 auto;}
+.section-hdr.center .section-label{justify-content:center;}
+
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.service-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;transition:all .3s;cursor:pointer;position:relative;overflow:hidden;}
+.service-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,107,138,.03),rgba(14,169,155,.02));opacity:0;transition:opacity .3s;}
+.service-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--primary);}
+.service-card:hover::before{opacity:1;}
+.service-icon{width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;}
+.service-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text);margin-bottom:10px;}
+.service-desc{font-size:14px;color:var(--text2);line-height:1.6;}
+.service-link{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:13px;font-weight:600;color:var(--primary);}
+
+/* DOCTORS */
+.doctors-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.doctor-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:all .3s;cursor:pointer;}
+.doctor-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+.doctor-avatar{height:200px;display:flex;align-items:center;justify-content:center;font-size:64px;position:relative;}
+.doctor-info{padding:20px;}
+.doctor-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;}
+.doctor-spec{font-size:13px;color:var(--primary);font-weight:600;margin-top:2px;}
+.doctor-meta{display:flex;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
+.doctor-meta span{font-size:12px;color:var(--text3);display:flex;align-items:center;gap:4px;}
+
+/* STATS SECTION */
+.stats-section{background:linear-gradient(135deg,#e8f4f8,#e6f3ee);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center;}
+.stat-item{padding:56px 32px;border-right:1px solid var(--border);}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-family:'Playfair Display',serif;font-size:52px;font-weight:800;color:var(--primary);line-height:1;}
+.stat-suffix{font-size:28px;color:var(--secondary);}
+.stat-label{font-size:15px;color:var(--text2);margin-top:10px;font-weight:500;}
+
+/* TESTIMONIALS */
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.testimonial-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;position:relative;}
+.testimonial-card::before{content:'"';position:absolute;top:16px;right:24px;font-family:'Playfair Display',serif;font-size:80px;color:var(--primary);opacity:.08;line-height:1;}
+.testimonial-stars{color:var(--yellow);font-size:14px;margin-bottom:14px;}
+.testimonial-text{font-size:14px;color:var(--text2);line-height:1.7;font-style:italic;}
+.testimonial-author{display:flex;align-items:center;gap:12px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);}
+.testimonial-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:start;}
+.contact-info-item{display:flex;gap:16px;padding:20px 0;border-bottom:1px solid var(--border);}
+.contact-info-item:last-child{border-bottom:none;}
+.contact-info-icon{width:48px;height:48px;background:linear-gradient(135deg,rgba(26,107,138,.1),rgba(14,169,155,.08));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.contact-form-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-xl);padding:36px;box-shadow:var(--shadow);}
+
+/* FOOTER */
+.footer{background:var(--text);color:rgba(255,255,255,.7);padding:64px 0 0;}
+.footer-inner{max-width:1280px;margin:0 auto;padding:0 28px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;}
+.footer-brand-text{font-size:14px;line-height:1.7;margin-top:14px;opacity:.7;}
+.footer-title{font-weight:700;color:white;margin-bottom:16px;font-size:14px;letter-spacing:.5px;}
+.footer-link{display:block;font-size:14px;margin-bottom:10px;opacity:.65;cursor:pointer;transition:opacity .2s;}
+.footer-link:hover{opacity:1;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding:20px 0;display:flex;align-items:center;justify-content:space-between;font-size:13px;}
+.social-links{display:flex;gap:10px;margin-top:20px;}
+.social-link{width:36px;height:36px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);cursor:pointer;transition:all .2s;}
+.social-link:hover{background:var(--primary);color:white;}
+
+/* ===========================
+   ABOUT PAGE
+   =========================== */
+.page-hero{padding:140px 0 80px;background:linear-gradient(135deg,#e8f4f8,#f0f9ff);position:relative;overflow:hidden;}
+.page-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(var(--border) 1px,transparent 1px);background-size:28px 28px;opacity:.6;}
+.page-hero-inner{max-width:1280px;margin:0 auto;padding:0 28px;text-align:center;position:relative;}
+.page-hero-title{font-family:'Playfair Display',serif;font-size:52px;font-weight:800;color:var(--text);margin-bottom:16px;}
+.page-hero-breadcrumb{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;color:var(--text3);margin-bottom:20px;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.about-visual{position:relative;}
+.about-img-main{background:linear-gradient(135deg,#e8f4f8,#d4eaf5);border-radius:var(--radius-xl);height:420px;display:flex;align-items:center;justify-content:center;font-size:80px;border:1px solid var(--border);}
+.about-badge{position:absolute;bottom:-20px;right:-20px;background:var(--white);border-radius:16px;padding:18px 22px;box-shadow:var(--shadow-lg);border:1px solid var(--border);text-align:center;}
+.about-badge-val{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;color:var(--primary);}
+.value-card{display:flex;gap:16px;padding:20px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;transition:all .2s;}
+.value-card:hover{box-shadow:var(--shadow);transform:translateX(4px);}
+.value-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.value-title{font-weight:700;font-size:15px;margin-bottom:4px;}
+.value-desc{font-size:13px;color:var(--text2);line-height:1.5;}
+
+/* ===========================
+   DEPARTMENTS PAGE
+   =========================== */
+.dept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.dept-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;transition:all .3s;cursor:pointer;overflow:hidden;position:relative;}
+.dept-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+.dept-card-top{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.dept-icon{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;}
+.dept-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;}
+.dept-count{font-size:12px;color:var(--text3);margin-top:2px;}
+.dept-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:16px;}
+.dept-doctors{display:flex;gap:-8px;}
+.dept-doc-av{width:30px;height:30px;border-radius:50%;border:2px solid white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-right:-8px;}
+.dept-features{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.dept-tag{background:rgba(26,107,138,.06);color:var(--primary);padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+
+/* ===========================
+   APPOINTMENTS PAGE (PUBLIC)
+   =========================== */
+.appt-public-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:start;}
+.appt-form-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-xl);padding:36px;box-shadow:var(--shadow);}
+.step-indicator{display:flex;gap:0;margin-bottom:28px;}
+.step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;}
+.step::after{content:'';position:absolute;top:16px;left:50%;right:-50%;height:2px;background:var(--border);z-index:0;}
+.step:last-child::after{display:none;}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--bg2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--text3);z-index:1;position:relative;}
+.step.active .step-num{background:var(--primary);border-color:var(--primary);color:white;}
+.step.done .step-num{background:var(--green);border-color:var(--green);color:white;}
+.step-label{font-size:11px;color:var(--text3);margin-top:6px;font-weight:500;}
+.step.active .step-label{color:var(--primary);}
+.appt-info{display:flex;flex-direction:column;gap:16px;}
+.appt-info-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px;display:flex;gap:14px;}
+.appt-info-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.time-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px;}
+.time-slot{padding:10px;text-align:center;border:1px solid var(--border);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;color:var(--text2);}
+.time-slot:hover{border-color:var(--primary);color:var(--primary);background:rgba(26,107,138,.04);}
+.time-slot.selected{background:var(--primary);border-color:var(--primary);color:white;}
+.time-slot.full{opacity:.4;cursor:not-allowed;}
+
+/* ===========================
+   HMS DASHBOARD
+   =========================== */
+.hms-layout{display:flex;height:100vh;background:var(--bg);}
+.hms-sidebar{width:256px;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;box-shadow:2px 0 8px rgba(26,107,138,.06);overflow-y:auto;}
+.hms-logo{padding:22px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.hms-section{padding:14px 12px 4px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text4);font-weight:700;font-family:'JetBrains Mono',monospace;}
+.hms-nav{padding:4px 8px;display:flex;align-items:center;gap:10px;border-radius:10px;margin:2px 8px;cursor:pointer;transition:all .2s;color:var(--text2);font-size:13.5px;font-weight:500;}
+.hms-nav:hover{background:var(--bg2);color:var(--primary);}
+.hms-nav.active{background:linear-gradient(135deg,rgba(26,107,138,.1),rgba(14,169,155,.06));color:var(--primary);border:1px solid rgba(26,107,138,.15);}
+.hms-nav.active i{color:var(--primary);}
+.hms-nav i{width:16px;text-align:center;font-size:14px;color:var(--text3);}
+.hms-nav-badge{margin-left:auto;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.hms-sidebar-footer{margin-top:auto;padding:14px 12px;border-top:1px solid var(--border);}
+.hms-user{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer;}
+.hms-user-av{width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;}
+.hms-user-name{font-size:13px;font-weight:600;}
+.hms-user-role{font-size:11px;color:var(--primary);}
+/* HMS TOPBAR */
+.hms-topbar{height:64px;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:16px;flex-shrink:0;box-shadow:0 2px 8px rgba(26,107,138,.04);}
+.hms-page-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;flex:1;color:var(--text);}
+.hms-search{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:9px 14px;width:260px;}
+.hms-search input{background:none;border:none;outline:none;color:var(--text);font-size:13px;width:100%;font-family:'Plus Jakarta Sans',sans-serif;}
+.hms-search i{color:var(--text3);font-size:13px;}
+.hms-icon-btn{width:38px;height:38px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);font-size:14px;transition:all .2s;position:relative;}
+.hms-icon-btn:hover{border-color:var(--primary);color:var(--primary);}
+.hms-notif-dot{position:absolute;top:7px;right:7px;width:7px;height:7px;background:var(--red);border-radius:50%;border:2px solid var(--white);}
+/* HMS CONTENT */
+.hms-main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.hms-content{flex:1;overflow-y:auto;padding:24px;}
+.hms-panel{display:none;animation:fadeUp .3s ease;}
+.hms-panel.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+/* HMS CARDS */
+.hms-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;box-shadow:var(--shadow-sm);}
+.hms-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px;}
+.hms-stat{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.hms-stat:hover{transform:translateY(-2px);box-shadow:var(--shadow);}
+.hms-stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px;}
+.hms-stat-val{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;color:var(--text);}
+.hms-stat-lbl{font-size:12px;color:var(--text3);margin-top:4px;}
+.hms-stat-change{font-size:11px;margin-top:8px;font-weight:600;display:flex;align-items:center;gap:4px;}
+.up{color:var(--green);}
+.dn{color:var(--red);}
+/* TABLE */
+.hms-table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+th{background:var(--bg2);color:var(--text3);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:12px 16px;text-align:left;font-family:'JetBrains Mono',monospace;border-bottom:1px solid var(--border);}
+td{padding:13px 16px;border-bottom:1px solid var(--bg2);font-size:13.5px;color:var(--text2);vertical-align:middle;}
+tr:hover td{background:rgba(26,107,138,.02);}
+.td-primary{color:var(--text);font-weight:600;}
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.badge-green{background:var(--green-l);color:var(--green);}
+.badge-red{background:var(--red-l);color:var(--red);}
+.badge-yellow{background:var(--yellow-l);color:var(--yellow);}
+.badge-blue{background:rgba(26,107,138,.1);color:var(--primary);}
+.badge-purple{background:var(--purple-l);color:var(--purple);}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:9px;border:none;cursor:pointer;font-size:13px;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;}
+.btn-p{background:linear-gradient(135deg,var(--primary),var(--primary-l));color:white;box-shadow:0 3px 10px rgba(26,107,138,.25);}
+.btn-p:hover{box-shadow:0 5px 16px rgba(26,107,138,.35);transform:translateY(-1px);}
+.btn-g{background:var(--bg2);border:1px solid var(--border);color:var(--text2);}
+.btn-g:hover{border-color:var(--primary);color:var(--primary);}
+.btn-d{background:var(--red-l);border:1px solid rgba(239,68,68,.2);color:var(--red);}
+.btn-sm{padding:6px 12px;font-size:12px;border-radius:7px;}
+/* FORM */
+.form-group{margin-bottom:14px;}
+.form-label{font-size:12px;color:var(--text2);margin-bottom:6px;display:block;font-weight:600;letter-spacing:.3px;}
+.form-input{width:100%;background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--text);font-size:13.5px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;transition:all .2s;}
+.form-input:focus{border-color:var(--primary);background:var(--white);box-shadow:0 0 0 3px rgba(26,107,138,.08);}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%237a9caf' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}
+/* GRID LAYOUTS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.g12{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;}
+/* PROGRESS */
+.prog-bar{height:6px;background:var(--bg3);border-radius:10px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:10px;transition:width .6s;}
+/* CHART BARS */
+.chart-area{height:180px;display:flex;align-items:flex-end;gap:6px;}
+.c-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;}
+.c-bar{width:100%;border-radius:5px 5px 0 0;min-height:4px;transition:height .5s;cursor:pointer;opacity:.85;}
+.c-bar:hover{opacity:1;filter:brightness(1.05);}
+.c-bar-lbl{font-size:10px;color:var(--text3);margin-top:5px;font-family:'JetBrains Mono',monospace;}
+/* TIMELINE */
+.tl{display:flex;flex-direction:column;}
+.tl-item{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--bg2);}
+.tl-item:last-child{border-bottom:none;}
+.tl-dot{width:9px;height:9px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+.tl-title{font-size:13px;font-weight:500;color:var(--text);}
+.tl-meta{font-size:11px;color:var(--text3);margin-top:1px;font-family:'JetBrains Mono',monospace;}
+/* PILL TABS */
+.pill-tabs{display:flex;gap:4px;background:var(--bg2);border-radius:10px;padding:4px;}
+.pill-tab{padding:7px 14px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;color:var(--text3);}
+.pill-tab.active{background:var(--white);color:var(--primary);box-shadow:var(--shadow-sm);}
+/* SEC HEADER */
+.sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.sec-h-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--text);}
+.sec-h-sub{font-size:12px;color:var(--text3);margin-top:1px;}
+/* BED GRID */
+.bed-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;}
+.bed-item{border-radius:8px;padding:10px;text-align:center;cursor:pointer;transition:all .2s;border:1.5px solid;}
+.bed-item:hover{transform:translateY(-1px);}
+.bed-available{background:#f0fdf4;border-color:#bbf7d0;color:var(--green);}
+.bed-occupied{background:#fef2f2;border-color:#fecaca;color:var(--red);}
+.bed-reserved{background:#fffbeb;border-color:#fde68a;color:var(--yellow);}
+.bed-num{font-size:10px;font-family:'JetBrains Mono',monospace;opacity:.7;}
+.bed-ico{font-size:18px;margin:3px 0;}
+.bed-st{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+/* DOCTOR CARD HMS */
+.doc-card-hms{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;display:flex;gap:14px;transition:all .2s;cursor:pointer;}
+.doc-card-hms:hover{box-shadow:var(--shadow);border-color:var(--primary);}
+.doc-av{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0;}
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(13,43,62,.5);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-xl);padding:32px;width:560px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-xl);animation:modalIn .25s ease;}
+@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(-10px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.modal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+.modal-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;}
+.modal-close-btn{width:32px;height:32px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);transition:all .2s;}
+.modal-close-btn:hover{background:var(--red-l);border-color:rgba(239,68,68,.3);color:var(--red);}
+/* TOAST */
+.toast-box{position:fixed;bottom:24px;right:24px;z-index:2000;display:flex;flex-direction:column;gap:8px;}
+.toast{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:13px 16px;display:flex;align-items:center;gap:10px;font-size:13px;animation:toastIn .3s ease;box-shadow:var(--shadow-lg);min-width:270px;}
+.toast.success{border-left:3px solid var(--green);}
+.toast.error{border-left:3px solid var(--red);}
+.toast.info{border-left:3px solid var(--primary);}
+@keyframes toastIn{from{opacity:0;transform:translateX(16px);}to{opacity:1;transform:translateX(0);}}
+/* STOCK */
+.stock-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--bg2);}
+.stock-item:last-child{border-bottom:none;}
+/* NOTIF */
+.notif-item{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--bg2);}
+.notif-item:last-child{border-bottom:none;}
+.notif-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+/* EMERGENCY BAND */
+.emergency-band{background:linear-gradient(90deg,#ef4444,#dc2626);color:white;text-align:center;padding:10px;font-size:13px;font-weight:600;}
+.emergency-band a{color:white;font-weight:800;}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media(max-width:1100px){.services-grid,.doctors-grid,.dept-grid{grid-template-columns:repeat(2,1fr);}.hero-inner,.about-grid,.contact-grid,.appt-public-grid{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr 1fr;}.stats-row{grid-template-columns:repeat(2,1fr);}.hms-stats-grid{grid-template-columns:repeat(2,1fr);}.g12,.g2,.g3{grid-template-columns:1fr;}}
+@media(max-width:768px){.nav-links,.nav-phone{display:none;}.hamburger{display:flex;}.hero-title{font-size:38px;}.section-title{font-size:32px;}.page-hero-title{font-size:36px;}.hero-stats{flex-wrap:wrap;gap:20px;}.quick-links-inner{grid-template-columns:1fr 1fr;}.hms-sidebar{display:none;}.doctors-grid,.services-grid,.dept-grid,.testimonials-grid{grid-template-columns:1fr;}.stats-row{grid-template-columns:1fr 1fr;}.bed-grid{grid-template-columns:repeat(4,1fr);}.footer-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- EMERGENCY BAND -->
+<div class="emergency-band">🚨 24/7 Emergency Helpline: <a href="tel:+911800XXXXXXX">1800-XXX-XXXX</a> &nbsp;|&nbsp; Ambulance: <a href="tel:108">108</a></div>
+
+<!-- ===========================
+     NAVBAR
+     =========================== -->
+<nav class="navbar scrolled" id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="showPage('home')">
+      <div class="nav-logo-icon">🏥</div>
+      <div>
+        <div class="nav-logo-text">MediCare Plus</div>
+        <div class="nav-logo-sub">Advanced Hospital</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <div class="nav-link active" onclick="showPage('home')">Home</div>
+      <div class="nav-link" onclick="showPage('about')">About Us</div>
+      <div class="nav-link" onclick="showPage('departments')">Departments</div>
+      <div class="nav-link" onclick="showPage('doctors-page')">Doctors</div>
+      <div class="nav-link" onclick="showPage('appointment-page')">Appointments</div>
+      <div class="nav-link" onclick="showPage('contact-page')">Contact</div>
+    </div>
+    <div class="nav-actions">
+      <div class="nav-phone"><i class="fas fa-phone-alt"></i> +91 98765-43210</div>
+      <button class="btn-nav" onclick="showPage('hms')">Staff Login →</button>
+    </div>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-nav-link" onclick="showPage('home');toggleMenu()">🏠 Home</div>
+  <div class="mobile-nav-link" onclick="showPage('about');toggleMenu()">ℹ️ About Us</div>
+  <div class="mobile-nav-link" onclick="showPage('departments');toggleMenu()">🏥 Departments</div>
+  <div class="mobile-nav-link" onclick="showPage('doctors-page');toggleMenu()">👨‍⚕️ Our Doctors</div>
+  <div class="mobile-nav-link" onclick="showPage('appointment-page');toggleMenu()">📅 Appointments</div>
+  <div class="mobile-nav-link" onclick="showPage('contact-page');toggleMenu()">📞 Contact</div>
+  <div class="mobile-nav-link" onclick="showPage('hms');toggleMenu()">🔐 Staff Login</div>
+</div>
+
+<!-- ===========================
+     HOME PAGE
+     =========================== -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-decor">
+      <div class="hero-grid"></div>
+      <div class="hero-circle-1"></div>
+      <div class="hero-circle-2"></div>
+    </div>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge"><div class="hero-badge-dot"></div>Trusted Healthcare Since 1998</div>
+        <div class="hero-title">Your Health,<br>Our <span>Sacred</span><br>Commitment</div>
+        <div class="hero-desc">State-of-the-art medical care delivered with compassion. From routine check-ups to complex surgeries, we're here for every step of your health journey.</div>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="showPage('appointment-page')"><i class="fas fa-calendar-plus"></i> Book Appointment</button>
+          <button class="btn-outline" onclick="showPage('about')"><i class="fas fa-play-circle"></i> About Us</button>
+        </div>
+        <div class="hero-stats">
+          <div><div class="hero-stat-val">28+</div><div class="hero-stat-lbl">Years of Excellence</div></div>
+          <div><div class="hero-stat-val">120+</div><div class="hero-stat-lbl">Expert Specialists</div></div>
+          <div><div class="hero-stat-val">50K+</div><div class="hero-stat-lbl">Patients Treated</div></div>
+          <div><div class="hero-stat-val">24/7</div><div class="hero-stat-lbl">Emergency Care</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card-main">
+          <div class="hero-card-header">
+            <div class="patient-av">👨‍⚕️</div>
+            <div>
+              <div style="font-weight:700;font-size:15px;">Patient Dashboard</div>
+              <div style="font-size:12px;color:var(--text3)">Real-time monitoring</div>
+            </div>
+            <span class="badge badge-green" style="margin-left:auto">Live</span>
+          </div>
+          <div class="vitals-grid">
+            <div class="vital-box"><div class="vital-val">98.6°</div><div class="vital-lbl">Temperature</div></div>
+            <div class="vital-box"><div class="vital-val">72</div><div class="vital-lbl">Heart Rate</div></div>
+            <div class="vital-box"><div class="vital-val">120/80</div><div class="vital-lbl">Blood Pressure</div></div>
+            <div class="vital-box"><div class="vital-val">99%</div><div class="vital-lbl">SpO₂</div></div>
+          </div>
+          <div style="background:var(--bg2);border-radius:10px;padding:14px;">
+            <div style="font-size:12px;color:var(--text3);margin-bottom:6px;">Next Appointment</div>
+            <div style="font-weight:600;font-size:14px;">Dr. Anil Mehta — Cardiology</div>
+            <div style="font-size:12px;color:var(--primary);margin-top:2px;font-family:'JetBrains Mono',monospace;">Today, 2:30 PM</div>
+          </div>
+        </div>
+        <div class="hero-float-1"><i class="fas fa-check-circle" style="color:var(--green)"></i> Surgery Success Rate: 98.7%</div>
+        <div class="hero-float-2">
+          <div style="font-size:11px;color:var(--text3);margin-bottom:4px;">Beds Available</div>
+          <div style="font-weight:700;color:var(--text);font-size:16px;">26 / 60</div>
+          <div class="prog-bar" style="margin-top:6px;width:140px;"><div class="prog-fill" style="width:57%;background:var(--primary)"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Links -->
+  <div class="quick-links">
+    <div class="quick-links-inner">
+      <div class="quick-link-item" onclick="showPage('appointment-page')"><div class="quick-link-icon">📅</div><div><div class="quick-link-title">Book Appointment</div><div class="quick-link-sub">Online & Offline</div></div></div>
+      <div class="quick-link-item"><div class="quick-link-icon">🧪</div><div><div class="quick-link-title">Lab Reports</div><div class="quick-link-sub">Download Instantly</div></div></div>
+      <div class="quick-link-item"><div class="quick-link-icon">🚑</div><div><div class="quick-link-title">Emergency</div><div class="quick-link-sub">Available 24/7</div></div></div>
+      <div class="quick-link-item" onclick="showPage('hms')"><div class="quick-link-icon">🔐</div><div><div class="quick-link-title">Staff Portal</div><div class="quick-link-sub">HMS Login</div></div></div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <div class="section">
+    <div class="section-inner">
+      <div class="section-hdr center">
+        <div class="section-label">What We Offer</div>
+        <div class="section-title">Comprehensive Medical Services</div>
+        <div class="section-desc">From diagnostics to treatment, we offer a full spectrum of healthcare services delivered by India's leading specialists.</div>
+      </div>
+      <div class="services-grid">
+        <div class="service-card" onclick="showPage('departments')"><div class="service-icon" style="background:#eff8ff;font-size:28px;">❤️</div><div class="service-title">Cardiology</div><div class="service-desc">Advanced cardiac care including angioplasty, bypass surgery, and preventive cardiology with 24/7 cardiac ICU.</div><div class="service-link">Learn more <i class="fas fa-arrow-right"></i></div></div>
+        <div class="service-card" onclick="showPage('departments')"><div class="service-icon" style="background:#f0fdf4;font-size:28px;">🧠</div><div class="service-title">Neurology</div><div class="service-desc">Comprehensive neurological care for stroke, epilepsy, Parkinson's, and other complex brain disorders.</div><div class="service-link">Learn more <i class="fas fa-arrow-right"></i></div></div>
+        <div class="service-card" onclick="showPage('departments')"><div class="service-icon" style="background:#fefce8;font-size:28px;">🦴</div><div class="service-title">Orthopedics</div><div class="service-desc">Expert joint replacement, sports medicine, and spine surgeries with minimal recovery time.</div><div class="service-link">Learn more <i class="fas fa-arrow-right"></i></div></div>
+        <div class="service-card"><div class="service-icon" style="background:#fff7ed;font-size:28px;">🍼</div><div class="service-title">Pediatrics</div><div class="service-desc">Dedicated care for children from newborns to adolescents in a warm and child-friendly environment.</div><div class="service-link">Learn more <i class="fas fa-arrow-right"></i></div></div>
+        <div class="service-card"><div class="service-icon" style="background:#fdf4ff;font-size:28px;">🔬</div><div class="service-title">Diagnostics & Lab</div><div class="service-desc">Over 500 tests with NABL-accredited laboratory, digital reports, and same-day results for most tests.</div><div class="service-link">Learn more <i class="fas fa-arrow-right"></i></div></div>
+        <div class="service-card"><div class="service-icon" style="background:#f0fdf4;font-size:28px;">🏥</div><div class="service-title">Emergency & ICU</div><div class="service-desc">24/7 trauma care with state-of-the-art emergency department and fully equipped intensive care units.</div><div class="service-link">Learn more <i class="fas fa-arrow-right"></i></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="section stats-section" style="padding:0;">
+    <div class="section-inner" style="padding:0;max-width:100%;">
+      <div class="stats-row">
+        <div class="stat-item"><div class="stat-num">50<span class="stat-suffix">K+</span></div><div class="stat-label">Patients Treated Annually</div></div>
+        <div class="stat-item"><div class="stat-num">120<span class="stat-suffix">+</span></div><div class="stat-label">Specialist Doctors</div></div>
+        <div class="stat-item"><div class="stat-num">98<span class="stat-suffix">%</span></div><div class="stat-label">Patient Satisfaction Rate</div></div>
+        <div class="stat-item"><div class="stat-num">28<span class="stat-suffix">yrs</span></div><div class="stat-label">Years of Excellence</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Doctors Preview -->
+  <div class="section" style="background:var(--bg2);">
+    <div class="section-inner">
+      <div class="section-hdr center">
+        <div class="section-label">Meet Our Team</div>
+        <div class="section-title">Our Leading Specialists</div>
+        <div class="section-desc">Learn from and be treated by doctors who are pioneers in their respective fields.</div>
+      </div>
+      <div class="doctors-grid">
+        <div class="doctor-card"><div class="doctor-avatar" style="background:#eff8ff;">👨‍⚕️</div><div class="doctor-info"><div class="doctor-name">Dr. Anil Mehta</div><div class="doctor-spec">Senior Cardiologist</div><div class="doctor-meta"><span><i class="fas fa-star" style="color:var(--yellow)"></i> 4.9</span><span><i class="fas fa-briefcase"></i> 18 yrs</span><span>₹1,200/visit</span></div></div></div>
+        <div class="doctor-card"><div class="doctor-avatar" style="background:#fdf4ff;">👩‍⚕️</div><div class="doctor-info"><div class="doctor-name">Dr. Priti Singh</div><div class="doctor-spec">Orthopedic Surgeon</div><div class="doctor-meta"><span><i class="fas fa-star" style="color:var(--yellow)"></i> 4.7</span><span><i class="fas fa-briefcase"></i> 12 yrs</span><span>₹900/visit</span></div></div></div>
+        <div class="doctor-card"><div class="doctor-avatar" style="background:#f0fdf4;">👨‍⚕️</div><div class="doctor-info"><div class="doctor-name">Dr. Rohan Kapoor</div><div class="doctor-spec">Neurologist</div><div class="doctor-meta"><span><i class="fas fa-star" style="color:var(--yellow)"></i> 4.8</span><span><i class="fas fa-briefcase"></i> 22 yrs</span><span>₹1,500/visit</span></div></div></div>
+        <div class="doctor-card"><div class="doctor-avatar" style="background:#fff7ed;">👩‍⚕️</div><div class="doctor-info"><div class="doctor-name">Dr. Seema Roy</div><div class="doctor-spec">Pediatrician</div><div class="doctor-meta"><span><i class="fas fa-star" style="color:var(--yellow)"></i> 4.9</span><span><i class="fas fa-briefcase"></i> 9 yrs</span><span>₹700/visit</span></div></div></div>
+      </div>
+      <div style="text-align:center;margin-top:36px;"><button class="btn-outline" onclick="showPage('doctors-page')">View All Doctors <i class="fas fa-arrow-right"></i></button></div>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="section">
+    <div class="section-inner">
+      <div class="section-hdr center">
+        <div class="section-label">Patient Stories</div>
+        <div class="section-title">What Our Patients Say</div>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-text">The cardiac team at MediCare Plus saved my life. The doctors were incredibly skilled and the staff was caring throughout my recovery. I cannot thank them enough for their compassion.</div><div class="testimonial-author"><div class="testimonial-av" style="background:#eff8ff;font-size:20px;">👨</div><div><div style="font-weight:700;font-size:14px;">Rajesh Malhotra</div><div style="font-size:12px;color:var(--text3)">Cardiac Bypass Patient</div></div></div></div>
+        <div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-text">Wonderful experience with the orthopedic department. Dr. Singh performed my knee replacement surgery and I was walking within days. The physiotherapy team was exceptional.</div><div class="testimonial-author"><div class="testimonial-av" style="background:#fdf4ff;font-size:20px;">👩</div><div><div style="font-weight:700;font-size:14px;">Sunita Agarwal</div><div style="font-size:12px;color:var(--text3)">Knee Replacement Patient</div></div></div></div>
+        <div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-text">Brought my newborn for treatment and the pediatric team was outstanding. The NICU facilities are world-class and the nurses were so warm and attentive. Truly grateful.</div><div class="testimonial-author"><div class="testimonial-av" style="background:#f0fdf4;font-size:20px;">👩</div><div><div style="font-weight:700;font-size:14px;">Meena Sharma</div><div style="font-size:12px;color:var(--text3)">Pediatric Patient's Parent</div></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;"><div style="width:38px;height:38px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🏥</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:white;">MediCare Plus</div></div>
+          <div class="footer-brand-text">Providing world-class healthcare with compassion and innovation since 1998. NABH & JCI Accredited.</div>
+          <div class="social-links">
+            <div class="social-link"><i class="fab fa-facebook-f"></i></div>
+            <div class="social-link"><i class="fab fa-twitter"></i></div>
+            <div class="social-link"><i class="fab fa-instagram"></i></div>
+            <div class="social-link"><i class="fab fa-youtube"></i></div>
+          </div>
+        </div>
+        <div><div class="footer-title">Quick Links</div>
+          <div class="footer-link" onclick="showPage('home')">Home</div>
+          <div class="footer-link" onclick="showPage('about')">About Us</div>
+          <div class="footer-link" onclick="showPage('departments')">Departments</div>
+          <div class="footer-link" onclick="showPage('doctors-page')">Doctors</div>
+          <div class="footer-link" onclick="showPage('appointment-page')">Appointments</div>
+        </div>
+        <div><div class="footer-title">Services</div>
+          <div class="footer-link">Cardiology</div>
+          <div class="footer-link">Neurology</div>
+          <div class="footer-link">Orthopedics</div>
+          <div class="footer-link">Diagnostics</div>
+          <div class="footer-link">Emergency</div>
+        </div>
+        <div><div class="footer-title">Contact</div>
+          <div class="footer-link"><i class="fas fa-map-marker-alt"></i> 12 Medical Avenue, Kolkata, WB</div>
+          <div class="footer-link"><i class="fas fa-phone"></i> +91 98765-43210</div>
+          <div class="footer-link"><i class="fas fa-envelope"></i> care@medicareplus.in</div>
+          <div class="footer-link"><i class="fas fa-clock"></i> OPD: 8AM – 8PM</div>
+        </div>
+      </div>
+    </div>
+    <div style="background:rgba(0,0,0,.2);margin-top:0;">
+      <div class="footer-inner"><div class="footer-bottom"><div>© 2026 MediCare Plus Hospital. All rights reserved.</div><div>NABH Accredited | JCI Certified | ISO 9001:2015</div></div></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ===========================
+     ABOUT PAGE
+     =========================== -->
+<div class="page" id="page-about">
+  <div style="padding-top:82px;"></div>
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-breadcrumb"><span onclick="showPage('home')" style="cursor:pointer;color:var(--primary)">Home</span> <i class="fas fa-chevron-right" style="font-size:10px"></i> <span>About Us</span></div>
+      <div class="page-hero-title">Who We Are</div>
+      <p style="color:var(--text2);font-size:16px;max-width:540px;margin:0 auto;">A legacy of healing, a future of innovation. MediCare Plus has been the heartbeat of this community for over 28 years.</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-visual">
+          <div class="about-img-main">🏥</div>
+          <div class="about-badge"><div class="about-badge-val">28+</div><div style="font-size:13px;color:var(--text2);">Years of<br>Excellence</div></div>
+        </div>
+        <div>
+          <div class="section-label">Our Story</div>
+          <div class="section-title" style="font-size:36px;">Healing Lives, Building Trust</div>
+          <p style="color:var(--text2);line-height:1.8;margin-bottom:20px;">Founded in 1998, MediCare Plus began as a small clinic with a big dream — to make world-class healthcare accessible to all. Today, we are a 300-bed multi-specialty hospital with over 120 specialists serving 50,000+ patients annually.</p>
+          <p style="color:var(--text2);line-height:1.8;margin-bottom:28px;">We are NABH and JCI accredited, reflecting our unwavering commitment to clinical excellence, patient safety, and ethical medical practices.</p>
+          <div class="value-card"><div class="value-icon" style="background:#eff8ff;">🎯</div><div><div class="value-title">Our Mission</div><div class="value-desc">To provide compassionate, affordable, and cutting-edge healthcare that improves the quality of life for every patient we serve.</div></div></div>
+          <div class="value-card"><div class="value-icon" style="background:#f0fdf4;">👁️</div><div><div class="value-title">Our Vision</div><div class="value-desc">To be the most trusted healthcare institution in Eastern India, setting benchmarks in clinical outcomes and patient experience.</div></div></div>
+          <div class="value-card"><div class="value-icon" style="background:#fefce8;">💎</div><div><div class="value-title">Our Values</div><div class="value-desc">Integrity, Compassion, Excellence, Innovation, and Teamwork guide every decision we make and every life we touch.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer same as home -->
+  <footer class="footer">
+    <div class="footer-inner"><div class="footer-grid">
+      <div><div style="display:flex;align-items:center;gap:10px;"><div style="width:38px;height:38px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🏥</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:white;">MediCare Plus</div></div><div class="footer-brand-text">Providing world-class healthcare since 1998. NABH & JCI Accredited.</div></div>
+      <div><div class="footer-title">Quick Links</div><div class="footer-link" onclick="showPage('home')">Home</div><div class="footer-link" onclick="showPage('about')">About Us</div><div class="footer-link" onclick="showPage('departments')">Departments</div></div>
+      <div><div class="footer-title">Services</div><div class="footer-link">Cardiology</div><div class="footer-link">Neurology</div><div class="footer-link">Orthopedics</div></div>
+      <div><div class="footer-title">Contact</div><div class="footer-link">12 Medical Avenue, Kolkata</div><div class="footer-link">+91 98765-43210</div></div>
+    </div></div>
+    <div style="background:rgba(0,0,0,.2);"><div class="footer-inner"><div class="footer-bottom"><div>© 2026 MediCare Plus Hospital.</div><div>NABH Accredited | JCI Certified</div></div></div></div>
+  </footer>
+</div>
+
+<!-- ===========================
+     DEPARTMENTS PAGE
+     =========================== -->
+<div class="page" id="page-departments">
+  <div style="padding-top:82px;"></div>
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-breadcrumb"><span onclick="showPage('home')" style="cursor:pointer;color:var(--primary)">Home</span> <i class="fas fa-chevron-right" style="font-size:10px"></i> <span>Departments</span></div>
+      <div class="page-hero-title">Our Departments</div>
+      <p style="color:var(--text2);font-size:16px;max-width:500px;margin:0 auto;">8 world-class departments, each led by nationally renowned specialists with decades of experience.</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-inner">
+      <div class="dept-grid">
+        <div class="dept-card"><div class="dept-card-top"><div class="dept-icon" style="background:#eff8ff;">❤️</div><div><div class="dept-name">Cardiology</div><div class="dept-count">12 Specialists · 20 Beds</div></div></div><div class="dept-desc">Advanced cardiac catheterization lab, electrophysiology, heart failure management, preventive cardiology, and 24/7 cardiac ICU.</div><div class="dept-features"><span class="dept-tag">Angioplasty</span><span class="dept-tag">Bypass Surgery</span><span class="dept-tag">Pacemaker</span><span class="dept-tag">Echo</span></div></div>
+        <div class="dept-card"><div class="dept-card-top"><div class="dept-icon" style="background:#f0fdf4;">🧠</div><div><div class="dept-name">Neurology & Neurosurgery</div><div class="dept-count">8 Specialists · 15 Beds</div></div></div><div class="dept-desc">Comprehensive care for stroke, epilepsy, brain tumors, spinal disorders, Parkinson's disease, and neuro-rehabilitation.</div><div class="dept-features"><span class="dept-tag">Stroke Care</span><span class="dept-tag">Brain Surgery</span><span class="dept-tag">Epilepsy</span><span class="dept-tag">Spine</span></div></div>
+        <div class="dept-card"><div class="dept-card-top"><div class="dept-icon" style="background:#fefce8;">🦴</div><div><div class="dept-name">Orthopedics</div><div class="dept-count">10 Specialists · 18 Beds</div></div></div><div class="dept-desc">Total joint replacement, arthroscopy, sports medicine, trauma surgery, and advanced spine care with robotics assistance.</div><div class="dept-features"><span class="dept-tag">Knee Replacement</span><span class="dept-tag">Hip Replacement</span><span class="dept-tag">Sports Med</span></div></div>
+        <div class="dept-card"><div class="dept-card-top"><div class="dept-icon" style="background:#fff7ed;">🍼</div><div><div class="dept-name">Pediatrics & Neonatology</div><div class="dept-count">9 Specialists · 12 Beds</div></div></div><div class="dept-desc">Complete childcare from birth through adolescence with dedicated NICU, PICU, pediatric surgery, and developmental services.</div><div class="dept-features"><span class="dept-tag">NICU</span><span class="dept-tag">PICU</span><span class="dept-tag">Vaccination</span><span class="dept-tag">Development</span></div></div>
+        <div class="dept-card"><div class="dept-card-top"><div class="dept-icon" style="background:#fdf4ff;">🔬</div><div><div class="dept-name">Diagnostics & Lab</div><div class="dept-count">NABL Accredited</div></div></div><div class="dept-desc">500+ diagnostic tests with NABL-accredited lab, advanced imaging (MRI, CT, PET), digital radiology, and same-day reporting.</div><div class="dept-features"><span class="dept-tag">MRI</span><span class="dept-tag">CT Scan</span><span class="dept-tag">PET Scan</span><span class="dept-tag">Lab Tests</span></div></div>
+        <div class="dept-card"><div class="dept-card-top"><div class="dept-icon" style="background:#fef2f2;">🚑</div><div><div class="dept-name">Emergency & Trauma</div><div class="dept-count">24/7 · Level 1 Trauma</div></div></div><div class="dept-desc">Level-1 trauma center with 24/7 emergency services, rapid response teams, and direct cathlab access for cardiac emergencies.</div><div class="dept-features"><span class="dept-tag">24/7</span><span class="dept-tag">Trauma</span><span class="dept-tag">ICU</span><span class="dept-tag">Rapid Response</span></div></div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer"><div class="footer-inner"><div class="footer-grid"><div><div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:white;">🏥 MediCare Plus</div><div class="footer-brand-text">Quality healthcare for all since 1998.</div></div><div><div class="footer-title">Navigation</div><div class="footer-link" onclick="showPage('home')">Home</div><div class="footer-link" onclick="showPage('about')">About</div><div class="footer-link" onclick="showPage('appointment-page')">Appointments</div></div><div><div class="footer-title">Services</div><div class="footer-link">Cardiology</div><div class="footer-link">Neurology</div><div class="footer-link">Emergency</div></div><div><div class="footer-title">Contact</div><div class="footer-link">12 Medical Ave, Kolkata</div><div class="footer-link">+91 98765-43210</div></div></div></div><div style="background:rgba(0,0,0,.2);"><div class="footer-inner"><div class="footer-bottom"><div>© 2026 MediCare Plus</div></div></div></div></footer>
+</div>
+
+<!-- ===========================
+     DOCTORS PAGE
+     =========================== -->
+<div class="page" id="page-doctors-page">
+  <div style="padding-top:82px;"></div>
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-breadcrumb"><span onclick="showPage('home')" style="cursor:pointer;color:var(--primary)">Home</span> <i class="fas fa-chevron-right" style="font-size:10px"></i> <span>Our Doctors</span></div>
+      <div class="page-hero-title">Meet Our Specialists</div>
+      <p style="color:var(--text2);font-size:16px;max-width:500px;margin:0 auto;">120+ nationally acclaimed specialists dedicated to providing you the best clinical outcomes.</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-inner">
+      <div class="doctors-grid" style="grid-template-columns:repeat(4,1fr);" id="publicDoctorGrid"></div>
+    </div>
+  </div>
+  <footer class="footer"><div class="footer-inner"><div class="footer-grid"><div><div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:white;">🏥 MediCare Plus</div><div class="footer-brand-text">Quality healthcare for all since 1998.</div></div><div><div class="footer-title">Navigation</div><div class="footer-link" onclick="showPage('home')">Home</div><div class="footer-link" onclick="showPage('about')">About</div></div><div><div class="footer-title">Services</div><div class="footer-link">Cardiology</div><div class="footer-link">Orthopedics</div></div><div><div class="footer-title">Contact</div><div class="footer-link">12 Medical Ave, Kolkata</div><div class="footer-link">+91 98765-43210</div></div></div></div><div style="background:rgba(0,0,0,.2);"><div class="footer-inner"><div class="footer-bottom"><div>© 2026 MediCare Plus</div></div></div></div></footer>
+</div>
+
+<!-- ===========================
+     APPOINTMENT (PUBLIC) PAGE
+     =========================== -->
+<div class="page" id="page-appointment-page">
+  <div style="padding-top:82px;"></div>
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-breadcrumb"><span onclick="showPage('home')" style="cursor:pointer;color:var(--primary)">Home</span> <i class="fas fa-chevron-right" style="font-size:10px"></i> <span>Book Appointment</span></div>
+      <div class="page-hero-title">Book an Appointment</div>
+      <p style="color:var(--text2);font-size:16px;max-width:500px;margin:0 auto;">Schedule your visit online in minutes. Choose your doctor, pick a slot, and confirm.</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-inner">
+      <div class="appt-public-grid">
+        <div class="appt-form-card">
+          <div style="margin-bottom:24px;">
+            <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:6px;">Schedule Your Visit</div>
+            <div style="font-size:13px;color:var(--text3);">Fill in the details below to book your appointment</div>
+          </div>
+          <div class="step-indicator">
+            <div class="step active" id="step1"><div class="step-num">1</div><div class="step-label">Details</div></div>
+            <div class="step" id="step2"><div class="step-num">2</div><div class="step-label">Doctor</div></div>
+            <div class="step" id="step3"><div class="step-num">3</div><div class="step-label">Slot</div></div>
+            <div class="step" id="step4"><div class="step-num">4</div><div class="step-label">Confirm</div></div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group"><label class="form-label">Full Name *</label><input class="form-input" placeholder="Your full name"></div>
+            <div class="form-group"><label class="form-label">Phone *</label><input class="form-input" placeholder="+91 XXXXX-XXXXX"></div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group"><label class="form-label">Age</label><input class="form-input" type="number" placeholder="Age"></div>
+            <div class="form-group"><label class="form-label">Gender</label><select class="form-input form-select"><option>Male</option><option>Female</option><option>Other</option></select></div>
+          </div>
+          <div class="form-group"><label class="form-label">Department *</label><select class="form-input form-select" onchange="updatePublicDoctors(this.value)"><option>Cardiology</option><option>Orthopedics</option><option>Neurology</option><option>Pediatrics</option><option>Dermatology</option><option>General Surgery</option></select></div>
+          <div class="form-group"><label class="form-label">Doctor *</label><select class="form-input form-select" id="publicDocSelect"><option>Dr. Anil Mehta</option><option>Dr. Priya Sharma</option></select></div>
+          <div class="form-group"><label class="form-label">Preferred Date *</label><input class="form-input" type="date" value="2026-03-24"></div>
+          <div class="form-group">
+            <label class="form-label">Select Time Slot</label>
+            <div class="time-slots">
+              <div class="time-slot" onclick="selectSlot(this)">09:00 AM</div>
+              <div class="time-slot" onclick="selectSlot(this)">09:30 AM</div>
+              <div class="time-slot full">10:00 AM</div>
+              <div class="time-slot" onclick="selectSlot(this)">10:30 AM</div>
+              <div class="time-slot selected" onclick="selectSlot(this)">11:00 AM</div>
+              <div class="time-slot full">11:30 AM</div>
+              <div class="time-slot" onclick="selectSlot(this)">02:00 PM</div>
+              <div class="time-slot" onclick="selectSlot(this)">02:30 PM</div>
+              <div class="time-slot" onclick="selectSlot(this)">03:00 PM</div>
+            </div>
+          </div>
+          <div class="form-group"><label class="form-label">Type</label><div style="display:flex;gap:10px;"><label style="flex:1;display:flex;align-items:center;gap:8px;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;font-size:13px;font-weight:500;"><input type="radio" name="apptType" checked> 🏥 In-Person (OPD)</label><label style="flex:1;display:flex;align-items:center;gap:8px;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;font-size:13px;font-weight:500;"><input type="radio" name="apptType"> 📱 Online (Tele)</label></div></div>
+          <div class="form-group"><label class="form-label">Symptoms / Notes</label><textarea class="form-input" rows="3" placeholder="Brief description of your symptoms…"></textarea></div>
+          <button class="btn-primary" style="width:100%;justify-content:center;padding:14px;" onclick="publicBook()"><i class="fas fa-calendar-check"></i> Confirm Appointment</button>
+        </div>
+        <div class="appt-info">
+          <div class="appt-info-card"><div class="appt-info-icon" style="background:#eff8ff;">⏱️</div><div><div style="font-weight:700;font-size:14px;">Quick Booking</div><div style="font-size:13px;color:var(--text2);margin-top:4px;">Book in under 3 minutes. Get instant confirmation via SMS and WhatsApp.</div></div></div>
+          <div class="appt-info-card"><div class="appt-info-icon" style="background:#f0fdf4;">✅</div><div><div style="font-weight:700;font-size:14px;">Free Rescheduling</div><div style="font-size:13px;color:var(--text2);margin-top:4px;">Reschedule or cancel up to 2 hours before your appointment at no charge.</div></div></div>
+          <div class="appt-info-card"><div class="appt-info-icon" style="background:#fff7ed;">🚑</div><div><div style="font-weight:700;font-size:14px;">Emergency?</div><div style="font-size:13px;color:var(--text2);margin-top:4px;">Don't wait — call our emergency line directly at <strong>+91 98765-43210</strong></div></div></div>
+          <div style="background:linear-gradient(135deg,rgba(26,107,138,.06),rgba(14,169,155,.04));border:1px solid rgba(26,107,138,.12);border-radius:var(--radius);padding:20px;">
+            <div style="font-weight:700;font-size:14px;margin-bottom:12px;color:var(--primary);">Today's Availability</div>
+            <div style="font-size:13px;color:var(--text2);margin-bottom:8px;">📅 March 24, 2026</div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span>Morning (9AM–12PM)</span><span class="badge badge-green">8 slots</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span>Afternoon (2PM–5PM)</span><span class="badge badge-yellow">3 slots</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;"><span>Evening (6PM–8PM)</span><span class="badge badge-red">Full</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer"><div class="footer-inner"><div class="footer-grid"><div><div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:white;">🏥 MediCare Plus</div><div class="footer-brand-text">Quality healthcare for all since 1998.</div></div><div><div class="footer-title">Navigation</div><div class="footer-link" onclick="showPage('home')">Home</div></div><div><div class="footer-title">Services</div><div class="footer-link">Cardiology</div></div><div><div class="footer-title">Contact</div><div class="footer-link">+91 98765-43210</div></div></div></div><div style="background:rgba(0,0,0,.2);"><div class="footer-inner"><div class="footer-bottom"><div>© 2026 MediCare Plus</div></div></div></div></footer>
+</div>
+
+<!-- ===========================
+     CONTACT PAGE
+     =========================== -->
+<div class="page" id="page-contact-page">
+  <div style="padding-top:82px;"></div>
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-breadcrumb"><span onclick="showPage('home')" style="cursor:pointer;color:var(--primary)">Home</span> <i class="fas fa-chevron-right" style="font-size:10px"></i> <span>Contact</span></div>
+      <div class="page-hero-title">Get In Touch</div>
+      <p style="color:var(--text2);font-size:16px;max-width:500px;margin:0 auto;">We're here for you 24/7. Reach out to us through any of the channels below.</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div>
+          <div class="section-label">Contact Information</div>
+          <div class="section-title" style="font-size:32px;">Always Here For You</div>
+          <p style="color:var(--text2);margin-bottom:28px;line-height:1.7;">Whether you need to book an appointment, ask about a service, or have a query about a patient — our team is available round the clock.</p>
+          <div class="contact-info-item"><div class="contact-info-icon">📍</div><div><div style="font-weight:700;font-size:15px;">Address</div><div style="font-size:14px;color:var(--text2);margin-top:4px;">12 Medical Avenue, Sector 5, Salt Lake, Kolkata — 700091, West Bengal</div></div></div>
+          <div class="contact-info-item"><div class="contact-info-icon">📞</div><div><div style="font-weight:700;font-size:15px;">Phone</div><div style="font-size:14px;color:var(--text2);margin-top:4px;">OPD: +91 98765-43210<br>Emergency: 108 / +91 98765-00000</div></div></div>
+          <div class="contact-info-item"><div class="contact-info-icon">✉️</div><div><div style="font-weight:700;font-size:15px;">Email</div><div style="font-size:14px;color:var(--text2);margin-top:4px;">care@medicareplus.in<br>appointments@medicareplus.in</div></div></div>
+          <div class="contact-info-item"><div class="contact-info-icon">🕐</div><div><div style="font-weight:700;font-size:15px;">Hours</div><div style="font-size:14px;color:var(--text2);margin-top:4px;">OPD: Mon–Sat 8:00 AM – 8:00 PM<br>Emergency & Lab: 24 hours / 7 days</div></div></div>
+        </div>
+        <div class="contact-form-card">
+          <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:20px;">Send Us a Message</div>
+          <div class="form-row-2">
+            <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" placeholder="Your name"></div>
+            <div class="form-group"><label class="form-label">Phone</label><input class="form-input" placeholder="+91 XXXXX"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="you@email.com"></div>
+          <div class="form-group"><label class="form-label">Subject</label><select class="form-input form-select"><option>General Inquiry</option><option>Appointment Query</option><option>Report Request</option><option>Billing Inquiry</option><option>Feedback / Complaint</option></select></div>
+          <div class="form-group"><label class="form-label">Message</label><textarea class="form-input" rows="5" placeholder="Write your message here…"></textarea></div>
+          <button class="btn-primary" style="width:100%;justify-content:center;" onclick="showToast('Message sent! We will respond within 24 hours.','success')"><i class="fas fa-paper-plane"></i> Send Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer"><div class="footer-inner"><div class="footer-grid"><div><div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:white;">🏥 MediCare Plus</div><div class="footer-brand-text">Quality healthcare for all since 1998.</div></div><div><div class="footer-title">Navigation</div><div class="footer-link" onclick="showPage('home')">Home</div><div class="footer-link" onclick="showPage('about')">About</div></div><div><div class="footer-title">Services</div><div class="footer-link">Cardiology</div></div><div><div class="footer-title">Contact</div><div class="footer-link">+91 98765-43210</div></div></div></div><div style="background:rgba(0,0,0,.2);"><div class="footer-inner"><div class="footer-bottom"><div>© 2026 MediCare Plus</div></div></div></div></footer>
+</div>
+
+<!-- ===========================
+     HMS DASHBOARD
+     =========================== -->
+<div class="page" id="page-hms" style="padding-top:0;">
+  <div class="hms-layout">
+    <!-- HMS SIDEBAR -->
+    <aside class="hms-sidebar">
+      <div class="hms-logo">
+        <div style="width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;">🏥</div>
+        <div><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:15px;color:var(--primary);">MediCare HMS</div><div style="font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace;">v3.0 — Admin</div></div>
+      </div>
+      <div class="hms-section">Main</div>
+      <div class="hms-nav active" onclick="hmsPanel('dashboard')"><i class="fas fa-th-large"></i> Dashboard</div>
+      <div class="hms-nav" onclick="hmsPanel('patients')"><i class="fas fa-user-injured"></i> Patients <span class="hms-nav-badge" style="background:var(--green-l);color:var(--green)">1,284</span></div>
+      <div class="hms-nav" onclick="hmsPanel('appointments')"><i class="fas fa-calendar-check"></i> Appointments <span class="hms-nav-badge" style="background:var(--yellow-l);color:var(--yellow)">12</span></div>
+      <div class="hms-nav" onclick="hmsPanel('doctors')"><i class="fas fa-user-md"></i> Doctors</div>
+      <div class="hms-section">Clinical</div>
+      <div class="hms-nav" onclick="hmsPanel('billing')"><i class="fas fa-file-invoice-dollar"></i> Billing</div>
+      <div class="hms-nav" onclick="hmsPanel('lab')"><i class="fas fa-flask"></i> Lab Reports <span class="hms-nav-badge" style="background:var(--red-l);color:var(--red)">3</span></div>
+      <div class="hms-nav" onclick="hmsPanel('pharmacy')"><i class="fas fa-pills"></i> Pharmacy</div>
+      <div class="hms-nav" onclick="hmsPanel('beds')"><i class="fas fa-bed"></i> Beds & Wards</div>
+      <div class="hms-section">Admin</div>
+      <div class="hms-nav" onclick="hmsPanel('staff')"><i class="fas fa-id-badge"></i> Staff</div>
+      <div class="hms-nav" onclick="hmsPanel('notifications')"><i class="fas fa-bell"></i> Notifications <span class="hms-nav-badge" style="background:var(--red-l);color:var(--red)">5</span></div>
+      <div class="hms-sidebar-footer">
+        <div style="margin-bottom:10px;"><button class="btn btn-g" style="width:100%;justify-content:center;font-size:12px;" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Back to Website</button></div>
+        <div class="hms-user"><div class="hms-user-av">AD</div><div><div class="hms-user-name">Dr. Admin</div><div class="hms-user-role">Super Admin</div></div></div>
+      </div>
+    </aside>
+    <!-- HMS MAIN -->
+    <div class="hms-main">
+      <header class="hms-topbar">
+        <div class="hms-page-title" id="hmsTitleEl">Dashboard</div>
+        <div class="hms-search"><i class="fas fa-search"></i><input type="text" placeholder="Search patients, doctors…" oninput="hmsSearch(this.value)"></div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:12px;color:var(--green);display:flex;align-items:center;gap:5px;background:var(--green-l);padding:6px 12px;border-radius:20px;font-weight:600;"><span style="width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;display:inline-block;"></span>System Online</span>
+          <div class="hms-icon-btn" onclick="hmsPanel('notifications')"><i class="fas fa-bell"></i><div class="hms-notif-dot"></div></div>
+          <div class="hms-icon-btn"><i class="fas fa-cog"></i></div>
+        </div>
+      </header>
+      <div class="hms-content">
+
+        <!-- DASHBOARD PANEL -->
+        <div class="hms-panel active" id="hmsp-dashboard">
+          <div class="hms-stats-grid">
+            <div class="hms-stat" onclick="hmsPanel('patients')"><div class="hms-stat-icon" style="background:rgba(26,107,138,.1);color:var(--primary)"><i class="fas fa-user-injured"></i></div><div class="hms-stat-val">1,284</div><div class="hms-stat-lbl">Total Patients</div><div class="hms-stat-change up"><i class="fas fa-arrow-up"></i> +8.2% this month</div></div>
+            <div class="hms-stat" onclick="hmsPanel('appointments')"><div class="hms-stat-icon" style="background:var(--green-l);color:var(--green)"><i class="fas fa-calendar-check"></i></div><div class="hms-stat-val">48</div><div class="hms-stat-lbl">Today's Appointments</div><div class="hms-stat-change up"><i class="fas fa-arrow-up"></i> +4 from yesterday</div></div>
+            <div class="hms-stat" onclick="hmsPanel('billing')"><div class="hms-stat-icon" style="background:var(--yellow-l);color:var(--yellow)"><i class="fas fa-rupee-sign"></i></div><div class="hms-stat-val">₹2.4L</div><div class="hms-stat-lbl">Today's Revenue</div><div class="hms-stat-change up"><i class="fas fa-arrow-up"></i> +12.5%</div></div>
+            <div class="hms-stat" onclick="hmsPanel('beds')"><div class="hms-stat-icon" style="background:var(--red-l);color:var(--red)"><i class="fas fa-bed"></i></div><div class="hms-stat-val">34/60</div><div class="hms-stat-lbl">Beds Occupied</div><div class="hms-stat-change dn"><i class="fas fa-arrow-down"></i> 26 available</div></div>
+          </div>
+          <div class="g12" style="margin-bottom:18px;">
+            <div class="hms-card">
+              <div class="sec-h"><div><div class="sec-h-title">Weekly Revenue</div><div class="sec-h-sub">OPD + IPD + Lab</div></div><div class="pill-tabs"><div class="pill-tab active">Week</div><div class="pill-tab">Month</div></div></div>
+              <div class="chart-area" id="hmsChart"></div>
+              <div style="display:flex;gap:16px;margin-top:10px;justify-content:center;font-size:11px;color:var(--text3);">
+                <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:var(--primary);display:inline-block;"></span>OPD</span>
+                <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:var(--secondary);display:inline-block;"></span>IPD</span>
+                <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:var(--purple);display:inline-block;"></span>Lab</span>
+              </div>
+            </div>
+            <div class="hms-card">
+              <div class="sec-h"><div class="sec-h-title">Department Load</div></div>
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;"><span>Cardiology</span><span style="color:var(--red);font-family:'JetBrains Mono',monospace;font-weight:700;">18/20 — 90%</span></div><div class="prog-bar"><div class="prog-fill" style="width:90%;background:linear-gradient(90deg,var(--red),#f87171)"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;"><span>Orthopedics</span><span style="color:var(--yellow);font-family:'JetBrains Mono',monospace;font-weight:700;">11/15 — 73%</span></div><div class="prog-bar"><div class="prog-fill" style="width:73%;background:linear-gradient(90deg,var(--yellow),#fbbf24)"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;"><span>Neurology</span><span style="color:var(--primary);font-family:'JetBrains Mono',monospace;font-weight:700;">7/12 — 58%</span></div><div class="prog-bar"><div class="prog-fill" style="width:58%;background:linear-gradient(90deg,var(--primary),var(--secondary))"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;"><span>Pediatrics</span><span style="color:var(--green);font-family:'JetBrains Mono',monospace;font-weight:700;">5/10 — 50%</span></div><div class="prog-bar"><div class="prog-fill" style="width:50%;background:linear-gradient(90deg,var(--green),#34d399)"></div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="g2">
+            <div class="hms-card">
+              <div class="sec-h"><div class="sec-h-title">Today's Appointments</div><button class="btn btn-g btn-sm" onclick="hmsPanel('appointments')">View All</button></div>
+              <div class="tl">
+                <div class="tl-item"><div class="tl-dot" style="background:var(--green)"></div><div><div class="tl-title">Rahul Sharma → Dr. Mehta <span class="badge badge-green" style="margin-left:6px">Confirmed</span></div><div class="tl-meta">09:00 AM · Cardiology · OPD-2241</div></div></div>
+                <div class="tl-item"><div class="tl-dot" style="background:var(--yellow)"></div><div><div class="tl-title">Priya Nair → Dr. Singh <span class="badge badge-yellow" style="margin-left:6px">Pending</span></div><div class="tl-meta">10:30 AM · Orthopedics · OPD-2242</div></div></div>
+                <div class="tl-item"><div class="tl-dot" style="background:var(--primary)"></div><div><div class="tl-title">Amit Bose → Dr. Kapoor <span class="badge badge-blue" style="margin-left:6px">Completed</span></div><div class="tl-meta">11:00 AM · Neurology · OPD-2243</div></div></div>
+                <div class="tl-item"><div class="tl-dot" style="background:var(--red)"></div><div><div class="tl-title">Sunita Das → Dr. Roy <span class="badge badge-red" style="margin-left:6px">Cancelled</span></div><div class="tl-meta">12:00 PM · Pediatrics · OPD-2244</div></div></div>
+              </div>
+            </div>
+            <div class="hms-card">
+              <div class="sec-h"><div class="sec-h-title">Live Activity Feed</div></div>
+              <div class="tl">
+                <div class="tl-item"><div class="tl-dot" style="background:var(--green)"></div><div><div class="tl-title">Patient P-1284 registered</div><div class="tl-meta">2 min ago · Reception</div></div></div>
+                <div class="tl-item"><div class="tl-dot" style="background:var(--primary)"></div><div><div class="tl-title">Lab report LR-489 uploaded</div><div class="tl-meta">8 min ago · Lab</div></div></div>
+                <div class="tl-item"><div class="tl-dot" style="background:var(--yellow)"></div><div><div class="tl-title">Invoice INV-9021 — ₹4,500</div><div class="tl-meta">12 min ago · Billing</div></div></div>
+                <div class="tl-item"><div class="tl-dot" style="background:var(--purple)"></div><div><div class="tl-title">Bed W3-07 allocated</div><div class="tl-meta">18 min ago · Ward 3</div></div></div>
+                <div class="tl-item"><div class="tl-dot" style="background:var(--red)"></div><div><div class="tl-title">Low stock: Paracetamol 500mg</div><div class="tl-meta">25 min ago · Pharmacy</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PATIENTS PANEL -->
+        <div class="hms-panel" id="hmsp-patients">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;"><div><div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;">Patient Management</div><div style="font-size:13px;color:var(--text3)">1,284 registered patients</div></div><button class="btn btn-p" onclick="openM('addPatient')"><i class="fas fa-plus"></i> Register Patient</button></div>
+          <div class="hms-stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:18px;">
+            <div class="hms-stat"><div class="hms-stat-icon" style="background:rgba(26,107,138,.1);color:var(--primary)"><i class="fas fa-users"></i></div><div class="hms-stat-val">1,284</div><div class="hms-stat-lbl">Total Patients</div></div>
+            <div class="hms-stat"><div class="hms-stat-icon" style="background:var(--green-l);color:var(--green)"><i class="fas fa-procedures"></i></div><div class="hms-stat-val">42</div><div class="hms-stat-lbl">Admitted (IPD)</div></div>
+            <div class="hms-stat"><div class="hms-stat-icon" style="background:var(--yellow-l);color:var(--yellow)"><i class="fas fa-walking"></i></div><div class="hms-stat-val">218</div><div class="hms-stat-lbl">OPD Today</div></div>
+            <div class="hms-stat"><div class="hms-stat-icon" style="background:var(--purple-l);color:var(--purple)"><i class="fas fa-user-plus"></i></div><div class="hms-stat-val">24</div><div class="hms-stat-lbl">New This Week</div></div>
+          </div>
+          <div class="hms-card">
+            <div class="sec-h">
+              <div class="pill-tabs"><div class="pill-tab active">All</div><div class="pill-tab">OPD</div><div class="pill-tab">IPD</div><div class="pill-tab">Critical</div></div>
+              <div style="display:flex;gap:8px;"><div class="hms-search" style="width:200px;"><i class="fas fa-search"></i><input type="text" placeholder="Search…"></div><button class="btn btn-g btn-sm"><i class="fas fa-filter"></i></button></div>
+            </div>
+            <div class="hms-table-wrap"><table><thead><tr><th>ID</th><th>Name</th><th>Age/Gender</th><th>Phone</th><th>Dept</th><th>Status</th><th>Last Visit</th><th>Actions</th></tr></thead><tbody id="hmsPatientBody"></tbody></table></div>
+          </div>
+        </div>
+
+        <!-- APPOINTMENTS PANEL -->
+        <div class="hms-panel" id="hmsp-appointments">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;"><div><div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;">Appointment Management</div></div><button class="btn btn-p" onclick="openM('addAppt')"><i class="fas fa-plus"></i> Book Appointment</button></div>
+          <div class="hms-stats-grid"><div class="hms-stat"><div class="hms-stat-icon" style="background:var(--green-l);color:var(--green)"><i class="fas fa-check-circle"></i></div><div class="hms-stat-val">18</div><div class="hms-stat-lbl">Confirmed</div></div><div class="hms-stat"><div class="hms-stat-icon" style="background:var(--yellow-l);color:var(--yellow)"><i class="fas fa-clock"></i></div><div class="hms-stat-val">12</div><div class="hms-stat-lbl">Pending</div></div><div class="hms-stat"><div class="hms-stat-icon" style="background:rgba(26,107,138,.1);color:var(--primary)"><i class="fas fa-check-double"></i></div><div class="hms-stat-val">14</div><div class="hms-stat-lbl">Completed</div></div><div class="hms-stat"><div class="hms-stat-icon" style="background:var(--red-l);color:var(--red)"><i class="fas fa-times-circle"></i></div><div class="hms-stat-val">4</div><div class="hms-stat-lbl">Cancelled</div></div></div>
+          <div class="hms-card">
+            <div class="sec-h"><div class="sec-h-title">Today — Mar 24, 2026</div></div>
+            <div class="hms-table-wrap"><table><thead><tr><th>Appt ID</th><th>Patient</th><th>Doctor</th><th>Dept</th><th>Time</th><th>Type</th><th>Status</th><th>Actions</th></tr></thead><tbody id="hmsApptBody"></tbody></table></div>
+          </div>
+        </div>
+
+        <!-- DOCTORS PANEL -->
+        <div class="hms-panel" id="hmsp-doctors">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;"><div><div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;">Doctor Management</div><div style="font-size:13px;color:var(--text3)">24 active across 8 departments</div></div><button class="btn btn-p"><i class="fas fa-plus"></i> Add Doctor</button></div>
+          <div class="g3" id="hmsDoctorGrid" style="margin-bottom:4px;"></div>
+        </div>
+
+        <!-- BILLING PANEL -->
+        <div class="hms-panel" id="hmsp-billing">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;"><div><div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;">Billing System</div></div><button class="btn btn-p" onclick="openM('addBill')"><i class="fas fa-plus"></i> New Bill</button></div>
+          <div class="hms-stats-grid"><div class="hms-stat"><div class="hms-stat-icon" style="background:var(--green-l);color:var(--green)"><i class="fas fa-check-circle"></i></div><div class="hms-stat-val">₹1.8L</div><div class="hms-stat-lbl">Paid Today</div></div><div class="hms-stat"><div class="hms-stat-icon" style="background:var(--yellow-l);color:var(--yellow)"><i class="fas fa-hourglass-half"></i></div><div class="hms-stat-val">₹62K</div><div class="hms-stat-lbl">Pending</div></div><div class="hms-stat"><div class="hms-stat-icon" style="background:rgba(26,107,138,.1);color:var(--primary)"><i class="fas fa-file-invoice"></i></div><div class="hms-stat-val">47</div><div class="hms-stat-lbl">Invoices Today</div></div><div class="hms-stat"><div class="hms-stat-icon" style="background:var(--purple-l);color:var(--purple)"><i class="fas fa-percentage"></i></div><div class="hms-stat-val">18%</div><div class="hms-stat-lbl">GST Collected</div></div></div>
+          <div class="hms-card">
+            <div class="sec-h"><div class="sec-h-title">Recent Invoices</div><div class="pill-tabs"><div class="pill-tab active">All</div><div class="pill-tab">OPD</div><div class="pill-tab">IPD</div></div></div>
+            <div class="hms-table-wrap"><table><thead><tr><th>Invoice</th><th>Patient</th><th>Services</th><th>Amount</th><th>GST</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead><tbody id="hmsBillBody"></tbody></table></div>
+          </div>
+        </div>
+
+        <!-- LAB PANEL -->
+        <div class="hms-panel" id="hmsp-lab">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;"><div><div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;">Lab Management</div></div><button class="btn btn-p"><i class="fas fa-plus"></i> Request Test</button></div>
+          <div class="g2">
+            <div class="hms-card">
+              <div class="sec-h"><div class="sec-h-title">Pending Reports</div><span class="badge badge-red">3 urgent</span></div>
+              <div class="hms-table-wrap"><table><thead><tr><th>Test ID</th><th>Patient</th><th>Test</th><th>Status</th><th>Action</th></tr></thead><tbody id="hmsLabBody"></tbody></table></div>
+            </div>
+            <div class="hms-card">
+              <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:16px;">Upload Lab Report</div>
+              <div class="form-group"><label class="form-label">Patient ID</label><input class="form-input" placeholder="P-XXXX"></div>
+              <div class="form-group"><label class="form-label">Test Type</label><select class="form-input form-select"><option>CBC</option><option>Blood Sugar</option><option>Lipid Profile</option><option>X-Ray</option><option>MRI Scan</option><option>CT Scan</option></select></div>
+              <div class="form-group"><label class="form-label">Report File</label><div style="border:2px dashed var(--border2);border-radius:10px;padding:28px;text-align:center;cursor:pointer;background:var(--bg2);"><i class="fas fa-cloud-upload-alt" style="font-size:28px;color:var(--primary);display:block;margin-bottom:8px;"></i><div style="font-size:13px;color:var(--text2);">Drop PDF/Image or click to browse</div></div></div>
+              <div class="form-group"><label class="form-label">Notes</label><textarea class="form-input" rows="3" placeholder="Tech notes…"></textarea></div>
+              <button class="btn btn-p" style="width:100%;justify-content:center;" onclick="showToast('Report uploaded successfully!','success')"><i class="fas fa-upload"></i> Upload Report</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHARMACY PANEL -->
+        <div class="hms-panel" id="hmsp-pharmacy">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;"><div><div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;">Pharmacy Management</div></div><button class="btn btn-p"><i class="fas fa-plus"></i> Add Medicine</button></div>
+          <div class="g12">
+            <div class="hms-card">
+              <div class="sec-h"><div class="sec-h-title">Medicine Inventory</div><span class="badge badge-red">2 low stock</span></div>
+              <div class="hms-table-wrap"><table><thead><tr><th>Medicine</th><th>Category</th><th>Stock</th><th>Expiry</th><th>Price</th><th>Status</th></tr></thead><tbody id="hmsPharmaBody"></tbody></table></div>
+            </div>
+            <div>
+              <div class="hms-card" style="margin-bottom:16px;">
+                <div class="sec-h"><div class="sec-h-title">Stock Monitor</div></div>
+                <div id="hmsStockList"></div>
+              </div>
+              <div class="hms-card">
+                <div style="font-weight:700;font-size:14px;margin-bottom:14px;">Quick Billing</div>
+                <div class="form-group"><label class="form-label">Patient ID</label><input class="form-input" placeholder="P-XXXX"></div>
+                <div class="form-group"><label class="form-label">Medicine</label><select class="form-input form-select"><option>Paracetamol 500mg</option><option>Amoxicillin 500mg</option><option>Omeprazole 20mg</option></select></div>
+                <div class="form-row-2"><div class="form-group"><label class="form-label">Qty</label><input class="form-input" type="number" value="1"></div><div class="form-group"><label class="form-label">Price</label><input class="form-input" value="₹12.00" readonly></div></div>
+                <button class="btn btn-p" style="width:100%;justify-content:center;" onclick="showToast('Medicine billed!','success')"><i class="fas fa-receipt"></i> Bill Medicine</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BEDS PANEL -->
+        <div class="hms-panel" id="hmsp-beds">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;"><div><div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;">Bed & Ward Management</div></div><button class="btn btn-p" onclick="openM('admit')"><i class="fas fa-plus"></i> Admit Patient</button></div>
+          <div class="hms-stats-grid"><div class="hms-stat"><div class="hms-stat-icon" style="background:var(--green-l);color:var(--green)"><i class="fas fa-bed"></i></div><div class="hms-stat-val">26</div><div class="hms-stat-lbl">Available</div></div><div class="hms-stat"><div class="hms-stat-icon" style="background:var(--red-l);color:var(--red)"><i class="fas fa-procedures"></i></div><div class="hms-stat-val">34</div><div class="hms-stat-lbl">Occupied</div></div><div class="hms-stat"><div class="hms-stat-icon" style="background:var(--yellow-l);color:var(--yellow)"><i class="fas fa-hospital"></i></div><div class="hms-stat-val">8</div><div class="hms-stat-lbl">ICU Beds</div></div><div class="hms-stat"><div class="hms-stat-icon" style="background:rgba(139,92,246,.1);color:var(--purple)"><i class="fas fa-door-open"></i></div><div class="hms-stat-val">4</div><div class="hms-stat-lbl">Discharges Today</div></div></div>
+          <div class="hms-card">
+            <div class="sec-h"><div class="sec-h-title">Ward A — General (20 Beds)</div><div style="display:flex;gap:12px;font-size:11px;"><span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:var(--green);border-radius:2px;"></span>Available</span><span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:var(--red);border-radius:2px;"></span>Occupied</span><span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:var(--yellow);border-radius:2px;"></span>Reserved</span></div></div>
+            <div class="bed-grid" id="hmsBedGrid"></div>
+          </div>
+        </div>
+
+        <!-- STAFF PANEL -->
+        <div class="hms-panel" id="hmsp-staff">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;"><div><div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;">Staff Management</div></div><button class="btn btn-p"><i class="fas fa-plus"></i> Add Staff</button></div>
+          <div class="hms-card"><div class="hms-table-wrap"><table><thead><tr><th>Staff ID</th><th>Name</th><th>Role</th><th>Department</th><th>Phone</th><th>Status</th><th>Actions</th></tr></thead><tbody id="hmsStaffBody"></tbody></table></div></div>
+        </div>
+
+        <!-- NOTIFICATIONS PANEL -->
+        <div class="hms-panel" id="hmsp-notifications">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;"><div><div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;">Notification Center</div></div><button class="btn btn-g btn-sm"><i class="fas fa-check-double"></i> Mark All Read</button></div>
+          <div class="g2">
+            <div class="hms-card"><div class="sec-h"><div class="sec-h-title">Recent Alerts</div><span class="badge badge-red">5 new</span></div><div id="hmsNotifList"></div></div>
+            <div class="hms-card">
+              <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:16px;">Send Notification</div>
+              <div class="form-group"><label class="form-label">Recipient Type</label><select class="form-input form-select"><option>Patient</option><option>Doctor</option><option>All Staff</option></select></div>
+              <div class="form-group"><label class="form-label">Recipient</label><input class="form-input" placeholder="Search…"></div>
+              <div class="form-group"><label class="form-label">Type</label><select class="form-input form-select"><option>Appointment Reminder</option><option>Report Ready</option><option>Medicine Alert</option><option>General Update</option></select></div>
+              <div class="form-group"><label class="form-label">Message</label><textarea class="form-input" rows="4" placeholder="Type message…"></textarea></div>
+              <div class="form-row-2"><button class="btn btn-g" style="width:100%;justify-content:center;"><i class="fas fa-sms"></i> SMS</button><button class="btn btn-p" style="width:100%;justify-content:center;" onclick="showToast('Notification sent!','success')"><i class="fas fa-paper-plane"></i> Send</button></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /hms-content -->
+    </div><!-- /hms-main -->
+  </div><!-- /hms-layout -->
+</div><!-- /page-hms -->
+
+<!-- MODALS -->
+<div class="modal-overlay" id="m-addPatient"><div class="modal-box">
+  <div class="modal-hdr"><div class="modal-title">Register New Patient</div><div class="modal-close-btn" onclick="closeM('addPatient')"><i class="fas fa-times"></i></div></div>
+  <div class="form-row-2"><div class="form-group"><label class="form-label">First Name</label><input class="form-input" placeholder="First name"></div><div class="form-group"><label class="form-label">Last Name</label><input class="form-input" placeholder="Last name"></div></div>
+  <div class="form-row-2"><div class="form-group"><label class="form-label">Age</label><input class="form-input" type="number" placeholder="32"></div><div class="form-group"><label class="form-label">Gender</label><select class="form-input form-select"><option>Male</option><option>Female</option><option>Other</option></select></div></div>
+  <div class="form-row-2"><div class="form-group"><label class="form-label">Phone</label><input class="form-input" placeholder="+91 XXXXX"></div><div class="form-group"><label class="form-label">Blood Group</label><select class="form-input form-select"><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select></div></div>
+  <div class="form-group"><label class="form-label">Address</label><textarea class="form-input" rows="2" placeholder="Full address…"></textarea></div>
+  <div class="form-group"><label class="form-label">Medical History / Allergies</label><textarea class="form-input" rows="3" placeholder="Existing conditions, allergies…"></textarea></div>
+  <div class="form-group"><label class="form-label">Emergency Contact</label><input class="form-input" placeholder="Name — Relationship — Phone"></div>
+  <div style="display:flex;gap:10px;margin-top:8px;"><button class="btn btn-g" style="flex:1;justify-content:center;" onclick="closeM('addPatient')">Cancel</button><button class="btn btn-p" style="flex:1;justify-content:center;" onclick="doRegister()"><i class="fas fa-user-plus"></i> Register</button></div>
+</div></div>
+
+<div class="modal-overlay" id="m-addAppt"><div class="modal-box">
+  <div class="modal-hdr"><div class="modal-title">Book Appointment</div><div class="modal-close-btn" onclick="closeM('addAppt')"><i class="fas fa-times"></i></div></div>
+  <div class="form-group"><label class="form-label">Patient ID</label><input class="form-input" placeholder="P-XXXX or search name"></div>
+  <div class="form-group"><label class="form-label">Department</label><select class="form-input form-select" onchange="mDoctors(this.value)"><option>Cardiology</option><option>Orthopedics</option><option>Neurology</option><option>Pediatrics</option><option>Surgery</option><option>Dermatology</option></select></div>
+  <div class="form-group"><label class="form-label">Doctor</label><select class="form-input form-select" id="mDoctorSel"><option>Dr. Anil Mehta</option><option>Dr. Priya Sharma</option></select></div>
+  <div class="form-row-2"><div class="form-group"><label class="form-label">Date</label><input class="form-input" type="date" value="2026-03-24"></div><div class="form-group"><label class="form-label">Time Slot</label><select class="form-input form-select"><option>09:00 AM</option><option>09:30 AM</option><option>10:00 AM</option><option>10:30 AM</option><option>11:00 AM</option><option>02:00 PM</option><option>03:00 PM</option></select></div></div>
+  <div class="form-group"><label class="form-label">Type</label><select class="form-input form-select"><option>In-Person (OPD)</option><option>Online (Tele)</option></select></div>
+  <div class="form-group"><label class="form-label">Symptoms</label><textarea class="form-input" rows="3" placeholder="Brief symptoms…"></textarea></div>
+  <div style="display:flex;gap:10px;margin-top:8px;"><button class="btn btn-g" style="flex:1;justify-content:center;" onclick="closeM('addAppt')">Cancel</button><button class="btn btn-p" style="flex:1;justify-content:center;" onclick="doBook()"><i class="fas fa-calendar-plus"></i> Book</button></div>
+</div></div>
+
+<div class="modal-overlay" id="m-addBill"><div class="modal-box">
+  <div class="modal-hdr"><div class="modal-title">Generate Invoice</div><div class="modal-close-btn" onclick="closeM('addBill')"><i class="fas fa-times"></i></div></div>
+  <div class="form-row-2"><div class="form-group"><label class="form-label">Patient ID</label><input class="form-input" placeholder="P-XXXX"></div><div class="form-group"><label class="form-label">Bill Type</label><select class="form-input form-select"><option>OPD</option><option>IPD</option></select></div></div>
+  <div style="border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;">
+    <div style="font-size:11px;color:var(--text3);margin-bottom:10px;letter-spacing:1px;text-transform:uppercase;font-weight:700;">Service Charges</div>
+    <div class="form-row-2"><div class="form-group"><label class="form-label">Consultation</label><input class="form-input" value="₹800"></div><div class="form-group"><label class="form-label">Lab Tests</label><input class="form-input" value="₹1,200"></div></div>
+    <div class="form-row-2"><div class="form-group"><label class="form-label">Medicines</label><input class="form-input" value="₹450"></div><div class="form-group"><label class="form-label">Bed Charges</label><input class="form-input" value="₹1,500"></div></div>
+  </div>
+  <div class="form-row-2"><div class="form-group"><label class="form-label">Subtotal</label><input class="form-input" value="₹3,950" readonly></div><div class="form-group"><label class="form-label">GST (18%)</label><input class="form-input" value="₹711" readonly></div></div>
+  <div class="form-group"><label class="form-label">Total</label><input class="form-input" value="₹4,661" readonly style="font-size:18px;font-weight:700;color:var(--primary)"></div>
+  <div class="form-group"><label class="form-label">Payment Mode</label><select class="form-input form-select"><option>Cash</option><option>Card</option><option>UPI</option><option>Insurance</option></select></div>
+  <div style="display:flex;gap:10px;margin-top:8px;"><button class="btn btn-g" style="flex:1;justify-content:center;"><i class="fas fa-file-pdf"></i> Preview PDF</button><button class="btn btn-p" style="flex:1;justify-content:center;" onclick="doBill()"><i class="fas fa-check"></i> Generate</button></div>
+</div></div>
+
+<div class="modal-overlay" id="m-admit"><div class="modal-box">
+  <div class="modal-hdr"><div class="modal-title">Admit Patient</div><div class="modal-close-btn" onclick="closeM('admit')"><i class="fas fa-times"></i></div></div>
+  <div class="form-row-2"><div class="form-group"><label class="form-label">Patient ID</label><input class="form-input" placeholder="P-XXXX"></div><div class="form-group"><label class="form-label">Ward Type</label><select class="form-input form-select"><option>General Ward</option><option>Private Room</option><option>ICU</option><option>HDU</option></select></div></div>
+  <div class="form-row-2"><div class="form-group"><label class="form-label">Bed Number</label><select class="form-input form-select"><option>W1-03</option><option>W1-07</option><option>W2-11</option><option>W3-02</option></select></div><div class="form-group"><label class="form-label">Attending Doctor</label><select class="form-input form-select"><option>Dr. Mehta (Cardiology)</option><option>Dr. Singh (Ortho)</option><option>Dr. Kapoor (Neuro)</option></select></div></div>
+  <div class="form-group"><label class="form-label">Admission Reason</label><textarea class="form-input" rows="3" placeholder="Diagnosis / reason for admission…"></textarea></div>
+  <div style="display:flex;gap:10px;margin-top:8px;"><button class="btn btn-g" style="flex:1;justify-content:center;" onclick="closeM('admit')">Cancel</button><button class="btn btn-p" style="flex:1;justify-content:center;" onclick="doAdmit()"><i class="fas fa-procedures"></i> Admit Patient</button></div>
+</div></div>
+
+<!-- TOAST -->
+<div class="toast-box" id="toastBox"></div>
+
+<script>
+// ===========================
+// DATA
+// ===========================
+const patients=[
+  {id:'P-1284',name:'Rahul Sharma',age:42,g:'M',phone:'98765-43210',dept:'Cardiology',status:'OPD',visit:'24 Mar 2026'},
+  {id:'P-1283',name:'Priya Nair',age:34,g:'F',phone:'91234-56789',dept:'Orthopedics',status:'IPD',visit:'23 Mar 2026'},
+  {id:'P-1282',name:'Amit Bose',age:58,g:'M',phone:'87654-32109',dept:'Neurology',status:'OPD',visit:'24 Mar 2026'},
+  {id:'P-1281',name:'Sunita Das',age:29,g:'F',phone:'76543-21098',dept:'Pediatrics',status:'OPD',visit:'22 Mar 2026'},
+  {id:'P-1280',name:'Vikram Patel',age:65,g:'M',phone:'65432-10987',dept:'Surgery',status:'IPD',visit:'21 Mar 2026'},
+  {id:'P-1279',name:'Meena Iyer',age:45,g:'F',phone:'54321-09876',dept:'Cardiology',status:'Critical',visit:'20 Mar 2026'},
+  {id:'P-1278',name:'Arjun Reddy',age:27,g:'M',phone:'43210-98765',dept:'Dermatology',status:'OPD',visit:'24 Mar 2026'},
+];
+const appointments=[
+  {id:'APT-2241',patient:'Rahul Sharma',doctor:'Dr. Mehta',dept:'Cardiology',time:'09:00 AM',type:'In-Person',status:'Confirmed'},
+  {id:'APT-2242',patient:'Priya Nair',doctor:'Dr. Singh',dept:'Orthopedics',time:'10:30 AM',type:'In-Person',status:'Pending'},
+  {id:'APT-2243',patient:'Amit Bose',doctor:'Dr. Kapoor',dept:'Neurology',time:'11:00 AM',type:'Online',status:'Completed'},
+  {id:'APT-2244',patient:'Sunita Das',doctor:'Dr. Roy',dept:'Pediatrics',time:'12:00 PM',type:'In-Person',status:'Cancelled'},
+  {id:'APT-2245',patient:'Vikram Patel',doctor:'Dr. Verma',dept:'Surgery',time:'02:00 PM',type:'In-Person',status:'Confirmed'},
+  {id:'APT-2246',patient:'Arjun Reddy',doctor:'Dr. Khan',dept:'Dermatology',time:'03:30 PM',type:'Online',status:'Pending'},
+];
+const doctors=[
+  {name:'Dr. Anil Mehta',spec:'Cardiology',fees:1200,exp:18,rating:4.9,av:'AM',c1:'#eff8ff',c2:'#1a6b8a',p:42},
+  {name:'Dr. Priti Singh',spec:'Orthopedics',fees:900,exp:12,rating:4.7,av:'PS',c1:'#fdf4ff',c2:'#8b5cf6',p:31},
+  {name:'Dr. Rohan Kapoor',spec:'Neurology',fees:1500,exp:22,rating:4.8,av:'RK',c1:'#f0fdf4',c2:'#10b981',p:28},
+  {name:'Dr. Seema Roy',spec:'Pediatrics',fees:700,exp:9,rating:4.9,av:'SR',c1:'#fff7ed',c2:'#f59e0b',p:55},
+  {name:'Dr. Karan Verma',spec:'Gen. Surgery',fees:2000,exp:15,rating:4.9,av:'KV',c1:'#fef2f2',c2:'#ef4444',p:19},
+  {name:'Dr. Aisha Khan',spec:'Dermatology',fees:600,exp:7,rating:4.5,av:'AK',c1:'#f0fdf4',c2:'#0ea99b',p:67},
+];
+const bills=[
+  {inv:'INV-9021',patient:'Rahul Sharma',svc:'Consultation + ECG',amt:2200,gst:396,total:2596,status:'Paid'},
+  {inv:'INV-9022',patient:'Priya Nair',svc:'Surgery + Bed (3d)',amt:28000,gst:5040,total:33040,status:'Pending'},
+  {inv:'INV-9023',patient:'Amit Bose',svc:'MRI + Consult',amt:8500,gst:1530,total:10030,status:'Paid'},
+  {inv:'INV-9024',patient:'Vikram Patel',svc:'Surgery + ICU (5d)',amt:75000,gst:13500,total:88500,status:'Partial'},
+  {inv:'INV-9025',patient:'Arjun Reddy',svc:'Biopsy + Medicines',amt:3200,gst:576,total:3776,status:'Paid'},
+];
+const labTests=[
+  {id:'LR-490',patient:'Rahul Sharma',test:'CBC + Lipid Profile',status:'Processing'},
+  {id:'LR-491',patient:'Vikram Patel',test:'MRI Brain',status:'Urgent'},
+  {id:'LR-492',patient:'Meena Iyer',test:'Cardiac Enzymes',status:'Urgent'},
+  {id:'LR-493',patient:'Sunita Das',test:'Blood Sugar (FBS)',status:'Ready'},
+  {id:'LR-494',patient:'Priya Nair',test:'X-Ray Knee',status:'Processing'},
+];
+const medicines=[
+  {name:'Paracetamol 500mg',cat:'Analgesic',stock:45,exp:'Dec 2026',price:12,low:true},
+  {name:'Amoxicillin 500mg',cat:'Antibiotic',stock:120,exp:'Jun 2027',price:28,low:false},
+  {name:'Omeprazole 20mg',cat:'Antacid',stock:80,exp:'Mar 2027',price:18,low:false},
+  {name:'Metformin 500mg',cat:'Antidiabetic',stock:15,exp:'Nov 2026',price:9,low:true},
+  {name:'Atenolol 25mg',cat:'Cardiac',stock:200,exp:'Aug 2027',price:5,low:false},
+  {name:'Cetirizine 10mg',cat:'Antihistamine',stock:95,exp:'Jan 2027',price:8,low:false},
+];
+const staff=[
+  {id:'STF-001',name:'Meera Patel',role:'Head Nurse',dept:'ICU',phone:'98001-11111',status:'Active'},
+  {id:'STF-002',name:'Rajesh Kumar',role:'Receptionist',dept:'OPD',phone:'98002-22222',status:'Active'},
+  {id:'STF-003',name:'Anjali Gupta',role:'Lab Technician',dept:'Lab',phone:'98003-33333',status:'Active'},
+  {id:'STF-004',name:'Sanjay Rao',role:'Ward Boy',dept:'Gen. Ward',phone:'98004-44444',status:'Active'},
+  {id:'STF-005',name:'Farida Hussain',role:'Pharmacist',dept:'Pharmacy',phone:'98005-55555',status:'On Leave'},
+  {id:'STF-006',name:'Deepak Mishra',role:'Billing Exec.',dept:'Accounts',phone:'98006-66666',status:'Active'},
+];
+const notifs=[
+  {icon:'🧪',bg:'#eff8ff',title:'Lab Report Ready',msg:'CBC for Rahul Sharma (P-1284)',time:'2 min ago'},
+  {icon:'⚠️',bg:'#fffbeb',title:'Low Stock Alert',msg:'Paracetamol 500mg — 45 units',time:'15 min ago'},
+  {icon:'📅',bg:'#f0f9ff',title:'Appointment Reminder',msg:'Dr. Kapoor — 3 upcoming',time:'30 min ago'},
+  {icon:'🛏️',bg:'#fdf4ff',title:'Bed Request',msg:'Emergency admission — ICU',time:'42 min ago'},
+  {icon:'💊',bg:'#fef2f2',title:'Expiry Alert',msg:'Metformin — expires Nov 2026',time:'1 hr ago'},
+];
+
+// ===========================
+// PAGE ROUTING
+// ===========================
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const p=document.getElementById('page-'+id);
+  if(p){p.classList.add('active');window.scrollTo(0,0);}
+  // update nav active state
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  const map={home:0,about:1,departments:2,'doctors-page':3,'appointment-page':4,'contact-page':5};
+  const idx=map[id];
+  if(idx!==undefined)document.querySelectorAll('.nav-link')[idx]?.classList.add('active');
+}
+
+// ===========================
+// NAVBAR
+// ===========================
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>10);
+});
+function toggleMenu(){
+  const h=document.getElementById('hamburger');
+  const m=document.getElementById('mobileMenu');
+  h.classList.toggle('open');
+  m.classList.toggle('open');
+}
+
+// ===========================
+// HMS PANELS
+// ===========================
+const hmsTitles={dashboard:'Dashboard',patients:'Patient Management',appointments:'Appointment Management',doctors:'Doctor Management',billing:'Billing System',lab:'Lab Management',pharmacy:'Pharmacy',beds:'Bed & Ward Management',staff:'Staff Management',notifications:'Notifications'};
+function hmsPanel(name){
+  document.querySelectorAll('.hms-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('hmsp-'+name)?.classList.add('active');
+  document.querySelectorAll('.hms-nav').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.hms-nav').forEach(n=>{if(n.textContent.trim().toLowerCase().startsWith(hmsTitles[name]?.toLowerCase().split(' ')[0]||name))n.classList.add('active');});
+  document.getElementById('hmsTitleEl').textContent=hmsTitles[name]||name;
+}
+
+// ===========================
+// RENDER
+// ===========================
+function sBadge(s){
+  const m={Confirmed:'badge-green',Pending:'badge-yellow',Completed:'badge-blue',Cancelled:'badge-red',OPD:'badge-blue',IPD:'badge-purple',Critical:'badge-red',Paid:'badge-green',Partial:'badge-yellow',Processing:'badge-yellow',Urgent:'badge-red',Ready:'badge-green',Active:'badge-green','On Leave':'badge-yellow'};
+  return `<span class="badge ${m[s]||'badge-blue'}">${s}</span>`;
+}
+const avBgs=['#eff8ff','#fdf4ff','#f0fdf4','#fff7ed','#fef2f2','#f0f9ff','#fefce8'];
+const avCs=['#1a6b8a','#8b5cf6','#10b981','#f59e0b','#ef4444','#0ea99b','#d97706'];
+
+function renderPatients(list){
+  document.getElementById('hmsPatientBody').innerHTML=list.map((p,i)=>`
+    <tr>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--primary)">${p.id}</td>
+      <td class="td-primary" style="display:flex;align-items:center;gap:10px;"><div style="width:32px;height:32px;border-radius:50%;background:${avBgs[i%7]};color:${avCs[i%7]};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">${p.name.split(' ').map(x=>x[0]).join('')}</div>${p.name}</td>
+      <td>${p.age}y / ${p.g}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${p.phone}</td>
+      <td>${p.dept}</td>
+      <td>${sBadge(p.status)}</td>
+      <td style="font-size:12px;color:var(--text3)">${p.visit}</td>
+      <td><div style="display:flex;gap:5px;"><button class="btn btn-g btn-sm" onclick="showToast('Loading patient profile…','info')"><i class="fas fa-eye"></i></button><button class="btn btn-g btn-sm"><i class="fas fa-edit"></i></button><button class="btn btn-d btn-sm"><i class="fas fa-trash"></i></button></div></td>
+    </tr>`).join('');
+}
+function renderAppointments(){
+  document.getElementById('hmsApptBody').innerHTML=appointments.map(a=>`
+    <tr>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--primary)">${a.id}</td>
+      <td class="td-primary">${a.patient}</td>
+      <td>${a.doctor}</td>
+      <td>${a.dept}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${a.time}</td>
+      <td>${a.type==='Online'?'<span class="badge badge-purple">🌐 Online</span>':'<span class="badge badge-blue">🏥 In-Person</span>'}</td>
+      <td>${sBadge(a.status)}</td>
+      <td><div style="display:flex;gap:5px;"><button class="btn btn-g btn-sm"><i class="fas fa-edit"></i></button><button class="btn btn-d btn-sm" onclick="showToast('Appointment cancelled.','info')"><i class="fas fa-ban"></i></button></div></td>
+    </tr>`).join('');
+}
+function renderDoctors(){
+  const html=doctors.map(d=>`
+    <div class="doc-card-hms">
+      <div class="doc-av" style="background:${d.c1};color:${d.c2}">${d.av}</div>
+      <div style="flex:1">
+        <div style="font-weight:700;font-size:14px;">${d.name}</div>
+        <div style="font-size:12px;color:var(--primary);margin-top:1px;">${d.spec}</div>
+        <div style="display:flex;gap:10px;margin-top:8px;font-size:11px;color:var(--text3);">
+          <span><i class="fas fa-star" style="color:var(--yellow)"></i> ${d.rating}</span>
+          <span><i class="fas fa-clock"></i> ${d.exp}y</span>
+          <span><i class="fas fa-users"></i> ${d.p}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--primary);font-weight:700;">₹${d.fees}/visit</span>
+          <span class="badge badge-green">Available</span>
+        </div>
+      </div>
+    </div>`).join('');
+  document.getElementById('hmsDoctorGrid').innerHTML=html;
+  // public page
+  const pub=doctors.map(d=>`
+    <div class="doctor-card">
+      <div class="doctor-avatar" style="background:${d.c1};">👨‍⚕️</div>
+      <div class="doctor-info">
+        <div class="doctor-name">${d.name}</div>
+        <div class="doctor-spec">${d.spec}</div>
+        <div class="doctor-meta"><span><i class="fas fa-star" style="color:var(--yellow)"></i> ${d.rating}</span><span><i class="fas fa-briefcase"></i> ${d.exp}y</span><span>₹${d.fees}/visit</span></div>
+        <button class="btn-primary" style="width:100%;justify-content:center;margin-top:12px;font-size:12px;padding:9px;" onclick="showPage('appointment-page')">Book Appointment</button>
+      </div>
+    </div>`).join('');
+  document.getElementById('publicDoctorGrid').innerHTML=pub;
+}
+function renderBills(){
+  document.getElementById('hmsBillBody').innerHTML=bills.map(b=>`
+    <tr>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--primary)">${b.inv}</td>
+      <td class="td-primary">${b.patient}</td>
+      <td style="font-size:12px;color:var(--text2)">${b.svc}</td>
+      <td style="font-family:'JetBrains Mono',monospace">₹${b.amt.toLocaleString()}</td>
+      <td style="font-family:'JetBrains Mono',monospace;color:var(--yellow)">₹${b.gst.toLocaleString()}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--primary)">₹${b.total.toLocaleString()}</td>
+      <td>${sBadge(b.status)}</td>
+      <td><div style="display:flex;gap:5px;"><button class="btn btn-g btn-sm" onclick="showToast('Generating PDF…','info')"><i class="fas fa-file-pdf"></i></button><button class="btn btn-g btn-sm"><i class="fas fa-print"></i></button></div></td>
+    </tr>`).join('');
+}
+function renderLab(){
+  document.getElementById('hmsLabBody').innerHTML=labTests.map(t=>`
+    <tr>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--primary)">${t.id}</td>
+      <td class="td-primary">${t.patient}</td>
+      <td style="font-size:12px;">${t.test}</td>
+      <td>${sBadge(t.status)}</td>
+      <td><button class="btn btn-g btn-sm" onclick="showToast('Report downloaded!','success')"><i class="fas fa-download"></i></button></td>
+    </tr>`).join('');
+}
+function renderPharmacy(){
+  document.getElementById('hmsPharmaBody').innerHTML=medicines.map(m=>`
+    <tr>
+      <td class="td-primary">${m.name}${m.low?` <span class="badge badge-red" style="font-size:9px">Low</span>`:''}</td>
+      <td style="font-size:12px;color:var(--text2)">${m.cat}</td>
+      <td style="font-family:'JetBrains Mono',monospace">${m.stock}u</td>
+      <td style="font-size:12px;color:${m.exp.includes('2026')?'var(--yellow)':'var(--text2)'}">${m.exp}</td>
+      <td style="font-family:'JetBrains Mono',monospace">₹${m.price}</td>
+      <td>${m.low?sBadge('Urgent'):sBadge('Active')}</td>
+    </tr>`).join('');
+  document.getElementById('hmsStockList').innerHTML=medicines.map(m=>`
+    <div class="stock-item">
+      <div style="flex:1;font-size:12px;font-weight:500;">${m.name}</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);margin-right:8px;">${m.stock}</div>
+      <div style="width:80px;"><div class="prog-bar"><div class="prog-fill" style="width:${Math.min(m.stock/250*100,100)}%;background:${m.low?'var(--red)':'var(--primary)'}"></div></div></div>
+    </div>`).join('');
+}
+function renderBeds(){
+  const sts=['available','occupied','occupied','available','reserved','occupied','available','occupied','available','occupied','occupied','available','occupied','available','available','reserved','occupied','occupied','available','occupied'];
+  document.getElementById('hmsBedGrid').innerHTML=sts.map((s,i)=>`
+    <div class="bed-item bed-${s}" onclick="${s==='available'?`openM('admit')`:s==='occupied'?`showToast('Bed W1-${String(i+1).padStart(2,'0')}: Occupied','info')`:`showToast('Bed reserved','info')`}">
+      <div class="bed-num">W1-${String(i+1).padStart(2,'0')}</div>
+      <div class="bed-ico">${s==='available'?'🛏️':s==='occupied'?'🤒':'⏳'}</div>
+      <div class="bed-st">${s}</div>
+    </div>`).join('');
+}
+function renderStaff(){
+  document.getElementById('hmsStaffBody').innerHTML=staff.map(s=>`
+    <tr>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--primary)">${s.id}</td>
+      <td class="td-primary">${s.name}</td>
+      <td><span class="badge badge-purple">${s.role}</span></td>
+      <td>${s.dept}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${s.phone}</td>
+      <td>${sBadge(s.status)}</td>
+      <td><div style="display:flex;gap:5px;"><button class="btn btn-g btn-sm"><i class="fas fa-edit"></i></button><button class="btn btn-g btn-sm" onclick="showToast('Credentials sent!','success')"><i class="fas fa-key"></i></button></div></td>
+    </tr>`).join('');
+}
+function renderNotifications(){
+  document.getElementById('hmsNotifList').innerHTML=notifs.map(n=>`
+    <div class="notif-item">
+      <div class="notif-icon" style="background:${n.bg};">${n.icon}</div>
+      <div style="flex:1;">
+        <div style="font-size:13px;font-weight:600;">${n.title}</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:1px;">${n.msg}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:3px;font-family:'JetBrains Mono',monospace;">${n.time}</div>
+      </div>
+    </div>`).join('');
+}
+function renderChart(){
+  const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const opd=[45,62,38,79,55,90,72];const ipd=[30,45,28,60,40,70,55];const lab=[15,20,12,25,18,30,22];
+  const max=Math.max(...opd.map((v,i)=>v+ipd[i]+lab[i]));const h=150;
+  document.getElementById('hmsChart').innerHTML=days.map((d,i)=>`
+    <div class="c-bar-wrap">
+      <div style="display:flex;gap:2px;align-items:flex-end;height:${h}px;">
+        <div class="c-bar" style="height:${Math.round(opd[i]/max*h)}px;background:var(--primary);width:12px;" title="OPD"></div>
+        <div class="c-bar" style="height:${Math.round(ipd[i]/max*h)}px;background:var(--secondary);width:12px;" title="IPD"></div>
+        <div class="c-bar" style="height:${Math.round(lab[i]/max*h)}px;background:var(--purple);width:12px;" title="Lab"></div>
+      </div>
+      <div class="c-bar-lbl">${d}</div>
+    </div>`).join('');
+}
+
+// ===========================
+// MODALS
+// ===========================
+function openM(id){document.getElementById('m-'+id).classList.add('open');}
+function closeM(id){document.getElementById('m-'+id).classList.remove('open');}
+document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');}));
+function doRegister(){closeM('addPatient');showToast('✅ Patient registered! ID: P-1285','success');}
+function doBook(){closeM('addAppt');showToast('📅 Appointment booked!','success');}
+function doBill(){closeM('addBill');showToast('🧾 Invoice INV-9026 generated!','success');}
+function doAdmit(){closeM('admit');showToast('🛏️ Patient admitted successfully!','success');}
+function mDoctors(dept){const m={'Cardiology':['Dr. Anil Mehta','Dr. Priya Sharma'],'Orthopedics':['Dr. Priti Singh'],'Neurology':['Dr. Rohan Kapoor'],'Pediatrics':['Dr. Seema Roy'],'Surgery':['Dr. Karan Verma'],'Dermatology':['Dr. Aisha Khan']};document.getElementById('mDoctorSel').innerHTML=(m[dept]||['Dr. Available']).map(d=>`<option>${d}</option>`).join('');}
+function publicBook(){showToast('✅ Appointment confirmed! Check SMS for details.','success');}
+function updatePublicDoctors(dept){const m={'Cardiology':['Dr. Anil Mehta','Dr. Priya Sharma'],'Orthopedics':['Dr. Priti Singh'],'Neurology':['Dr. Rohan Kapoor'],'Pediatrics':['Dr. Seema Roy','Dr. Anita Pillai'],'Dermatology':['Dr. Aisha Khan'],'General Surgery':['Dr. Karan Verma']};document.getElementById('publicDocSelect').innerHTML=(m[dept]||['Dr. Available']).map(d=>`<option>${d}</option>`).join('');}
+function selectSlot(el){document.querySelectorAll('.time-slot.selected').forEach(s=>s.classList.remove('selected'));if(!el.classList.contains('full'))el.classList.add('selected');}
+function hmsSearch(v){if(v.length>2)renderPatients(patients.filter(p=>p.name.toLowerCase().includes(v.toLowerCase())||p.id.toLowerCase().includes(v.toLowerCase())));else renderPatients(patients);}
+
+// ===========================
+// TOAST
+// ===========================
+function showToast(msg,type='info'){
+  const c=document.getElementById('toastBox');
+  const icons={'success':'✅','error':'❌','info':'ℹ️'};
+  const t=document.createElement('div');
+  t.className=`toast ${type}`;
+  t.innerHTML=`<span style="font-size:16px">${icons[type]}</span><span style="flex:1;font-size:13px;">${msg}</span>`;
+  c.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(()=>t.remove(),300);},3500);
+}
+
+// PILL TABS
+document.querySelectorAll('.pill-tabs').forEach(g=>{g.querySelectorAll('.pill-tab').forEach(t=>{t.addEventListener('click',()=>{g.querySelectorAll('.pill-tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');});});});
+
+// INIT
+renderPatients(patients);renderAppointments();renderDoctors();renderBills();renderLab();renderPharmacy();renderBeds();renderStaff();renderNotifications();renderChart();
+setTimeout(()=>showToast('Welcome to MediCare Plus! 👋','info'),700);
+setTimeout(()=>showToast('⚠️ Low stock: Paracetamol 500mg (45 units)','error'),2200);
+</script>
+</body>
+</html>
